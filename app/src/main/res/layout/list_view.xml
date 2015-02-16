@@ -13,7 +13,7 @@
         android:src="@drawable/ic_launcher" />
 
     <TextView
-        android:id="@+id/deviceName"
+        android:id="@+id/deviceNameDeviceView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#000000"
@@ -23,7 +23,7 @@
         android:textSize="16sp" />
 
     <TextView
-        android:id="@+id/deviceType"
+        android:id="@+id/deviceTypeDeviceView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#666666"
@@ -45,7 +45,7 @@
         android:textSize="14sp"/>
 
     <TextView
-        android:id="@+id/person"
+        android:id="@+id/personDeviceView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#666666"

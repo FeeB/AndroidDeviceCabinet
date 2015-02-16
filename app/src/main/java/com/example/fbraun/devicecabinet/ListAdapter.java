@@ -5,14 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.fbraun.devicecabinet.com.example.fbraun.devicecabinet.model.Device;
 
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -51,19 +47,20 @@ public class ListAdapter extends ArrayAdapter<Device> {
 
         Device device = dataList.get(position);
 
-        TextView deviceName = (TextView) view.findViewById(R.id.deviceName);
+        TextView deviceName = (TextView) view.findViewById(R.id.deviceNameDeviceView);
         deviceName.setText(device.deviceName);
 
-        TextView deviceType = (TextView) view.findViewById(R.id.deviceType);
+        TextView deviceType = (TextView) view.findViewById(R.id.deviceTypeDeviceView);
         deviceType.setText(device.deviceType);
 
         TextView system = (TextView) view.findViewById(R.id.system);
         system.setText(device.systemVersion);
 
-        TextView person = (TextView) view.findViewById(R.id.person);
+        TextView person = (TextView) view.findViewById(R.id.personDeviceView);
         person.setText(device.bookedByPersonFullName);
 
         return view;
     }
+
 }
 

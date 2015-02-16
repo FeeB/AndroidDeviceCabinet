@@ -1,10 +1,13 @@
 package com.example.fbraun.devicecabinet;
 
+import android.app.ActionBar;
+import android.app.ListActivity;
 import android.content.Context;
-import android.support.v7.app.ActionBarActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ListView;
 
 import com.example.fbraun.devicecabinet.com.example.fbraun.devicecabinet.model.Device;
@@ -13,25 +16,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class OverViewList extends ActionBarActivity {
+public class OverViewList extends ListActivity {
 
     private static Context context;
+    List<Device> dataList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        List<Device> dataList = returnData();
+        dataList = returnData();
         context = getApplicationContext();
         ListAdapter listAdapter = new ListAdapter(dataList, context);
-        ListView listView = (ListView)findViewById(R.id.listView);
-        listView.setAdapter(listAdapter);
+        setListAdapter(listAdapter);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
+        super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
@@ -51,11 +55,13 @@ public class OverViewList extends ActionBarActivity {
         iPhone.deviceName = "B4F-001";
         iPhone.deviceType = "iPhone 4s";
         iPhone.systemVersion = "Android 4";
+        iPhone.type = "iPhone";
 
         Device nexus = new Device();
         nexus.deviceName = "B4F-002";
         nexus.deviceType = "Nexus";
         nexus.systemVersion = "iOS8";
+        nexus.type = "Android Tablet";
         nexus.bookedByPersonFullName = "Fee Braun";
 
         List<Device> devicesList = new ArrayList<Device>();
@@ -64,6 +70,19 @@ public class OverViewList extends ActionBarActivity {
         devicesList.add(nexus);
 
         return devicesList;
+    }
+
+    @Override
+    protected void onListItemClick(ListView l, View v, int position, long id) {
+        Intent intent = new Intent(this, DeviceView.class);
+        Device device = dataList.get(position);
+        intent.putExtra("deviceName", device.deviceName);
+        intent.putExtra("system", device.systemVersion);
+        intent.putExtra("type", device.type);
+        intent.putExtra("model", device.deviceType);
+        intent.putExtra("person", device.bookedByPersonFullName);
+
+        startActivity(intent);
     }
 
 
