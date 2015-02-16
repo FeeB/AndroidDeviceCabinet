@@ -15,6 +15,6 @@ public class Device {
     public String deviceUdId;
     public String systemVersion;
     public String deviceId;
-    public String deviceType;
+    public String deviceModel;
     public URL imageUrl;
 }

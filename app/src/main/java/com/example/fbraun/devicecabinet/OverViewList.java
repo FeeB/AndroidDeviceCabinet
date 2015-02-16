@@ -42,13 +42,13 @@ public class OverViewList extends ListActivity {
     public List<Device> returnData() {
         Device iPhone = new Device();
         iPhone.deviceName = "B4F-001";
-        iPhone.deviceType = "iPhone 4s";
+        iPhone.deviceModel = "iPhone 4s";
         iPhone.systemVersion = "Android 4";
         iPhone.type = "iPhone";
 
         Device nexus = new Device();
         nexus.deviceName = "B4F-002";
-        nexus.deviceType = "Nexus";
+        nexus.deviceModel = "Nexus";
         nexus.systemVersion = "iOS8";
         nexus.type = "Android Tablet";
         nexus.bookedByPersonFullName = "Fee Braun";
@@ -68,7 +68,7 @@ public class OverViewList extends ListActivity {
         intent.putExtra("deviceName", device.deviceName);
         intent.putExtra("system", device.systemVersion);
         intent.putExtra("type", device.type);
-        intent.putExtra("model", device.deviceType);
+        intent.putExtra("model", device.deviceModel);
         intent.putExtra("person", device.bookedByPersonFullName);
 
         startActivity(intent);
@@ -81,10 +81,12 @@ public class OverViewList extends ListActivity {
             case R.id.create_new_Device:
                 Intent intentDevice = new Intent(this, CreateDeviceView.class);
                 startActivity(intentDevice);
+                this.finish();
                 return true;
             case R.id.create_new_Person:
                 Intent intentPerson = new Intent(this, CreatePersonView.class);
                 startActivity(intentPerson);
+                this.finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

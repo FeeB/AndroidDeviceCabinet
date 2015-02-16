@@ -55,6 +55,8 @@ public class PersonList extends ListActivity {
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         Intent intent = new Intent(this, OverViewList.class);
+        //toDo store Device with Person
         startActivity(intent);
+        this.finish();
     }
 }

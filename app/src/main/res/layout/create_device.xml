@@ -36,7 +36,7 @@
         android:layout_width="125dp"
         android:layout_height="wrap_content"
         android:textColor="#000000"
-        android:id="@+id/deviceTypeLabel"
+        android:id="@+id/deviceModelLabel"
         android:text="Model"
         android:textSize="17sp"
         android:layout_marginStart="34dp"
@@ -45,14 +45,14 @@
     <EditText
         android:layout_width="167dp"
         android:layout_height="wrap_content"
-        android:id="@+id/deviceTypeText"
+        android:id="@+id/deviceModelText"
         android:textColorHint="#000000"
         android:textColor="#000000"
         android:hint="Model"
         android:textSize="14sp"
-        android:layout_alignBaseline="@+id/deviceTypeLabel"
-        android:layout_toRightOf="@+id/deviceTypeLabel"
-        android:layout_toEndOf="@+id/deviceTypeLabel"
+        android:layout_alignBaseline="@+id/deviceModelLabel"
+        android:layout_toRightOf="@+id/deviceModelLabel"
+        android:layout_toEndOf="@+id/deviceModelLabel"
         android:layout_marginLeft="40dp"
         android:layout_marginStart="40dp" />
 
@@ -61,10 +61,11 @@
         android:layout_height="wrap_content"
         android:text="Save"
         android:id="@+id/saveButton"
-        android:layout_below="@+id/deviceTypeText"
+        android:layout_below="@+id/deviceModelText"
         android:layout_marginLeft="70dp"
         android:layout_marginTop="100dp"
-        android:layout_centerInParent="true"/>
+        android:layout_centerInParent="true"
+        android:onClick="storeDevice"/>
 
 
 </RelativeLayout>

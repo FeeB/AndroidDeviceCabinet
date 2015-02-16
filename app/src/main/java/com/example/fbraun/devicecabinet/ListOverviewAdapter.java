@@ -50,7 +50,7 @@ public class ListOverviewAdapter extends ArrayAdapter<Device> {
         deviceName.setText(device.deviceName);
 
         TextView deviceType = (TextView) view.findViewById(R.id.deviceTypeDeviceView);
-        deviceType.setText(device.deviceType);
+        deviceType.setText(device.deviceModel);
 
         TextView system = (TextView) view.findViewById(R.id.system);
         system.setText(device.systemVersion);

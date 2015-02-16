@@ -39,8 +39,12 @@ public class DeviceView extends Activity {
         }
     }
 
-        public void bookDevice (View view) {
-            Intent intent = new Intent(this, PersonList.class);
-            startActivity(intent);
+    //toDo Button book or return
+
+    public void bookDevice (View view) {
+        //toDo Button return
+        Intent intent = new Intent(this, PersonList.class);
+        startActivity(intent);
+        this.finish();
     }
 }
