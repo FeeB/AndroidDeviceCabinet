@@ -1,6 +1,5 @@
 package com.example.fbraun.devicecabinet;
 
-import android.app.ActionBar;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
@@ -24,12 +23,12 @@ public class OverViewList extends ListActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_list);
 
         dataList = returnData();
         context = getApplicationContext();
-        ListAdapter listAdapter = new ListAdapter(dataList, context);
-        setListAdapter(listAdapter);
+        ListOverviewAdapter listOverviewAdapter = new ListOverviewAdapter(dataList, context);
+        setListAdapter(listOverviewAdapter);
     }
 
     @Override
@@ -38,16 +37,6 @@ public class OverViewList extends ListActivity {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        return super.onOptionsItemSelected(item);
     }
 
     public List<Device> returnData() {
@@ -85,5 +74,21 @@ public class OverViewList extends ListActivity {
         startActivity(intent);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle presses on the action bar items
+        switch (item.getItemId()) {
+            case R.id.create_new_Device:
+                Intent intentDevice = new Intent(this, CreateDeviceView.class);
+                startActivity(intentDevice);
+                return true;
+            case R.id.create_new_Person:
+                Intent intentPerson = new Intent(this, CreatePersonView.class);
+                startActivity(intentPerson);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
 }

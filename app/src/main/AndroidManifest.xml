@@ -24,6 +24,30 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".OverViewList" />
         </activity>
+        <activity
+            android:name=".CreateDeviceView"
+            android:label="CreateDevice"
+            android:parentActivityName=".OverViewList" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".OverViewList" />
+        </activity>
+        <activity
+            android:name=".CreatePersonView"
+            android:label="Create Person"
+            android:parentActivityName=".OverViewList" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".OverViewList" />
+        </activity>
+        <activity
+            android:name=".PersonList"
+            android:label="List of Persons"
+            android:parentActivityName=".DeviceView" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".DeviceView" />
+        </activity>
     </application>
 
 </manifest>

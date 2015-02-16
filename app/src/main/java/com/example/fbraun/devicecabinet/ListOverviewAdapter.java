@@ -14,13 +14,13 @@ import java.util.List;
 /**
  * Created by fbraun on 03.02.15.
  */
-public class ListAdapter extends ArrayAdapter<Device> {
+public class ListOverviewAdapter extends ArrayAdapter<Device> {
 
     private List<Device> dataList;
     private Context context;
 
-    public ListAdapter(List<Device> dataList, Context context) {
-        super(context, R.layout.list_view, dataList);
+    public ListOverviewAdapter(List<Device> dataList, Context context) {
+        super(context, R.layout.list_overview, dataList);
         this.dataList = dataList;
         this.context = context;
     }
@@ -38,11 +38,10 @@ public class ListAdapter extends ArrayAdapter<Device> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = convertView;
-        int type = getItemViewType(position);
         if (view == null) {
             // Inflate the layout according to the view type
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.list_view, parent, false);
+            view = inflater.inflate(R.layout.list_overview, parent, false);
         }
 
         Device device = dataList.get(position);

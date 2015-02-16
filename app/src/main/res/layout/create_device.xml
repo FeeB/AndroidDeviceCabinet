@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff">
+
+    <TextView
+    android:layout_marginTop="31dp"
+    android:layout_marginLeft="34dp"
+    android:layout_width="125dp"
+    android:layout_height="wrap_content"
+    android:textColor="#000000"
+    android:id="@+id/deviceNameLabel"
+    android:text="Device Name"
+    android:textSize="17sp"
+    android:layout_marginStart="34dp"
+    android:gravity="right"/>
+
+    <EditText
+        android:layout_width="167dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/deviceNameText"
+        android:textColorHint="#000000"
+        android:textColor="#000000"
+        android:hint="Name"
+        android:textSize="14sp"
+        android:layout_alignBaseline="@+id/deviceNameLabel"
+        android:layout_toRightOf="@+id/deviceNameLabel"
+        android:layout_toEndOf="@+id/deviceNameLabel"
+        android:layout_marginLeft="40dp"
+        android:layout_marginStart="40dp" />
+
+    <TextView
+        android:layout_marginTop="80dp"
+        android:layout_marginLeft="34dp"
+        android:layout_width="125dp"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:id="@+id/deviceTypeLabel"
+        android:text="Model"
+        android:textSize="17sp"
+        android:layout_marginStart="34dp"
+        android:gravity="right"/>
+
+    <EditText
+        android:layout_width="167dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/deviceTypeText"
+        android:textColorHint="#000000"
+        android:textColor="#000000"
+        android:hint="Model"
+        android:textSize="14sp"
+        android:layout_alignBaseline="@+id/deviceTypeLabel"
+        android:layout_toRightOf="@+id/deviceTypeLabel"
+        android:layout_toEndOf="@+id/deviceTypeLabel"
+        android:layout_marginLeft="40dp"
+        android:layout_marginStart="40dp" />
+
+    <Button
+        android:layout_width="167dp"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:id="@+id/saveButton"
+        android:layout_below="@+id/deviceTypeText"
+        android:layout_marginLeft="70dp"
+        android:layout_marginTop="100dp"
+        android:layout_centerInParent="true"/>
+
+
+</RelativeLayout>
