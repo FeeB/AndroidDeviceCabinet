@@ -81,12 +81,10 @@ public class OverViewList extends ListActivity {
             case R.id.create_new_Device:
                 Intent intentDevice = new Intent(this, CreateDeviceView.class);
                 startActivity(intentDevice);
-                this.finish();
                 return true;
             case R.id.create_new_Person:
                 Intent intentPerson = new Intent(this, CreatePersonView.class);
                 startActivity(intentPerson);
-                this.finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

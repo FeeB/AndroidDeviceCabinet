@@ -45,6 +45,5 @@ public class DeviceView extends Activity {
         //toDo Button return
         Intent intent = new Intent(this, PersonList.class);
         startActivity(intent);
-        this.finish();
     }
 }

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff">
+    android:background="#ffffff"
+    android:theme="@style/AppTheme">
 
     <TextView
     android:layout_marginTop="31dp"
@@ -56,16 +58,82 @@
         android:layout_marginLeft="40dp"
         android:layout_marginStart="40dp" />
 
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/radioButtonGroup"
+        android:layout_below="@+id/deviceModelLabel"
+        android:layout_marginTop="30dp"
+        android:orientation="horizontal"
+        android:layout_centerInParent="true">
+
+        <RadioButton
+            android:id="@+id/iPhone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/icon_iphone"/>
+
+
+        <RadioButton
+            android:id="@+id/iPad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/icon_ipad"/>
+
+        <RadioButton
+            android:id="@+id/Android"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/icon_android_phone"
+            android:checked="true"/>
+
+
+        <RadioButton
+            android:id="@+id/AndroidTablet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/icon_android_tablet"/>
+
+    </RadioGroup>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/switchGroup"
+        android:layout_below="@+id/radioButtonGroup"
+        android:layout_centerInParent="true">
+
+        <Switch
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/Switch"
+            android:layout_marginTop="10dp"
+            android:layout_centerInParent="true"
+            android:background="#ffffff"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Current Device"
+            android:textSize="16sp"
+            android:layout_marginTop="13dp"
+            android:layout_marginLeft="5dp"/>
+
+        </LinearLayout>
+
+
     <Button
         android:layout_width="167dp"
         android:layout_height="wrap_content"
-        android:text="Save"
         android:id="@+id/saveButton"
-        android:layout_below="@+id/deviceModelText"
+        android:text="Save"
+        android:layout_below="@+id/switchGroup"
         android:layout_marginLeft="70dp"
-        android:layout_marginTop="100dp"
-        android:layout_centerInParent="true"
-        android:onClick="storeDevice"/>
+        android:layout_marginTop="10dp"
+        android:layout_centerInParent="true"/>
+
+
 
 
 </RelativeLayout>
