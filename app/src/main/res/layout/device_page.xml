@@ -73,8 +73,7 @@
         android:textSize="15sp"
         android:layout_toRightOf="@+id/imageDeviceView"
         android:layout_marginTop="100dp"
-        android:id="@+id/button"
-        android:onClick="bookDevice"/>
+        android:id="@+id/button"/>
 
     <FrameLayout
         android:layout_width="match_parent"
