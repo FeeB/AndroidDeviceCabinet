@@ -13,6 +13,7 @@ import com.example.fbraun.devicecabinet.CreateDeviceView;
 import com.example.fbraun.devicecabinet.CreatePersonView;
 import com.example.fbraun.devicecabinet.DeviceView;
 import com.example.fbraun.devicecabinet.R;
+import com.example.fbraun.devicecabinet.RESTApiClient;
 import com.example.fbraun.devicecabinet.com.example.fbraun.devicecabinet.model.Device;
 
 import java.util.ArrayList;
@@ -30,10 +31,8 @@ public class BookedList extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
-        dataList = returnBookedList();
+        returnBookedList();
         context = getApplicationContext();
-        ListOverviewAdapter listOverviewAdapter = new ListOverviewAdapter(dataList, context);
-        setListAdapter(listOverviewAdapter);
     }
 
     @Override
@@ -44,27 +43,16 @@ public class BookedList extends ListActivity {
         return true;
     }
 
-    public List<Device> returnBookedList() {
-        Device iPhone = new Device();
-        iPhone.deviceName = "B4F-001";
-        iPhone.deviceModel = "iPhone 4s";
-        iPhone.systemVersion = "Android 4";
-        iPhone.type = "iPhone";
-        iPhone.bookedByPersonFullName = "Fee Braun";
-
-        Device nexus = new Device();
-        nexus.deviceName = "B4F-002";
-        nexus.deviceModel = "Nexus";
-        nexus.systemVersion = "iOS8";
-        nexus.type = "Android Tablet";
-        nexus.bookedByPersonFullName = "Max Mustermann";
-
-        List<Device> devicesList = new ArrayList<Device>();
-
-        devicesList.add(iPhone);
-        devicesList.add(nexus);
-
-        return devicesList;
+    public void returnBookedList() {
+        RESTApiClient client = new RESTApiClient();
+        client.fetchBookedDevices(new RESTApiClient.VolleyCallbackLists() {
+            @Override
+            public void onSuccessListViews(ArrayList<Device> result) {
+                dataList = result;
+                ListOverviewAdapter listOverviewAdapter = new ListOverviewAdapter(dataList, context);
+                setListAdapter(listOverviewAdapter);
+            }
+        });
     }
 
     @Override

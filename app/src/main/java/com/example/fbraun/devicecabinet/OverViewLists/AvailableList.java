@@ -17,7 +17,6 @@ import com.example.fbraun.devicecabinet.RESTApiClient;
 import com.example.fbraun.devicecabinet.com.example.fbraun.devicecabinet.model.Device;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class AvailableList extends ListActivity {
@@ -35,19 +34,11 @@ public class AvailableList extends ListActivity {
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
     public void returnAvailableList() {
         RESTApiClient client = new RESTApiClient();
-        client.fetchAllDevices(new RESTApiClient.VolleyCallback() {
+        client.fetchAvailableDevices(new RESTApiClient.VolleyCallbackLists() {
             @Override
-            public void onSuccess(ArrayList<Device> result) {
+            public void onSuccessListViews(ArrayList<Device> result) {
                 dataList = result;
                 ListOverviewAdapter listOverviewAdapter = new ListOverviewAdapter(dataList, context);
                 setListAdapter(listOverviewAdapter);
@@ -66,23 +57,6 @@ public class AvailableList extends ListActivity {
         intent.putExtra("person", device.bookedByPersonFullName);
 
         startActivity(intent);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle presses on the action bar items
-        switch (item.getItemId()) {
-            case R.id.create_new_Device:
-                Intent intentDevice = new Intent(this, CreateDeviceView.class);
-                startActivity(intentDevice);
-                return true;
-            case R.id.create_new_Person:
-                Intent intentPerson = new Intent(this, CreatePersonView.class);
-                startActivity(intentPerson);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
     }
 
 }

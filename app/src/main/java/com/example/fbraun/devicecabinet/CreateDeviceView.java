@@ -83,7 +83,13 @@ public class CreateDeviceView extends Activity {
         device.systemVersion = Build.VERSION.RELEASE;
 
         if (deviceName != null && deviceModel != null) {
-            //toDo store Device
+           RESTApiClient client = new RESTApiClient();
+            client.storeDevice(device, new RESTApiClient.VolleyCallbackStore() {
+                @Override
+                public void onStoreSuccess() {
+                    System.out.println("sucess");
+                }
+            });
         }
     }
 }

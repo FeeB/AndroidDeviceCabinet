@@ -1,5 +1,7 @@
 package com.example.fbraun.devicecabinet.com.example.fbraun.devicecabinet.model;
 
+import com.google.gson.Gson;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -51,5 +53,10 @@ public class Device {
 
     public Device() {
         super();
+    }
+
+    public String toJson() {
+        Gson gson = new Gson();
+        return gson.toJson(this);
     }
 }
