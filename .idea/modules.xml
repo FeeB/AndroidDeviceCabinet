@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/DeviceCabinetAndroid.iml" filepath="$PROJECT_DIR$/DeviceCabinetAndroid.iml" />
+      <module fileurl="file://$PROJECT_DIR$/AndroidDeviceCabinet.iml" filepath="$PROJECT_DIR$/AndroidDeviceCabinet.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

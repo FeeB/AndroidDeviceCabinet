@@ -23,7 +23,6 @@ import java.util.List;
  * Created by fbraun on 23.02.15.
  */
 public class BookedList extends ListActivity {
-    private static Context context;
     List<Device> dataList;
 
     @Override
@@ -32,7 +31,6 @@ public class BookedList extends ListActivity {
         setContentView(R.layout.activity_list);
 
         returnBookedList();
-        context = getApplicationContext();
     }
 
     @Override
@@ -49,7 +47,7 @@ public class BookedList extends ListActivity {
             @Override
             public void onSuccessListViews(ArrayList<Device> result) {
                 dataList = result;
-                ListOverviewAdapter listOverviewAdapter = new ListOverviewAdapter(dataList, context);
+                ListOverviewAdapter listOverviewAdapter = new ListOverviewAdapter(dataList, BookedList.this);
                 setListAdapter(listOverviewAdapter);
             }
         });

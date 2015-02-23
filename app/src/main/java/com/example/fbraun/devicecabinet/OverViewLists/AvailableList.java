@@ -21,7 +21,6 @@ import java.util.ArrayList;
 
 public class AvailableList extends ListActivity {
 
-    private static Context context;
     ArrayList<Device> dataList;
 
     @Override
@@ -30,7 +29,6 @@ public class AvailableList extends ListActivity {
         setContentView(R.layout.activity_list);
 
         returnAvailableList();
-        context = getApplicationContext();
 
     }
 
@@ -40,7 +38,7 @@ public class AvailableList extends ListActivity {
             @Override
             public void onSuccessListViews(ArrayList<Device> result) {
                 dataList = result;
-                ListOverviewAdapter listOverviewAdapter = new ListOverviewAdapter(dataList, context);
+                ListOverviewAdapter listOverviewAdapter = new ListOverviewAdapter(dataList, AvailableList.this);
                 setListAdapter(listOverviewAdapter);
             }
         });

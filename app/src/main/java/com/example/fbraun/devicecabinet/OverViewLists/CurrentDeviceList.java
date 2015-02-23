@@ -22,7 +22,6 @@ import java.util.List;
  * Created by fbraun on 23.02.15.
  */
 public class CurrentDeviceList extends ListActivity {
-    private static Context context;
     List<Device> dataList;
 
     @Override
@@ -31,8 +30,7 @@ public class CurrentDeviceList extends ListActivity {
         setContentView(R.layout.activity_list);
 
         dataList = returnAvailableList();
-        context = getApplicationContext();
-        ListOverviewAdapter listOverviewAdapter = new ListOverviewAdapter(dataList, context);
+        ListOverviewAdapter listOverviewAdapter = new ListOverviewAdapter(dataList, this);
         setListAdapter(listOverviewAdapter);
     }
 
@@ -67,6 +65,8 @@ public class CurrentDeviceList extends ListActivity {
         intent.putExtra("type", device.type);
         intent.putExtra("model", device.deviceModel);
         intent.putExtra("person", device.bookedByPersonFullName);
+
+        intent.putExtra("device", device);
 
         startActivity(intent);
     }
