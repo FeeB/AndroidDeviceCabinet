@@ -1,4 +1,4 @@
-package com.example.fbraun.devicecabinet;
+package com.example.fbraun.devicecabinet.OverViewLists;
 
 import android.app.ListActivity;
 import android.content.Context;
@@ -9,14 +9,19 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 
+import com.example.fbraun.devicecabinet.CreateDeviceView;
+import com.example.fbraun.devicecabinet.CreatePersonView;
+import com.example.fbraun.devicecabinet.DeviceView;
+import com.example.fbraun.devicecabinet.R;
 import com.example.fbraun.devicecabinet.com.example.fbraun.devicecabinet.model.Device;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
-public class OverViewList extends ListActivity {
-
+/**
+ * Created by fbraun on 23.02.15.
+ */
+public class CurrentDeviceList extends ListActivity {
     private static Context context;
     List<Device> dataList;
 
@@ -25,7 +30,7 @@ public class OverViewList extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
-        dataList = returnData();
+        dataList = returnAvailableList();
         context = getApplicationContext();
         ListOverviewAdapter listOverviewAdapter = new ListOverviewAdapter(dataList, context);
         setListAdapter(listOverviewAdapter);
@@ -39,24 +44,16 @@ public class OverViewList extends ListActivity {
         return true;
     }
 
-    public List<Device> returnData() {
+    public List<Device> returnAvailableList() {
         Device iPhone = new Device();
-        iPhone.deviceName = "B4F-001";
-        iPhone.deviceModel = "iPhone 4s";
-        iPhone.systemVersion = "Android 4";
+        iPhone.deviceName = "B4F-005";
+        iPhone.deviceModel = "iPhone 6";
+        iPhone.systemVersion = "8.1";
         iPhone.type = "iPhone";
-
-        Device nexus = new Device();
-        nexus.deviceName = "B4F-002";
-        nexus.deviceModel = "Nexus";
-        nexus.systemVersion = "iOS8";
-        nexus.type = "Android Tablet";
-        nexus.bookedByPersonFullName = "Fee Braun";
 
         List<Device> devicesList = new ArrayList<Device>();
 
         devicesList.add(iPhone);
-        devicesList.add(nexus);
 
         return devicesList;
     }
@@ -90,5 +87,4 @@ public class OverViewList extends ListActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-
 }

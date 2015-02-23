@@ -1,5 +1,10 @@
 package com.example.fbraun.devicecabinet.com.example.fbraun.devicecabinet.model;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.reflect.Constructor;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
@@ -17,4 +22,34 @@ public class Device {
     public String deviceId;
     public String deviceModel;
     public URL imageUrl;
+
+    public Device (JSONObject object) {
+        try {
+            this.deviceName = object.getString("device_name");
+            this.deviceUdId = object.getString("device_id");
+            this.type = object.getString("category");
+            this.deviceId = object.getString("id");
+            this.systemVersion = object.getString("system_version");
+            this.bookedByPerson = object.getString("is_booked").equals("YES") ? true : false;
+            this.bookedByPersonId = object.getString("person_id");
+            this.bookedByPersonFullName = object.getJSONObject("person").getString("full_name");
+            this.deviceModel = object.getString("device_type");
+
+            if (!object.getString("image_url").isEmpty()) {
+                try {
+                    this.imageUrl = new URL(object.getString("image_url"));
+                }
+                catch(MalformedURLException e) {
+
+                }
+            }
+        }
+        catch (JSONException e) {
+
+        }
+    }
+
+    public Device() {
+        super();
+    }
 }

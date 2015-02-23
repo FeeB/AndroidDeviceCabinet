@@ -3,13 +3,15 @@
     package="com.example.fbraun.devicecabinet" >
 
     <uses-sdk android:minSdkVersion="7" android:targetSdkVersion="11"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name" >
+        android:label="@string/app_name"
+        android:name=".VolleyApplication">
         <activity
-            android:name=".OverViewList"
+            android:name=".OverViewLists.TabHostManager"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -17,31 +19,55 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".DeviceView"
-            android:label="DeviceView"
-            android:parentActivityName=".OverViewList" >
+            android:name=".OverViewLists.AvailableList"
+            android:label="OverViewList"
+            android:parentActivityName=".OverViewLists.TabHostManager" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".OverViewList" />
+                android:value=".OverViewLists.TabHostManager" />
+        </activity>
+        <activity
+            android:name=".OverViewLists.BookedList"
+            android:label="BookedList"
+            android:parentActivityName=".OverViewLists.TabHostManager" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".OverViewLists.TabHostManager" />
+        </activity>
+        <activity
+            android:name=".OverViewLists.CurrentDeviceList"
+            android:label="CurrentDeviceList"
+            android:parentActivityName=".OverViewLists.TabHostManager" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".OverViewLists.TabHostManager" />
+        </activity>
+        <activity
+            android:name=".DeviceView"
+            android:label="DeviceView"
+            android:parentActivityName=".OverViewLists.AvailableList" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".OverViewLists.AvailableList" />
         </activity>
         <activity
             android:name=".CreateDeviceView"
             android:label="CreateDevice"
-            android:parentActivityName=".OverViewList" >
+            android:parentActivityName=".OverViewLists.AvailableList" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".OverViewList" />
+                android:value=".OverViewLists.AvailableList" />
         </activity>
         <activity
             android:name=".CreatePersonView"
             android:label="Create Person"
-            android:parentActivityName=".OverViewList" >
+            android:parentActivityName=".OverViewLists.AvailableList" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".OverViewList" />
+                android:value=".OverViewLists.AvailableList" />
         </activity>
         <activity
-            android:name=".PersonList"
+            android:name=".personList.PersonList"
             android:label="List of Persons"
             android:parentActivityName=".DeviceView" >
             <meta-data

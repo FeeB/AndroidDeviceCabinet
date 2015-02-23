@@ -1,4 +1,4 @@
-package com.example.fbraun.devicecabinet;
+package com.example.fbraun.devicecabinet.personList;
 
 import android.app.ListActivity;
 import android.content.Context;
@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.example.fbraun.devicecabinet.OverViewLists.AvailableList;
+import com.example.fbraun.devicecabinet.R;
 import com.example.fbraun.devicecabinet.com.example.fbraun.devicecabinet.model.Person;
 
 import java.util.ArrayList;
@@ -54,7 +56,7 @@ public class PersonList extends ListActivity {
 
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
-        Intent intent = new Intent(this, OverViewList.class);
+        Intent intent = new Intent(this, AvailableList.class);
         //toDo store Device with Person
         startActivity(intent);
         this.finish();

@@ -1,4 +1,4 @@
-package com.example.fbraun.devicecabinet;
+package com.example.fbraun.devicecabinet.personList;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.example.fbraun.devicecabinet.R;
 import com.example.fbraun.devicecabinet.com.example.fbraun.devicecabinet.model.Device;
 import com.example.fbraun.devicecabinet.com.example.fbraun.devicecabinet.model.Person;
 
