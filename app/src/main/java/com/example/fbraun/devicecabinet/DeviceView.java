@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.fbraun.devicecabinet.com.example.fbraun.devicecabinet.model.Device;
 import com.example.fbraun.devicecabinet.personList.PersonList;
 
 /**
@@ -28,12 +29,13 @@ public class DeviceView extends Activity {
 
         Intent intent = getIntent();
         if (intent != null) {
-            deviceName.setText(intent.getStringExtra("deviceName"));
-            system.setText(intent.getStringExtra("system"));
-            type.setText(intent.getStringExtra("type"));
-            model.setText(intent.getStringExtra("model"));
-            if (intent.getStringExtra("person") != null) {
-                person.setText(intent.getStringExtra("person"));
+            Device device = intent.getParcelableExtra("device");
+            deviceName.setText(device.deviceName);
+            system.setText(device.systemVersion);
+            type.setText(device.type);
+            model.setText(device.deviceModel);
+            if (device.bookedByPerson) {
+                person.setText(device.bookedByPersonFullName);
             } else {
                 ImageView personImage = (ImageView) findViewById(R.id.personImageDeviceView);
                 personImage.setVisibility(View.GONE);

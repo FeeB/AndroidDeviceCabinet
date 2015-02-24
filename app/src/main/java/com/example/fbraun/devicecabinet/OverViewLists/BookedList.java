@@ -22,26 +22,9 @@ import java.util.List;
 /**
  * Created by fbraun on 23.02.15.
  */
-public class BookedList extends ListActivity {
-    List<Device> dataList;
+public class BookedList extends superList {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list);
-
-        returnBookedList();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    public void returnBookedList() {
+    public void fetchDevices() {
         RESTApiClient client = new RESTApiClient();
         client.fetchBookedDevices(new RESTApiClient.VolleyCallbackLists() {
             @Override
@@ -53,33 +36,4 @@ public class BookedList extends ListActivity {
         });
     }
 
-    @Override
-    protected void onListItemClick(ListView l, View v, int position, long id) {
-        Intent intent = new Intent(this, DeviceView.class);
-        Device device = dataList.get(position);
-        intent.putExtra("deviceName", device.deviceName);
-        intent.putExtra("system", device.systemVersion);
-        intent.putExtra("type", device.type);
-        intent.putExtra("model", device.deviceModel);
-        intent.putExtra("person", device.bookedByPersonFullName);
-
-        startActivity(intent);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle presses on the action bar items
-        switch (item.getItemId()) {
-            case R.id.create_new_Device:
-                Intent intentDevice = new Intent(this, CreateDeviceView.class);
-                startActivity(intentDevice);
-                return true;
-            case R.id.create_new_Person:
-                Intent intentPerson = new Intent(this, CreatePersonView.class);
-                startActivity(intentPerson);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
 }

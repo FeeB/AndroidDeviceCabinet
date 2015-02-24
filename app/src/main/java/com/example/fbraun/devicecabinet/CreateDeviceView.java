@@ -39,6 +39,7 @@ public class CreateDeviceView extends Activity {
         });
 
         RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radioButtonGroup);
+        this.device.type = "Android Phone";
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -71,9 +72,6 @@ public class CreateDeviceView extends Activity {
     }
 
     public void storeDevice(View view) {
-
-        //toDo missing design
-
         TextView deviceName = (TextView) findViewById(R.id.deviceNameText);
         device.deviceName = deviceName.getText().toString();
 
@@ -87,9 +85,11 @@ public class CreateDeviceView extends Activity {
             client.storeDevice(device, new RESTApiClient.VolleyCallbackStore() {
                 @Override
                 public void onStoreSuccess() {
-                    System.out.println("sucess");
+                    finish();
                 }
             });
+        } else {
+            //toDo Alert
         }
     }
 }

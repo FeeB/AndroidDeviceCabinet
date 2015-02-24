@@ -5,8 +5,9 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.fbraun.devicecabinet.com.example.fbraun.devicecabinet.model.Device;
+import com.example.fbraun.devicecabinet.com.example.fbraun.devicecabinet.model.Person;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,7 +23,8 @@ import java.util.Map;
 public class RESTApiClient {
 
     // Instantiate the RequestQueue.
-    final String url ="http://cryptic-journey-8537.herokuapp.com/devices";
+    final String deviceUrl ="http://cryptic-journey-8537.herokuapp.com/devices";
+    final String personUrl ="http://cryptic-journey-8537.herokuapp.com/persons";
 
     public interface VolleyCallbackLists {
         void onSuccessListViews(ArrayList<Device> result);
@@ -34,7 +36,7 @@ public class RESTApiClient {
 
 
     public void fetchAvailableDevices(final VolleyCallbackLists callback) {
-        String newUrl = url + "?booked=NO";
+        String newUrl = deviceUrl + "?booked=NO";
         JsonArrayRequest request = new JsonArrayRequest(newUrl, new Response.Listener<JSONArray>() {
 
             @Override
@@ -64,7 +66,7 @@ public class RESTApiClient {
     }
 
     public void fetchBookedDevices(final VolleyCallbackLists callback) {
-        String newUrl = url + "?booked=YES";
+        String newUrl = deviceUrl + "?booked=YES";
         JsonArrayRequest request = new JsonArrayRequest(newUrl, new Response.Listener<JSONArray>() {
 
             @Override
@@ -94,9 +96,10 @@ public class RESTApiClient {
     }
 
     public void storeDevice(final Device device, final VolleyCallbackStore callback) {
-        StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>(){
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, deviceUrl, device.toJson(), new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(String response) {
+            public void onResponse(JSONObject response) {
                 callback.onStoreSuccess();
             }
         }, new Response.ErrorListener() {
@@ -106,20 +109,35 @@ public class RESTApiClient {
             }
         }){
             @Override
-            protected Map<String,String> getParams(){
-                Map<String,String> params = new HashMap<String, String>();
-                params.put("device", device.toJson());
-                return params;
-            }
-
-            @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String,String> params = new HashMap<String, String>();
-                params.put("Content-Type","application/x-www-form-urlencoded");
+                params.put("Content-Type","application/json");
                 return params;
             }
         };
+        VolleyApplication.getInstance().getRequestQueue().add(request);
+    }
 
+    public void storePerson(final Person person, final VolleyCallbackStore callback) {
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, personUrl, person.toJson(), new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                callback.onStoreSuccess();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //do something
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String,String> params = new HashMap<String, String>();
+                params.put("Content-Type","application/json");
+                return params;
+            }
+        };
         VolleyApplication.getInstance().getRequestQueue().add(request);
     }
 }

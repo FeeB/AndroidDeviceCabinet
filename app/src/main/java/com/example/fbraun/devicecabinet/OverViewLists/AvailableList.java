@@ -19,20 +19,10 @@ import com.example.fbraun.devicecabinet.com.example.fbraun.devicecabinet.model.D
 import java.util.ArrayList;
 
 
-public class AvailableList extends ListActivity {
-
-    ArrayList<Device> dataList;
+public class AvailableList extends superList {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list);
-
-        returnAvailableList();
-
-    }
-
-    public void returnAvailableList() {
+    public void fetchDevices() {
         RESTApiClient client = new RESTApiClient();
         client.fetchAvailableDevices(new RESTApiClient.VolleyCallbackLists() {
             @Override
@@ -42,19 +32,6 @@ public class AvailableList extends ListActivity {
                 setListAdapter(listOverviewAdapter);
             }
         });
-    }
-
-    @Override
-    protected void onListItemClick(ListView l, View v, int position, long id) {
-        Intent intent = new Intent(this, DeviceView.class);
-        Device device = dataList.get(position);
-        intent.putExtra("deviceName", device.deviceName);
-        intent.putExtra("system", device.systemVersion);
-        intent.putExtra("type", device.type);
-        intent.putExtra("model", device.deviceModel);
-        intent.putExtra("person", device.bookedByPersonFullName);
-
-        startActivity(intent);
     }
 
 }
