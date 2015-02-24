@@ -9,7 +9,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.fbraun.devicecabinet.OverViewLists.AvailableList;
+import com.example.fbraun.devicecabinet.OverViewLists.ListOverviewAdapter;
 import com.example.fbraun.devicecabinet.R;
+import com.example.fbraun.devicecabinet.RESTApiClient;
+import com.example.fbraun.devicecabinet.com.example.fbraun.devicecabinet.model.Device;
 import com.example.fbraun.devicecabinet.com.example.fbraun.devicecabinet.model.Person;
 
 import java.util.ArrayList;
@@ -21,44 +24,38 @@ import java.util.List;
 public class PersonList extends ListActivity {
     private ArrayAdapter<Person> listAdapter;
     private List<Person> dataList;
-    private static Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
-
-        dataList = returnData();
-        context = getApplicationContext();
-
-        PersonListAdapter personListAdapter = new PersonListAdapter(dataList, context);
-        setListAdapter(personListAdapter);
+        fetchPersons();
     }
 
-    public List<Person> returnData() {
-        Person person1 = new Person();
-        person1.firstName = "Fee";
-        person1.lastName = "Braun";
-        person1.personId = "1";
-
-        Person person2 = new Person();
-        person2.firstName = "Max";
-        person2.lastName = "Mustermann";
-        person2.personId = "2";
-
-        List<Person> personList = new ArrayList<Person>();
-
-        personList.add(person1);
-        personList.add(person2);
-
-        return personList;
+    public void fetchPersons() {
+        RESTApiClient client = new RESTApiClient();
+        client.fetchAllPersons(new RESTApiClient.VolleyCallbackPersonList() {
+            @Override
+            public void onSuccessListViews(ArrayList<Person> result) {
+                dataList = result;
+                PersonListAdapter listOverviewAdapter = new PersonListAdapter(dataList, PersonList.this);
+                setListAdapter(listOverviewAdapter);
+            }
+        });
     }
+
 
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
-        Intent intent = new Intent(this, AvailableList.class);
-        //toDo store Device with Person
-        startActivity(intent);
-        this.finish();
+        Person person = dataList.get(position);
+        Device device = getIntent().getParcelableExtra("device");
+        RESTApiClient client = new RESTApiClient();
+        client.storePersonReferenceInDeviceObject(person, device, new RESTApiClient.VolleyCallbackStore() {
+            @Override
+            public void onStoreSuccess() {
+                finish();
+            }
+        });
+
     }
 }

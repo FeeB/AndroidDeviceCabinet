@@ -16,6 +16,8 @@ import com.example.fbraun.devicecabinet.personList.PersonList;
  */
 public class DeviceView extends Activity {
 
+    private Device device;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,7 +31,7 @@ public class DeviceView extends Activity {
 
         Intent intent = getIntent();
         if (intent != null) {
-            Device device = intent.getParcelableExtra("device");
+            device = intent.getParcelableExtra("device");
             deviceName.setText(device.deviceName);
             system.setText(device.systemVersion);
             type.setText(device.type);
@@ -56,6 +58,7 @@ public class DeviceView extends Activity {
     public void bookDevice (View view) {
         //toDo Button return
         Intent intent = new Intent(this, PersonList.class);
+        intent.putExtra("device", device);
         startActivity(intent);
     }
 }

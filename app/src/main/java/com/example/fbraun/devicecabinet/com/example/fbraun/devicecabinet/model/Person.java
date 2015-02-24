@@ -21,6 +21,7 @@ public class Person {
             this.firstName = object.getString("first_name");
             this.lastName = object.getString("last_name");
             this.fullName = object.getString("full_name");
+            this.personId = object.getString("id");
         }
         catch (JSONException e) {
 
