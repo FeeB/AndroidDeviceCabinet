@@ -45,20 +45,30 @@ public class DeviceView extends Activity {
         }
 
         Button bookDeviceButton = (Button) findViewById(R.id.button);
+        if (device.bookedByPerson) {
+            bookDeviceButton.setText("Return");
+        }
         bookDeviceButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                bookDevice(v);
+                bookReturnDevice(v);
             }
         });
     }
 
-    //toDo Button book or return
-
-    public void bookDevice (View view) {
-        //toDo Button return
-        Intent intent = new Intent(this, PersonList.class);
-        intent.putExtra("device", device);
-        startActivity(intent);
+    public void bookReturnDevice(View view) {
+        if (device.bookedByPerson) {
+            RESTApiClient client = new RESTApiClient();
+            client.deletePersonReferenceFromDevice(device, new RESTApiClient.VolleyCallbackStore() {
+                @Override
+                public void onStoreSuccess() {
+                    finish();
+                }
+            });
+        } else {
+            Intent intent = new Intent(this, PersonList.class);
+            intent.putExtra("device", device);
+            startActivity(intent);
+        }
     }
 }

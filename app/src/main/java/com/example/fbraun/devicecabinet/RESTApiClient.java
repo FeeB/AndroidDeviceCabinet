@@ -158,6 +158,24 @@ public class RESTApiClient {
         VolleyApplication.getInstance().getRequestQueue().add(request);
     }
 
+    public void deleteDevice(final Device device, final VolleyCallbackStore callback) {
+        String newUrl = deviceUrl + "/" + device.deviceId;
+
+        StringRequest request = new StringRequest(Request.Method.DELETE, newUrl, new Response.Listener<String>(){
+
+            @Override
+            public void onResponse(String response) {
+                callback.onStoreSuccess();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //do something
+            }
+        });
+            VolleyApplication.getInstance().getRequestQueue().add(request);
+    }
+
     public void storePerson(final Person person, final VolleyCallbackStore callback) {
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, personUrl, person.toJson(), new Response.Listener<JSONObject>() {
@@ -183,14 +201,6 @@ public class RESTApiClient {
 
     public void storePersonReferenceInDeviceObject(final Person person, final Device device, final VolleyCallbackStore callback) {
 
-        HashMap<String, String> detailParams = new HashMap<String, String>();
-        detailParams.put("person_id", person.personId);
-        detailParams.put("is_booked", "YES");
-        HashMap<String, Map> params = new HashMap<String, Map>();
-        params.put("device", detailParams);
-
-        JSONObject json = new JSONObject(params);
-
         String newUrl = deviceUrl + "/" + device.deviceId;
 
         StringRequest request = new StringRequest(Request.Method.PUT, newUrl, new Response.Listener<String>(){
@@ -213,6 +223,52 @@ public class RESTApiClient {
                 return params;
             }
         };
+        VolleyApplication.getInstance().getRequestQueue().add(request);
+    }
+
+    public void deletePersonReferenceFromDevice(final Device device, final VolleyCallbackStore callback){
+
+        String newUrl = deviceUrl + "/" + device.deviceId;
+
+        StringRequest request = new StringRequest(Request.Method.PUT, newUrl, new Response.Listener<String>(){
+            @Override
+            public void onResponse(String response) {
+                callback.onStoreSuccess();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //do something
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String,String> params = new HashMap<String, String>();
+                params.put("person_id", "");
+                params.put("is_booked", "NO");
+                params.put("Content-Type","application/json");
+                return params;
+            }
+        };
+        VolleyApplication.getInstance().getRequestQueue().add(request);
+
+    }
+
+    public void deletePerson(final Person person, final VolleyCallbackStore callback) {
+        String newUrl = personUrl + "/" + person.personId;
+
+        StringRequest request = new StringRequest(Request.Method.DELETE, newUrl, new Response.Listener<String>(){
+
+            @Override
+            public void onResponse(String response) {
+                callback.onStoreSuccess();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //do something
+            }
+        });
         VolleyApplication.getInstance().getRequestQueue().add(request);
     }
 }

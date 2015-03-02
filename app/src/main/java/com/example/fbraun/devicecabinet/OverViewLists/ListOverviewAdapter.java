@@ -20,6 +20,7 @@ public class ListOverviewAdapter extends ArrayAdapter<Device> {
     private List<Device> dataList;
     private Context context;
 
+
     public ListOverviewAdapter(List<Device> dataList, Context context) {
         super(context, R.layout.list_overview, dataList);
         this.dataList = dataList;

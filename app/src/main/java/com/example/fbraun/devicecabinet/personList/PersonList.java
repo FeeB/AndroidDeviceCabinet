@@ -1,10 +1,13 @@
 package com.example.fbraun.devicecabinet.personList;
 
+import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -30,6 +33,13 @@ public class PersonList extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
         fetchPersons();
+        this.getListView().setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                removeItemFromPosition(position);
+                return true;
+            }
+        });
     }
 
     public void fetchPersons() {
@@ -44,7 +54,6 @@ public class PersonList extends ListActivity {
         });
     }
 
-
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         Person person = dataList.get(position);
@@ -57,5 +66,36 @@ public class PersonList extends ListActivity {
             }
         });
 
+    }
+
+    protected void removeItemFromPosition(int position) {
+        final RESTApiClient client = new RESTApiClient();
+        final int indexToDelete = position;
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+
+        alert.setTitle("Delete");
+        alert.setMessage("Do you want delete this item?");
+        alert.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                client.deletePerson(dataList.get(indexToDelete), new RESTApiClient.VolleyCallbackStore() {
+                    @Override
+                    public void onStoreSuccess() {
+                        dataList.remove(indexToDelete);
+                        fetchPersons();
+                    }
+                });
+            }
+        });
+        alert.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // TODO Auto-generated method stub
+                dialog.dismiss();
+            }
+        });
+
+        alert.show();
     }
 }
