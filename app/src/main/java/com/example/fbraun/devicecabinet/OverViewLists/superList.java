@@ -20,10 +20,15 @@ abstract class superList extends ListActivity {
     ArrayList<Device> dataList;
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        fetchDevices();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
-        fetchDevices();
     }
 
     abstract void fetchDevices();

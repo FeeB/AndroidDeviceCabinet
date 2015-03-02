@@ -1,11 +1,16 @@
 package com.example.fbraun.devicecabinet;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkResponse;
+import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.JsonRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.example.fbraun.devicecabinet.com.example.fbraun.devicecabinet.model.Device;
 import com.example.fbraun.devicecabinet.com.example.fbraun.devicecabinet.model.Person;
 
@@ -13,6 +18,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,8 +30,8 @@ import java.util.Map;
 public class RESTApiClient {
 
     // Instantiate the RequestQueue.
-    final String deviceUrl ="http://cryptic-journey-8537.herokuapp.com/devices";
-    final String personUrl ="http://cryptic-journey-8537.herokuapp.com/persons";
+    final String deviceUrl ="http://localhost:3000/devices";
+    final String personUrl ="http://localhost:3000/persons";
 
     public interface VolleyCallbackDeviceList {
         void onSuccessListViews(ArrayList<Device> result);
@@ -182,24 +189,26 @@ public class RESTApiClient {
         HashMap<String, Map> params = new HashMap<String, Map>();
         params.put("device", detailParams);
 
-        String newUrl = deviceUrl + "/" + device.deviceId;
         JSONObject json = new JSONObject(params);
 
-        //toDo JsonArray
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.PUT, newUrl, json, new Response.Listener<JSONObject>() {
+        String newUrl = deviceUrl + "/" + device.deviceId;
+
+        StringRequest request = new StringRequest(Request.Method.PUT, newUrl, new Response.Listener<String>(){
             @Override
-            public void onResponse(JSONObject response) {
+            public void onResponse(String response) {
                 callback.onStoreSuccess();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.out.println(error);
+                //do something
             }
         }){
             @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
+            protected Map<String, String> getParams() {
                 Map<String,String> params = new HashMap<String, String>();
+                params.put("person_id", person.personId);
+                params.put("is_booked", "YES");
                 params.put("Content-Type","application/json");
                 return params;
             }

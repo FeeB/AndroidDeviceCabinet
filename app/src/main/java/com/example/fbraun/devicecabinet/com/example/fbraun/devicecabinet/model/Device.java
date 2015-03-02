@@ -88,10 +88,6 @@ public class Device implements Parcelable {
             jsonMap.put("device_id", this.deviceUdId);
         }
 
-        String isBooked = this.bookedByPerson ? "YES" : "NO";
-
-        String json = "{'device_name': '"+deviceName+"', 'category': '"+type+"'}";
-
         return new JSONObject(jsonMap);
     }
 
