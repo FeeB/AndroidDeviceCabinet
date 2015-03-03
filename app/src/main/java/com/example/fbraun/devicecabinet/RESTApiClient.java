@@ -30,8 +30,11 @@ import java.util.Map;
 public class RESTApiClient {
 
     // Instantiate the RequestQueue.
-    final String deviceUrl ="http://localhost:3000/devices";
-    final String personUrl ="http://localhost:3000/persons";
+//    final String deviceUrl ="http://localhost:3000/devices";
+//    final String personUrl ="http://localhost:3000/persons";
+
+    final String deviceUrl ="http://cryptic-journey-8537.herokuapp.com/devices";
+    final String personUrl ="http://cryptic-journey-8537.herokuapp.com/persons";
 
     public interface VolleyCallbackDeviceList {
         void onSuccessListViews(ArrayList<Device> result);

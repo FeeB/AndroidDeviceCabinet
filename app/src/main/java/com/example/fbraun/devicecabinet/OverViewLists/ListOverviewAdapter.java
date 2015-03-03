@@ -1,12 +1,15 @@
 package com.example.fbraun.devicecabinet.OverViewLists;
 
 import android.content.Context;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.fbraun.devicecabinet.ImageLoadTask;
 import com.example.fbraun.devicecabinet.R;
 import com.example.fbraun.devicecabinet.com.example.fbraun.devicecabinet.model.Device;
 
@@ -59,6 +62,9 @@ public class ListOverviewAdapter extends ArrayAdapter<Device> {
 
         TextView person = (TextView) view.findViewById(R.id.personDeviceView);
         person.setText(device.bookedByPersonFullName);
+
+        ImageView image = (ImageView) view.findViewById(R.id.imageViewOverviewList);
+        new ImageLoadTask(device.imageUrl, image).execute();
 
         return view;
     }

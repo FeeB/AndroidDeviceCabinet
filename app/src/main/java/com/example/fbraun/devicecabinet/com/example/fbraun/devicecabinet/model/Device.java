@@ -28,10 +28,12 @@ public class Device implements Parcelable {
     public String systemVersion;
     public String deviceId;
     public String deviceModel;
-    public URL imageUrl;
+    public String imageUrl;
 
     public Device (JSONObject object) {
         try {
+
+            this.imageUrl = object.getString("image_url");
             this.deviceName = object.getString("device_name");
             this.deviceUdId = object.getString("device_id");
             this.type = object.getString("category");
@@ -39,17 +41,9 @@ public class Device implements Parcelable {
             this.systemVersion = object.getString("system_version");
             this.bookedByPerson = object.getString("is_booked").equals("YES") ? true : false;
             this.bookedByPersonId = object.getString("person_id");
-            this.bookedByPersonFullName = object.getJSONObject("person").getString("full_name");
             this.deviceModel = object.getString("device_type");
+            this.bookedByPersonFullName = object.getJSONObject("person").getString("full_name");
 
-            if (!object.getString("image_url").isEmpty()) {
-                try {
-                    this.imageUrl = new URL(object.getString("image_url"));
-                }
-                catch(MalformedURLException e) {
-
-                }
-            }
         }
         catch (JSONException e) {
 
@@ -65,12 +59,7 @@ public class Device implements Parcelable {
         this.bookedByPersonId = source.readString();
         this.bookedByPersonFullName = source.readString();
         this.deviceModel = source.readString();
-        try {
-            this.imageUrl = new URL(source.readString());
-        }
-        catch (MalformedURLException e) {
-            //do something
-        }
+        this.imageUrl = source.readString();
     }
 
     public Device() {
@@ -106,9 +95,7 @@ public class Device implements Parcelable {
         dest.writeString(bookedByPersonId);
         dest.writeString(bookedByPersonFullName);
         dest.writeString(deviceModel);
-        if (imageUrl != null) {
-            dest.writeString(imageUrl.toString());
-        }
+        dest.writeString(imageUrl);
     }
 
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {

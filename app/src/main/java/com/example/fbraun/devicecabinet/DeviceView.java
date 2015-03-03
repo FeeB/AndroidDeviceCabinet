@@ -14,6 +14,8 @@ import com.example.fbraun.devicecabinet.com.example.fbraun.devicecabinet.model.D
 import com.example.fbraun.devicecabinet.personList.PersonList;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -43,14 +45,8 @@ public class DeviceView extends Activity {
             system.setText(device.systemVersion);
             type.setText(device.type);
             model.setText(device.deviceModel);
-            try {
-                device.imageUrl.toString()
-                Bitmap bmp = BitmapFactory.decodeFile(new URL(device.imageUrl.toString()).openStream());
-            } catch (MalformedURLException e) {
-                //do something
-            } catch (IOException e) {
-                //do something
-            }
+
+            new ImageLoadTask(device.imageUrl, image).execute();
 
             if (device.bookedByPerson) {
                 person.setText(device.bookedByPersonFullName);
