@@ -27,8 +27,7 @@ public class Device implements Parcelable {
 
     public Device (JSONObject object) {
         try {
-
-            this.imageUrl = object.getString("image_url");
+            this.imageUrl = object.isNull("image_url") ? null : object.getString("image_url");
             this.deviceName = object.getString("device_name");
             this.deviceUdId = object.getString("device_id");
             this.type = object.getString("category");
