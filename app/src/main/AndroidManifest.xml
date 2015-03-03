@@ -9,9 +9,9 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:name=".VolleyApplication">
+        android:name=".MyApplication">
         <activity
-            android:name=".OverViewLists.TabHostManager"
+            android:name=".TabHostManager"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,60 +19,61 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".OverViewLists.AvailableList"
+            android:name=".activities.lists.device.AvailableListActivity"
             android:label="OverViewList"
-            android:parentActivityName=".OverViewLists.TabHostManager" >
+            android:parentActivityName=".TabHostManager" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".OverViewLists.TabHostManager" />
+                android:value=".TabHostManager" />
         </activity>
         <activity
-            android:name=".OverViewLists.BookedList"
+            android:name=".activities.lists.device.BookedListActivity"
             android:label="BookedList"
-            android:parentActivityName=".OverViewLists.TabHostManager" >
+            android:parentActivityName=".TabHostManager" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".OverViewLists.TabHostManager" />
+                android:value=".TabHostManager" />
         </activity>
         <activity
-            android:name=".OverViewLists.CurrentDeviceList"
+            android:name=".activities.lists.device.CurrentDeviceListActivity"
             android:label="CurrentDeviceList"
-            android:parentActivityName=".OverViewLists.TabHostManager" >
+            android:parentActivityName=".TabHostManager" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".OverViewLists.TabHostManager" />
+                android:value=".TabHostManager" />
         </activity>
         <activity
-            android:name=".DeviceView"
+            android:name=".activities.DeviceActivity"
             android:label="DeviceView"
-            android:parentActivityName=".OverViewLists.AvailableList" >
+            android:launchMode="singleTask"
+            android:parentActivityName=".activities.lists.device.AvailableListActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".OverViewLists.AvailableList" />
+                android:value=".activities.lists.device.AvailableListActivity" />
         </activity>
         <activity
-            android:name=".CreateDeviceView"
+            android:name=".activities.CreateDeviceActivity"
             android:label="CreateDevice"
-            android:parentActivityName=".OverViewLists.AvailableList" >
+            android:parentActivityName=".activities.lists.device.AvailableListActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".OverViewLists.AvailableList" />
+                android:value=".activities.lists.device.AvailableListActivity" />
         </activity>
         <activity
-            android:name=".CreatePersonView"
+            android:name=".activities.CreatePersonActivity"
             android:label="Create Person"
-            android:parentActivityName=".OverViewLists.AvailableList" >
+            android:parentActivityName=".activities.lists.device.AvailableListActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".OverViewLists.AvailableList" />
+                android:value=".activities.lists.device.AvailableListActivity" />
         </activity>
         <activity
-            android:name=".personList.PersonList"
+            android:name=".activities.lists.person.PersonListActivity"
             android:label="List of Persons"
-            android:parentActivityName=".DeviceView" >
+            android:parentActivityName=".activities.DeviceActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".DeviceView" />
+                android:value=".activities.DeviceActivity" />
         </activity>
     </application>
 
