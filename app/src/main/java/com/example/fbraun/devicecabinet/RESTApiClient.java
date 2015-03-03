@@ -1,5 +1,8 @@
 package com.example.fbraun.devicecabinet;
 
+import android.graphics.Bitmap;
+import android.util.Base64;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
 import com.android.volley.ParseError;
@@ -18,6 +21,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -272,6 +276,36 @@ public class RESTApiClient {
                 //do something
             }
         });
+        VolleyApplication.getInstance().getRequestQueue().add(request);
+    }
+
+    public void uploadImage(final Bitmap image, final Device device, final VolleyCallbackStore callback) {
+
+        String newUrl = deviceUrl + "/" + device.deviceId;
+
+        StringRequest request = new StringRequest(Request.Method.PUT, newUrl, new Response.Listener<String>(){
+            @Override
+            public void onResponse(String response) {
+                callback.onStoreSuccess();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //do something
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() {
+                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                image.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream); //bm is the bitmap object
+                byte[] byteArrayImage = byteArrayOutputStream.toByteArray();
+                String encodedImage = Base64.encodeToString(byteArrayImage, Base64.DEFAULT);
+
+                Map<String,String> params = new HashMap<String, String>();
+                params.put("image_data_encoded", encodedImage);
+                return params;
+            }
+        };
         VolleyApplication.getInstance().getRequestQueue().add(request);
     }
 }

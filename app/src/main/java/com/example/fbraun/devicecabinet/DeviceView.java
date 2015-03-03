@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,6 +27,8 @@ import java.net.URL;
 public class DeviceView extends Activity {
 
     private Device device;
+    private static final int CAMERA_REQUEST = 1888;
+    private ImageView image;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +40,7 @@ public class DeviceView extends Activity {
         TextView type = (TextView) findViewById(R.id.typeTextDeviceView);
         TextView model = (TextView) findViewById(R.id.modelTextDeviceView);
         TextView person = (TextView) findViewById(R.id.personDeviceView);
-        ImageView image = (ImageView) findViewById(R.id.imageDeviceView);
+        image = (ImageView) findViewById(R.id.imageDeviceView);
 
         Intent intent = getIntent();
         if (intent != null) {
@@ -66,6 +70,14 @@ public class DeviceView extends Activity {
                 bookReturnDevice(v);
             }
         });
+
+        Button changePictureButton = (Button) findViewById(R.id.changePicture);
+        changePictureButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                takeAPicture(v);
+            }
+        });
     }
 
     public void bookReturnDevice(View view) {
@@ -81,6 +93,25 @@ public class DeviceView extends Activity {
             Intent intent = new Intent(this, PersonList.class);
             intent.putExtra("device", device);
             startActivity(intent);
+        }
+    }
+
+    public void takeAPicture(View view) {
+        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(cameraIntent, CAMERA_REQUEST);
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
+            Bitmap photo = (Bitmap) data.getExtras().get("data");
+            image.setImageBitmap(photo);
+            RESTApiClient client = new RESTApiClient();
+            client.uploadImage(photo, device, new RESTApiClient.VolleyCallbackStore() {
+                @Override
+                public void onStoreSuccess() {
+                    System.out.println("success");
+                }
+            });
         }
     }
 }
