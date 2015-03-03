@@ -1,30 +1,29 @@
-package com.example.fbraun.devicecabinet.OverViewLists;
+package com.example.fbraun.devicecabinet.activities.lists.device;
 
 import android.content.Context;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.fbraun.devicecabinet.ImageLoadTask;
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
 import com.example.fbraun.devicecabinet.R;
-import com.example.fbraun.devicecabinet.com.example.fbraun.devicecabinet.model.Device;
+import com.example.fbraun.devicecabinet.VolleySingleton;
+import com.example.fbraun.devicecabinet.model.Device;
 
 import java.util.List;
 
 /**
  * Created by fbraun on 03.02.15.
  */
-public class ListOverviewAdapter extends ArrayAdapter<Device> {
+public class DeviceListAdapter extends ArrayAdapter<Device> {
 
     private List<Device> dataList;
     private Context context;
 
-
-    public ListOverviewAdapter(List<Device> dataList, Context context) {
+    public DeviceListAdapter(List<Device> dataList, Context context) {
         super(context, R.layout.list_overview, dataList);
         this.dataList = dataList;
         this.context = context;
@@ -51,20 +50,23 @@ public class ListOverviewAdapter extends ArrayAdapter<Device> {
 
         Device device = dataList.get(position);
 
-        TextView deviceName = (TextView) view.findViewById(R.id.deviceNameDeviceView);
+        TextView deviceName = (TextView) view.findViewById(R.id.device_name_label_in_overview_activity);
         deviceName.setText(device.deviceName);
 
-        TextView deviceType = (TextView) view.findViewById(R.id.deviceTypeDeviceView);
+        TextView deviceType = (TextView) view.findViewById(R.id.device_type_in_overview_activity);
         deviceType.setText(device.deviceModel);
 
-        TextView system = (TextView) view.findViewById(R.id.system);
+        TextView system = (TextView) view.findViewById(R.id.system_in_overview_activity);
         system.setText(device.systemVersion);
 
-        TextView person = (TextView) view.findViewById(R.id.personDeviceView);
+        TextView person = (TextView) view.findViewById(R.id.person_name_in_overview_activity);
         person.setText(device.bookedByPersonFullName);
 
-        ImageView image = (ImageView) view.findViewById(R.id.imageViewOverviewList);
-        new ImageLoadTask(device.imageUrl, image).execute();
+        if (device.imageUrl != null) {
+            NetworkImageView image = (NetworkImageView) view.findViewById(R.id.device_image_in_overview_list);
+            ImageLoader imageLoader = VolleySingleton.getInstance().getImageLoader();
+            image.setImageUrl(device.imageUrl, imageLoader);
+        }
 
         return view;
     }

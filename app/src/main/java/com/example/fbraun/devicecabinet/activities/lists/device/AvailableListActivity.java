@@ -1,12 +1,11 @@
-package com.example.fbraun.devicecabinet.OverViewLists;
+package com.example.fbraun.devicecabinet.activities.lists.device;
 
 import com.example.fbraun.devicecabinet.RESTApiClient;
-import com.example.fbraun.devicecabinet.com.example.fbraun.devicecabinet.model.Device;
+import com.example.fbraun.devicecabinet.model.Device;
 
 import java.util.ArrayList;
 
-
-public class AvailableList extends superList {
+public class AvailableListActivity extends AbstractDeviceListActivity {
 
     @Override
     public void fetchDevices() {
@@ -15,8 +14,10 @@ public class AvailableList extends superList {
             @Override
             public void onSuccessListViews(ArrayList<Device> result) {
                 dataList = result;
-                ListOverviewAdapter listOverviewAdapter = new ListOverviewAdapter(dataList, AvailableList.this);
-                setListAdapter(listOverviewAdapter);
+
+
+                DeviceListAdapter deviceListAdapter = new DeviceListAdapter(dataList, AvailableListActivity.this);
+                setListAdapter(deviceListAdapter);
             }
         });
     }

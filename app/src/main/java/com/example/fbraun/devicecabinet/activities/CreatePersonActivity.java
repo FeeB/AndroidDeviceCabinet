@@ -1,17 +1,18 @@
-package com.example.fbraun.devicecabinet;
+package com.example.fbraun.devicecabinet.activities;
 
 import android.app.Activity;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.fbraun.devicecabinet.com.example.fbraun.devicecabinet.model.Person;
+import com.example.fbraun.devicecabinet.R;
+import com.example.fbraun.devicecabinet.RESTApiClient;
+import com.example.fbraun.devicecabinet.model.Person;
 
 /**
  * Created by fbraun on 16.02.15.
  */
-public class CreatePersonView extends Activity {
+public class CreatePersonActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,10 +21,10 @@ public class CreatePersonView extends Activity {
 
     public void storePerson(View view) {
         Person person = new Person();
-        TextView firstName = (TextView) findViewById(R.id.firstNameText);
+        TextView firstName = (TextView) findViewById(R.id.first_name_text);
         person.firstName = firstName.getText().toString();
 
-        TextView lastName = (TextView) findViewById(R.id.lastNameText);
+        TextView lastName = (TextView) findViewById(R.id.last_name_text);
         person.lastName = lastName.getText().toString();
 
         if (firstName != null && lastName != null) {

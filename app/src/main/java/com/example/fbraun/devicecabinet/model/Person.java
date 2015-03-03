@@ -1,4 +1,4 @@
-package com.example.fbraun.devicecabinet.com.example.fbraun.devicecabinet.model;
+package com.example.fbraun.devicecabinet.model;
 
 import org.json.JSONException;
 import org.json.JSONObject;

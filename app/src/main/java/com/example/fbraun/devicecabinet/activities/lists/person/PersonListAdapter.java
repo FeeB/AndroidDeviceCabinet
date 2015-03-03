@@ -1,4 +1,4 @@
-package com.example.fbraun.devicecabinet.personList;
+package com.example.fbraun.devicecabinet.activities.lists.person;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,8 +8,8 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.example.fbraun.devicecabinet.R;
-import com.example.fbraun.devicecabinet.com.example.fbraun.devicecabinet.model.Device;
-import com.example.fbraun.devicecabinet.com.example.fbraun.devicecabinet.model.Person;
+import com.example.fbraun.devicecabinet.model.Device;
+import com.example.fbraun.devicecabinet.model.Person;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.example.fbraun.devicecabinet.OverViewLists;
+package com.example.fbraun.devicecabinet;
 
 import android.app.TabActivity;
 import android.content.Intent;
@@ -7,13 +7,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TabHost;
 
-import com.example.fbraun.devicecabinet.CreateDeviceView;
-import com.example.fbraun.devicecabinet.CreatePersonView;
-import com.example.fbraun.devicecabinet.R;
+import com.example.fbraun.devicecabinet.activities.CreateDeviceActivity;
+import com.example.fbraun.devicecabinet.activities.CreatePersonActivity;
+import com.example.fbraun.devicecabinet.activities.lists.device.AvailableListActivity;
+import com.example.fbraun.devicecabinet.activities.lists.device.BookedListActivity;
+import com.example.fbraun.devicecabinet.activities.lists.device.CurrentDeviceListActivity;
 
 /**
  * Created by fbraun on 23.02.15.
  */
+
+//todo whats wrong?
 public class TabHostManager extends TabActivity {
 
     @Override
@@ -24,17 +28,17 @@ public class TabHostManager extends TabActivity {
 
         TabHost.TabSpec current = tabHost.newTabSpec("Current");
         current.setIndicator("Current");
-        Intent currentIntent = new Intent(this, CurrentDeviceList.class);
+        Intent currentIntent = new Intent(this, CurrentDeviceListActivity.class);
         current.setContent(currentIntent);
 
         TabHost.TabSpec available = tabHost.newTabSpec("available");
         available.setIndicator("Available");
-        Intent availableIntent = new Intent(this, AvailableList.class);
+        Intent availableIntent = new Intent(this, AvailableListActivity.class);
         available.setContent(availableIntent);
 
         TabHost.TabSpec booked = tabHost.newTabSpec("booked");
         booked.setIndicator("Booked");
-        Intent bookedIntent = new Intent(this, BookedList.class);
+        Intent bookedIntent = new Intent(this, BookedListActivity.class);
         booked.setContent(bookedIntent);
 
         tabHost.addTab(current);
@@ -55,11 +59,11 @@ public class TabHostManager extends TabActivity {
         // Handle presses on the action bar items
         switch (item.getItemId()) {
             case R.id.create_new_Device:
-                Intent intentDevice = new Intent(this, CreateDeviceView.class);
+                Intent intentDevice = new Intent(this, CreateDeviceActivity.class);
                 startActivity(intentDevice);
                 return true;
             case R.id.create_new_Person:
-                Intent intentPerson = new Intent(this, CreatePersonView.class);
+                Intent intentPerson = new Intent(this, CreatePersonActivity.class);
                 startActivity(intentPerson);
                 return true;
             default:

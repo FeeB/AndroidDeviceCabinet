@@ -1,17 +1,11 @@
-package com.example.fbraun.devicecabinet.com.example.fbraun.devicecabinet.model;
+package com.example.fbraun.devicecabinet.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.google.gson.Gson;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Constructor;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.Dictionary;
 import java.util.HashMap;
 
 /**
@@ -19,6 +13,7 @@ import java.util.HashMap;
  */
 public class Device implements Parcelable {
 
+    // TODO: Members should never be public in java
     public String deviceName;
     public String type;
     public boolean bookedByPerson;

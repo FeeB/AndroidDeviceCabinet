@@ -1,4 +1,4 @@
-package com.example.fbraun.devicecabinet.OverViewLists;
+package com.example.fbraun.devicecabinet.activities.lists.device;
 
 import android.app.AlertDialog;
 import android.app.ListActivity;
@@ -9,19 +9,19 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.example.fbraun.devicecabinet.DeviceView;
+import com.example.fbraun.devicecabinet.activities.DeviceActivity;
 import com.example.fbraun.devicecabinet.R;
 import com.example.fbraun.devicecabinet.RESTApiClient;
-import com.example.fbraun.devicecabinet.com.example.fbraun.devicecabinet.model.Device;
+import com.example.fbraun.devicecabinet.model.Device;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by fbraun on 24.02.15.
  */
-abstract class superList extends ListActivity {
+abstract class AbstractDeviceListActivity extends ListActivity {
 
+    // TODO: Refactor, this should be private
     ArrayList<Device> dataList;
 
     @Override
@@ -47,7 +47,7 @@ abstract class superList extends ListActivity {
 
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
-        Intent intent = new Intent(this, DeviceView.class);
+        Intent intent = new Intent(this, DeviceActivity.class);
         Device device = dataList.get(position);
         intent.putExtra("device", device);
 

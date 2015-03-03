@@ -1,46 +1,43 @@
-package com.example.fbraun.devicecabinet;
+package com.example.fbraun.devicecabinet.activities;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.fbraun.devicecabinet.com.example.fbraun.devicecabinet.model.Device;
-import com.example.fbraun.devicecabinet.personList.PersonList;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
+import com.example.fbraun.devicecabinet.R;
+import com.example.fbraun.devicecabinet.RESTApiClient;
+import com.example.fbraun.devicecabinet.VolleySingleton;
+import com.example.fbraun.devicecabinet.model.Device;
+import com.example.fbraun.devicecabinet.activities.lists.person.PersonListActivity;
 
 /**
  * Created by fbraun on 16.02.15.
  */
-public class DeviceView extends Activity {
+public class DeviceActivity extends Activity {
 
     private Device device;
     private static final int CAMERA_REQUEST = 1888;
-    private ImageView image;
+    private NetworkImageView image;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.device_page);
 
-        TextView deviceName = (TextView) findViewById(R.id.deviceNameDeviceView);
-        TextView system = (TextView) findViewById(R.id.systemVersionDeviceView);
-        TextView type = (TextView) findViewById(R.id.typeTextDeviceView);
-        TextView model = (TextView) findViewById(R.id.modelTextDeviceView);
-        TextView person = (TextView) findViewById(R.id.personDeviceView);
-        image = (ImageView) findViewById(R.id.imageDeviceView);
+        TextView deviceName = (TextView) findViewById(R.id.device_name_label_in_device_activity);
+        TextView system = (TextView) findViewById(R.id.system_version_label_in_device_view);
+        TextView type = (TextView) findViewById(R.id.type_text_in_device_view);
+        TextView model = (TextView) findViewById(R.id.model_text_in_device_view);
+        TextView person = (TextView) findViewById(R.id.person_name_in_device_view);
+        image = (NetworkImageView) findViewById(R.id.image_device_view);
 
         Intent intent = getIntent();
         if (intent != null) {
@@ -50,17 +47,20 @@ public class DeviceView extends Activity {
             type.setText(device.type);
             model.setText(device.deviceModel);
 
-            new ImageLoadTask(device.imageUrl, image).execute();
+            if (device.imageUrl != null) {
+                ImageLoader imageLoader = VolleySingleton.getInstance().getImageLoader();
+                image.setImageUrl(device.imageUrl, imageLoader);
+            }
 
             if (device.bookedByPerson) {
                 person.setText(device.bookedByPersonFullName);
             } else {
-                ImageView personImage = (ImageView) findViewById(R.id.personImageDeviceView);
+                ImageView personImage = (ImageView) findViewById(R.id.person_icon_in_device_view);
                 personImage.setVisibility(View.GONE);
             }
         }
 
-        Button bookDeviceButton = (Button) findViewById(R.id.button);
+        Button bookDeviceButton = (Button) findViewById(R.id.book_return_button);
         if (device.bookedByPerson) {
             bookDeviceButton.setText("Return");
         }
@@ -71,7 +71,7 @@ public class DeviceView extends Activity {
             }
         });
 
-        Button changePictureButton = (Button) findViewById(R.id.changePicture);
+        Button changePictureButton = (Button) findViewById(R.id.change_picture_button);
         changePictureButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,7 +90,7 @@ public class DeviceView extends Activity {
                 }
             });
         } else {
-            Intent intent = new Intent(this, PersonList.class);
+            Intent intent = new Intent(this, PersonListActivity.class);
             intent.putExtra("device", device);
             startActivity(intent);
         }

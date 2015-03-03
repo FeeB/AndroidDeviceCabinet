@@ -1,22 +1,18 @@
-package com.example.fbraun.devicecabinet.personList;
+package com.example.fbraun.devicecabinet.activities.lists.person;
 
 import android.app.AlertDialog;
 import android.app.ListActivity;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.example.fbraun.devicecabinet.OverViewLists.AvailableList;
-import com.example.fbraun.devicecabinet.OverViewLists.ListOverviewAdapter;
 import com.example.fbraun.devicecabinet.R;
 import com.example.fbraun.devicecabinet.RESTApiClient;
-import com.example.fbraun.devicecabinet.com.example.fbraun.devicecabinet.model.Device;
-import com.example.fbraun.devicecabinet.com.example.fbraun.devicecabinet.model.Person;
+import com.example.fbraun.devicecabinet.model.Device;
+import com.example.fbraun.devicecabinet.model.Person;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +20,7 @@ import java.util.List;
 /**
  * Created by fbraun on 16.02.15.
  */
-public class PersonList extends ListActivity {
+public class PersonListActivity extends ListActivity {
     private ArrayAdapter<Person> listAdapter;
     private List<Person> dataList;
 
@@ -48,7 +44,7 @@ public class PersonList extends ListActivity {
             @Override
             public void onSuccessListViews(ArrayList<Person> result) {
                 dataList = result;
-                PersonListAdapter listOverviewAdapter = new PersonListAdapter(dataList, PersonList.this);
+                PersonListAdapter listOverviewAdapter = new PersonListAdapter(dataList, PersonListActivity.this);
                 setListAdapter(listOverviewAdapter);
             }
         });
@@ -91,7 +87,6 @@ public class PersonList extends ListActivity {
         alert.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                // TODO Auto-generated method stub
                 dialog.dismiss();
             }
         });

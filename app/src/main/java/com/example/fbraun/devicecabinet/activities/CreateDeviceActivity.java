@@ -1,4 +1,4 @@
-package com.example.fbraun.devicecabinet;
+package com.example.fbraun.devicecabinet.activities;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -13,14 +13,14 @@ import android.widget.RadioGroup;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import com.example.fbraun.devicecabinet.com.example.fbraun.devicecabinet.model.Device;
-
-import org.w3c.dom.Text;
+import com.example.fbraun.devicecabinet.R;
+import com.example.fbraun.devicecabinet.RESTApiClient;
+import com.example.fbraun.devicecabinet.model.Device;
 
 /**
  * Created by fbraun on 16.02.15.
  */
-public class CreateDeviceView extends Activity {
+public class CreateDeviceActivity extends Activity {
 
     private Device device = new Device();
 
@@ -29,10 +29,10 @@ public class CreateDeviceView extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_device);
 
-        EditText deviceModel = (EditText) findViewById(R.id.deviceModelText);
+        EditText deviceModel = (EditText) findViewById(R.id.device_model_text);
         deviceModel.setText(Build.MODEL);
 
-        Button storeDevice = (Button) findViewById(R.id.saveButton);
+        Button storeDevice = (Button) findViewById(R.id.save_device_button);
         storeDevice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -40,29 +40,29 @@ public class CreateDeviceView extends Activity {
             }
         });
 
-        RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radioButtonGroup);
+        RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radio_button_group);
         this.device.type = "Android Phone";
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch(checkedId) {
-                    case R.id.iPhone:
+                    case R.id.iphone_option:
                         device.type = "iPhone";
                         break;
-                    case R.id.iPad:
+                    case R.id.ipad_option:
                         device.type = "iPad";
                         break;
-                    case R.id.Android:
+                    case R.id.android_phone_option:
                         device.type = "Android Phone";
                         break;
-                    case R.id.AndroidTablet:
+                    case R.id.android_tablet_option:
                         device.type = "Android Tablet";
                         break;
                 }
             }
         });
 
-        Switch currentDeviceSwitch = (Switch) findViewById(R.id.Switch);
+        Switch currentDeviceSwitch = (Switch) findViewById(R.id.switch_current_device);
         currentDeviceSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -74,10 +74,10 @@ public class CreateDeviceView extends Activity {
     }
 
     public void storeDevice(View view) {
-        TextView deviceName = (TextView) findViewById(R.id.deviceNameText);
+        TextView deviceName = (TextView) findViewById(R.id.device_name_text);
         device.deviceName = deviceName.getText().toString();
 
-        TextView deviceModel = (TextView) findViewById(R.id.deviceModelText);
+        TextView deviceModel = (TextView) findViewById(R.id.device_model_text);
         device.deviceModel = deviceModel.getText().toString();
 
         device.systemVersion = Build.VERSION.RELEASE;
