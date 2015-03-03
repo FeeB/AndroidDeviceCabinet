@@ -6,13 +6,14 @@
     android:theme="@style/AppTheme"
     android:background="#ffffff" >
 
-    <ImageView
-        android:id="@+id/imageDeviceView"
+    <com.android.volley.toolbox.NetworkImageView
+        android:id="@+id/image_device_view"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginTop="30dp"
         android:layout_marginLeft="30dp"
-        android:layout_alignParentTop="true" />
+        android:layout_alignParentTop="true"
+        android:src="@drawable/placeholder"/>
 
     <Button
         android:layout_width="110dp"
@@ -20,57 +21,57 @@
         android:layout_marginLeft="23dp"
         android:text="Change Picture"
         android:textSize="10sp"
-        android:layout_below="@+id/imageDeviceView"
-        android:id="@+id/changePicture"/>
+        android:layout_below="@+id/image_device_view"
+        android:id="@+id/change_picture_button"/>
 
     <TextView
-        android:id="@+id/deviceNameDeviceView"
+        android:id="@+id/device_name_label_in_device_activity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#000000"
         android:layout_marginTop="30dp"
         android:layout_marginLeft="23dp"
-        android:layout_toRightOf="@+id/imageDeviceView"
+        android:layout_toRightOf="@+id/image_device_view"
         android:text="Device"
         android:textSize="17sp" />
 
     <ImageView
-        android:id="@+id/systemImageViewDeviceView"
+        android:id="@+id/system_icon_image_view_in_device_activity"
         android:layout_width="12dp"
         android:layout_height="12dp"
         android:layout_marginLeft="23dp"
-        android:layout_toRightOf="@+id/imageDeviceView"
+        android:layout_toRightOf="@+id/image_device_view"
         android:src="@drawable/ic_launcher"
-        android:layout_alignTop="@+id/systemVersionDeviceView" />
+        android:layout_alignTop="@+id/system_version_label_in_device_view" />
 
     <TextView
-        android:id="@+id/systemVersionDeviceView"
+        android:id="@+id/system_version_label_in_device_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#666666"
         android:layout_marginTop="55dp"
         android:layout_marginLeft="5dp"
-        android:layout_toRightOf="@+id/systemImageViewDeviceView"
+        android:layout_toRightOf="@+id/system_icon_image_view_in_device_activity"
         android:text="System"
         android:textSize="14sp" />
 
     <ImageView
-        android:id="@+id/personImageDeviceView"
+        android:id="@+id/person_icon_in_device_view"
         android:layout_width="12dp"
         android:layout_height="12dp"
         android:src="@drawable/ic_launcher"
         android:layout_marginLeft="23dp"
-        android:layout_alignTop="@+id/personDeviceView"
-        android:layout_toRightOf="@+id/imageDeviceView"/>
+        android:layout_alignTop="@+id/person_name_in_device_view"
+        android:layout_toRightOf="@+id/image_device_view"/>
 
     <TextView
-        android:id="@+id/personDeviceView"
+        android:id="@+id/person_name_in_device_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#666666"
         android:layout_marginTop="85dp"
         android:layout_marginLeft="5dp"
-        android:layout_toRightOf="@+id/systemImageViewDeviceView"
+        android:layout_toRightOf="@+id/system_icon_image_view_in_device_activity"
         android:textSize="14sp" />
 
     <Button
@@ -79,14 +80,14 @@
         android:layout_marginLeft="23dp"
         android:text="Book"
         android:textSize="15sp"
-        android:layout_toRightOf="@+id/imageDeviceView"
+        android:layout_toRightOf="@+id/image_device_view"
         android:layout_marginTop="100dp"
-        android:id="@+id/button"/>
+        android:id="@+id/book_return_button"/>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="73dp"
-        android:layout_below="@+id/button"
+        android:layout_below="@+id/book_return_button"
         android:layout_marginTop="21dp"
         android:background="#EFEFF4">
 
@@ -94,7 +95,7 @@
             android:layout_width="114dp"
             android:layout_height="wrap_content"
             android:text="Category"
-            android:id="@+id/typeDeviceView"
+            android:id="@+id/type_label_in_device_view"
             android:textColor="#666666"
             android:layout_marginTop="15dp"
             android:layout_marginLeft="30dp"
@@ -104,7 +105,7 @@
             android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:text="text"
-            android:id="@+id/typeTextDeviceView"
+            android:id="@+id/type_text_in_device_view"
             android:layout_gravity="center|top"
             android:textColor="#666666"
             android:layout_marginTop="15dp"
@@ -114,7 +115,7 @@
             android:layout_width="114dp"
             android:layout_height="wrap_content"
             android:text="Model"
-            android:id="@+id/modelDeviceView"
+            android:id="@+id/model_label_in_device_view"
             android:layout_gravity="left|bottom"
             android:textColor="#666666"
             android:layout_marginBottom="15dp"
@@ -125,7 +126,7 @@
             android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:text="text"
-            android:id="@+id/modelTextDeviceView"
+            android:id="@+id/model_text_in_device_view"
             android:layout_gravity="center|bottom"
             android:textColor="#666666"
             android:layout_marginBottom="15dp"

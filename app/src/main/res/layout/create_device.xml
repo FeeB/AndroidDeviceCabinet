@@ -21,7 +21,7 @@
     <EditText
         android:layout_width="167dp"
         android:layout_height="wrap_content"
-        android:id="@+id/deviceNameText"
+        android:id="@+id/device_name_text"
         android:textColorHint="#000000"
         android:textColor="#000000"
         android:hint="Name"
@@ -38,7 +38,7 @@
         android:layout_width="125dp"
         android:layout_height="wrap_content"
         android:textColor="#000000"
-        android:id="@+id/deviceModelLabel"
+        android:id="@+id/device_model_label"
         android:text="Model"
         android:textSize="17sp"
         android:layout_marginStart="34dp"
@@ -47,41 +47,41 @@
     <EditText
         android:layout_width="167dp"
         android:layout_height="wrap_content"
-        android:id="@+id/deviceModelText"
+        android:id="@+id/device_model_text"
         android:textColorHint="#000000"
         android:textColor="#000000"
         android:hint="Model"
         android:textSize="14sp"
-        android:layout_alignBaseline="@+id/deviceModelLabel"
-        android:layout_toRightOf="@+id/deviceModelLabel"
-        android:layout_toEndOf="@+id/deviceModelLabel"
+        android:layout_alignBaseline="@+id/device_model_label"
+        android:layout_toRightOf="@+id/device_model_label"
+        android:layout_toEndOf="@+id/device_model_label"
         android:layout_marginLeft="40dp"
         android:layout_marginStart="40dp" />
 
     <RadioGroup
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/radioButtonGroup"
-        android:layout_below="@+id/deviceModelLabel"
+        android:id="@+id/radio_button_group"
+        android:layout_below="@+id/device_model_label"
         android:layout_marginTop="30dp"
         android:orientation="horizontal"
         android:layout_centerInParent="true">
 
         <RadioButton
-            android:id="@+id/iPhone"
+            android:id="@+id/iphone_option"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableRight="@drawable/icon_iphone"/>
 
 
         <RadioButton
-            android:id="@+id/iPad"
+            android:id="@+id/ipad_option"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableRight="@drawable/icon_ipad"/>
 
         <RadioButton
-            android:id="@+id/Android"
+            android:id="@+id/android_phone_option"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableRight="@drawable/icon_android_phone"
@@ -89,7 +89,7 @@
 
 
         <RadioButton
-            android:id="@+id/AndroidTablet"
+            android:id="@+id/android_tablet_option"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableRight="@drawable/icon_android_tablet"/>
@@ -100,14 +100,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:id="@+id/switchGroup"
-        android:layout_below="@+id/radioButtonGroup"
+        android:id="@+id/switch_current_device_group"
+        android:layout_below="@+id/radio_button_group"
         android:layout_centerInParent="true">
 
         <Switch
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/Switch"
+            android:id="@+id/switch_current_device"
             android:layout_marginTop="10dp"
             android:layout_centerInParent="true"
             android:background="#ffffff"/>
@@ -126,9 +126,9 @@
     <Button
         android:layout_width="167dp"
         android:layout_height="wrap_content"
-        android:id="@+id/saveButton"
+        android:id="@+id/save_device_button"
         android:text="Save"
-        android:layout_below="@+id/switchGroup"
+        android:layout_below="@+id/switch_current_device_group"
         android:layout_marginLeft="70dp"
         android:layout_marginTop="10dp"
         android:layout_centerInParent="true"/>
