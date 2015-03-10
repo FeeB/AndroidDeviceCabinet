@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:weightSum="1"
     android:theme="@style/AppTheme"
-    android:background="#ffffff" >
+    android:background="#ffffff">
 
     <com.android.volley.toolbox.NetworkImageView
         android:id="@+id/image_device_view"
@@ -37,8 +37,8 @@
 
     <ImageView
         android:id="@+id/system_icon_image_view_in_device_activity"
-        android:layout_width="12dp"
-        android:layout_height="12dp"
+        android:layout_width="14dp"
+        android:layout_height="14dp"
         android:layout_marginLeft="23dp"
         android:layout_toRightOf="@+id/image_device_view"
         android:src="@drawable/ic_launcher"
@@ -50,16 +50,16 @@
         android:layout_height="wrap_content"
         android:textColor="#666666"
         android:layout_marginTop="55dp"
-        android:layout_marginLeft="5dp"
+        android:layout_marginLeft="5px"
         android:layout_toRightOf="@+id/system_icon_image_view_in_device_activity"
         android:text="System"
         android:textSize="14sp" />
 
     <ImageView
-        android:id="@+id/person_icon_in_device_view"
-        android:layout_width="12dp"
-        android:layout_height="12dp"
-        android:src="@drawable/ic_launcher"
+        android:id="@+id/person_icon_in_device_activity"
+        android:layout_width="14dp"
+        android:layout_height="14dp"
+        android:src="@drawable/user"
         android:layout_marginLeft="23dp"
         android:layout_alignTop="@+id/person_name_in_device_view"
         android:layout_toRightOf="@+id/image_device_view"/>
@@ -70,7 +70,7 @@
         android:layout_height="wrap_content"
         android:textColor="#666666"
         android:layout_marginTop="85dp"
-        android:layout_marginLeft="5dp"
+        android:layout_marginLeft="5px"
         android:layout_toRightOf="@+id/system_icon_image_view_in_device_activity"
         android:textSize="14sp" />
 
