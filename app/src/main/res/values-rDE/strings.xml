@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DeviceCabinet</string>
+    <string name="device_name">Gerätename</string>
+    <string name="model">Modell</string>
+    <string name="current_device">Aktuelles Gerät</string>
+    <string name="save">Speichern</string>
+    <string name="first_name">Vorname</string>
+    <string name="last_name">Nachname</string>
+    <string name="change_picture">Ändere das Bild</string>
+    <string name="device">Gerät</string>
+    <string name="system">Systemversion</string>
+    <string name="book">Buchen</string>
+    <string name="device_type">Gerätetyp</string>
+    <string name="person">Person</string>
+    <string name="delete">Löschen</string>
+    <string name="delete_message">Willst wirklich löschen?</string>
+    <string name="yes">Ja</string>
+    <string name="cancel">Abbrechen</string>
+    <string name="field_missing_title">Bitte fülle alle Felder aus</string>
+    <string name="field_device_missing_message">Bitte fülle Name und Modell des Gerätes aus</string>
+    <string name="field_person_missing_message">Bitte fülle Vor- und Nachname aus</string>
+    <string name="ok">OK</string>
+    <string name="return_device">Zurückgeben</string>
+    <string name="connection_error_title">Verbindungsfehler</string>
+    <string name="connection_error_message">Entschuldige, ein Verbindungsfehler ist aufgetreten, bitte prüfe deine Internetverbindung und versuche es nochmal</string>
+    <string name="device_already_exists_title">Das Gerät existiert bereits</string>
+    <string name="device_already_exists_message">Ein Gerät mit dem selben Namen existiert bereits!</string>
+    <string name="device_already_booked_title">Gerät schon gebucht</string>
+    <string name="device_already_booked_message">Entschuldige in der Zwischenzeit wurde das Gerät gebucht!</string>
+    <string name="something_went_wrong_title">Etwas ist schief gelaufen</string>
+    <string name="something_went_wrong_message">Entschuldige, etwas ist schief gelaufen, bitte versuche es nochmal</string>
+    <string name="current">Aktuell</string>
+    <string name="available">Verfügbar</string>
+    <string name="booked">Gebucht</string>
+    <string name="create_device">Neues Gerät erstellen</string>
+    <string name="create_person">Neue Person erstellen</string>
+</resources>

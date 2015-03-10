@@ -20,7 +20,7 @@
                     android:textColor="#000000"
                     android:layout_marginLeft="23dp"
                     android:layout_toRightOf="@+id/device_image_in_overview_list"
-                    android:text="Device"
+                    android:text="@string/device"
                     android:textSize="16sp" />
 
                 <TextView
@@ -31,7 +31,7 @@
                     android:layout_marginLeft="23dp"
                     android:layout_marginTop="20dp"
                     android:layout_toRightOf="@+id/device_image_in_overview_list"
-                    android:text="Device Type"
+                    android:text="@string/device_type"
                     android:textSize="14sp"/>
 
                 <ImageView
@@ -53,7 +53,7 @@
                     android:layout_marginLeft="5px"
                     android:layout_toRightOf="@+id/system_icon_image_view_in_overview_activity"
                     android:layout_toEndOf="@+id/system_icon_image_view_in_overview_activity"
-                    android:text="System"
+                    android:text="@string/system"
                     android:textSize="14sp"/>
 
                 <ImageView
@@ -71,7 +71,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#666666"
-                    android:text="Person"
+                    android:text="@string/person"
                     android:textSize="14sp"
                     android:layout_marginLeft="5px"
                     android:layout_below="@+id/system_in_overview_activity"

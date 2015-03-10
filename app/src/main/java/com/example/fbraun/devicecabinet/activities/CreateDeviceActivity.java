@@ -25,6 +25,10 @@ import com.example.fbraun.devicecabinet.model.Device;
 public class CreateDeviceActivity extends Activity {
 
     private Device device = new Device();
+    private static String IPHONE = "iPhone";
+    private static String IPAD = "iPad";
+    private static String ANDROID_PHONE = "Android Phone";
+    private static String ANDROID_TABLET = "Android Tablet";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,22 +47,22 @@ public class CreateDeviceActivity extends Activity {
         });
 
         RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radio_button_group);
-        this.device.type = "Android Phone";
+        this.device.setType(ANDROID_PHONE);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch(checkedId) {
                     case R.id.iphone_option:
-                        device.type = "iPhone";
+                        device.setType(IPHONE);
                         break;
                     case R.id.ipad_option:
-                        device.type = "iPad";
+                        device.setType(IPAD);
                         break;
                     case R.id.android_phone_option:
-                        device.type = "Android Phone";
+                        device.setType(ANDROID_PHONE);
                         break;
                     case R.id.android_tablet_option:
-                        device.type = "Android Tablet";
+                        device.setType(ANDROID_TABLET);
                         break;
                 }
             }
@@ -77,12 +81,12 @@ public class CreateDeviceActivity extends Activity {
 
     public void storeDevice(View view) {
         TextView deviceName = (TextView) findViewById(R.id.device_name_text);
-        device.deviceName = deviceName.getText().toString();
+        device.setDeviceName(deviceName.getText().toString());
 
         TextView deviceModel = (TextView) findViewById(R.id.device_model_text);
-        device.deviceModel = deviceModel.getText().toString();
+        device.setDeviceModel(deviceModel.getText().toString());
 
-        device.systemVersion = Build.VERSION.RELEASE;
+        device.setSystemVersion(Build.VERSION.RELEASE);
 
         if (deviceName != null && deviceModel != null) {
            RESTApiClient client = new RESTApiClient();
@@ -100,8 +104,8 @@ public class CreateDeviceActivity extends Activity {
             });
         } else {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Error");
-            builder.setMessage("try later").setCancelable(false).setPositiveButton("ok", new DialogInterface.OnClickListener() {
+            builder.setTitle(getString(R.string.field_missing_title));
+            builder.setMessage(getString(R.string.field_device_missing_message)).setCancelable(false).setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.cancel();

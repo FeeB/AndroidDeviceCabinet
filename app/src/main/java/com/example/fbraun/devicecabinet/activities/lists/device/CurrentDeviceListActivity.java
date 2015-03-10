@@ -14,11 +14,11 @@ public class CurrentDeviceListActivity extends AbstractDeviceListActivity {
         //toDo real current Device
 
         Device iPhone = new Device();
-        iPhone.deviceName = "B4F-005";
-        iPhone.deviceModel = "iPhone 6";
-        iPhone.systemVersion = "8.1";
-        iPhone.type = "iPhone";
-        iPhone.bookedByPerson = false;
+        iPhone.setDeviceName("B4F-005");
+        iPhone.setDeviceModel("iPhone 6");
+        iPhone.setSystemVersion("8.1");
+        iPhone.setType("iPhone");
+        iPhone.setBookedByPerson(false);
 
         ArrayList<Device> devicesList = new ArrayList<Device>();
 

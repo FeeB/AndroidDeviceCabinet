@@ -24,7 +24,6 @@ import java.util.ArrayList;
  */
 abstract class AbstractDeviceListActivity extends ListActivity {
 
-    // TODO: Refactor, this should be private
     private ArrayList<Device> dataList;
 
     @Override
@@ -63,9 +62,9 @@ abstract class AbstractDeviceListActivity extends ListActivity {
 
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
-        alert.setTitle("Delete");
-        alert.setMessage("Do you want delete this item?");
-        alert.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+        alert.setTitle(getString(R.string.delete));
+        alert.setMessage(getString(R.string.delete_message));
+        alert.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 client.deleteDevice(dataList.get(indexToDelete), new RESTApiClient.VolleyCallbackStore() {
@@ -83,7 +82,7 @@ abstract class AbstractDeviceListActivity extends ListActivity {
                 });
             }
         });
-        alert.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+        alert.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();

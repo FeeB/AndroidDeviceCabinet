@@ -16,13 +16,13 @@ public class ErrorMapperRESTApiClient {
 
     public void handleError(VolleyError error, Context context) {
         if (error instanceof NoConnectionError) {
-            showAlert(context, "Connection Error", "Sorry, there is no Connection to the Server, check the connection and try again");
+            showAlert(context, context.getString(R.string.connection_error_title), context.getString(R.string.connection_error_message));
         } else if (error instanceof DuplicatedError) {
-            showAlert(context, "Device already existing", "Device with same name already existing!");
+            showAlert(context, context.getString(R.string.device_already_exists_title), context.getString(R.string.device_already_exists_message));
         } else if (error instanceof AlreadyBookedError) {
-            showAlert(context, "Device is already booked", "Sorry, someone booked the device already!");
+            showAlert(context, context.getString(R.string.device_already_booked_title), context.getString(R.string.device_already_booked_message));
         } else {
-            showAlert(context, "Something went wrong", "Sorry, something went wrong please try again later");
+            showAlert(context, context.getString(R.string.something_went_wrong_title), context.getString(R.string.something_went_wrong_message));
         }
     }
 
@@ -31,7 +31,7 @@ public class ErrorMapperRESTApiClient {
 
         alert.setTitle(title);
         alert.setMessage(message);
-        alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        alert.setPositiveButton(context.getString(R.string.ok), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();

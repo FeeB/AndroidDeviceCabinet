@@ -23,6 +23,8 @@ public class DeviceListAdapter extends ArrayAdapter<Device> {
 
     private List<Device> dataList;
     private Context context;
+    private static String ANDROID_PHONE = "Android Phone";
+    private static String ANDROID_TABLET = "Android Tablet";
 
     public DeviceListAdapter(List<Device> dataList, Context context) {
         super(context, R.layout.list_overview, dataList);
@@ -52,33 +54,33 @@ public class DeviceListAdapter extends ArrayAdapter<Device> {
         Device device = dataList.get(position);
 
         TextView deviceName = (TextView) view.findViewById(R.id.device_name_label_in_overview_activity);
-        deviceName.setText(device.deviceName);
+        deviceName.setText(device.getDeviceName());
 
         TextView deviceType = (TextView) view.findViewById(R.id.device_type_in_overview_activity);
-        deviceType.setText(device.deviceModel);
+        deviceType.setText(device.getDeviceModel());
 
         TextView system = (TextView) view.findViewById(R.id.system_in_overview_activity);
-        system.setText(device.systemVersion);
+        system.setText(device.getSystemVersion());
 
         TextView person = (TextView) view.findViewById(R.id.person_name_in_overview_activity);
-        person.setText(device.bookedByPersonFullName);
+        person.setText(device.getBookedByPersonFullName());
 
         NetworkImageView image = (NetworkImageView) view.findViewById(R.id.device_image_in_overview_list);
         ImageLoader imageLoader = VolleySingleton.getInstance().getImageLoader();
-        if (device.imageUrl != null) {
-            image.setImageUrl(device.imageUrl, imageLoader);
+        if (device.getImageUrl() != null) {
+            image.setImageUrl(device.getImageUrl(), imageLoader);
         } else {
             image.setDefaultImageResId(R.drawable.placeholder);
             image.setImageUrl(null, imageLoader);
         }
 
-        if (device.bookedByPerson) {
+        if (device.isBookedByPerson()) {
             ImageView personImage = (ImageView) view.findViewById(R.id.person_icon_in_overview_activity);
             personImage.setImageDrawable(context.getResources().getDrawable(R.drawable.user));
         }
 
         ImageView systemImage = (ImageView) view.findViewById(R.id.system_icon_image_view_in_overview_activity);
-        if (device.type.equals("Android Phone") || device.type.equals("Android Tablet")) {
+        if (device.getType().equals(ANDROID_PHONE) || device.getType().equals(ANDROID_TABLET)) {
             systemImage.setImageDrawable(context.getResources().getDrawable(R.drawable.android));
         } else {
             systemImage.setImageDrawable(context.getResources().getDrawable(R.drawable.apple));

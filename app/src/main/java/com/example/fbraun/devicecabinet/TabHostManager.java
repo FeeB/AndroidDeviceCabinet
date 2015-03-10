@@ -19,6 +19,9 @@ import com.example.fbraun.devicecabinet.activities.lists.device.CurrentDeviceLis
 
 //todo whats wrong?
 public class TabHostManager extends TabActivity {
+    private static String AVAILABLE = "available";
+    private static String CURRENT = "current";
+    private static String BOOKED = "booked";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -26,18 +29,18 @@ public class TabHostManager extends TabActivity {
         setContentView(R.layout.tab_navigation);
         TabHost tabHost = getTabHost();
 
-        TabHost.TabSpec current = tabHost.newTabSpec("Current");
-        current.setIndicator("Current");
+        TabHost.TabSpec current = tabHost.newTabSpec(CURRENT);
+        current.setIndicator(getResources().getString(R.string.current));
         Intent currentIntent = new Intent(this, CurrentDeviceListActivity.class);
         current.setContent(currentIntent);
 
-        TabHost.TabSpec available = tabHost.newTabSpec("available");
-        available.setIndicator("Available");
+        TabHost.TabSpec available = tabHost.newTabSpec(AVAILABLE);
+        available.setIndicator(getResources().getString(R.string.available));
         Intent availableIntent = new Intent(this, AvailableListActivity.class);
         available.setContent(availableIntent);
 
-        TabHost.TabSpec booked = tabHost.newTabSpec("booked");
-        booked.setIndicator("Booked");
+        TabHost.TabSpec booked = tabHost.newTabSpec(BOOKED);
+        booked.setIndicator(getResources().getString(R.string.booked));
         Intent bookedIntent = new Intent(this, BookedListActivity.class);
         booked.setContent(bookedIntent);
 

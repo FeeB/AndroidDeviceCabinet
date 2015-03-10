@@ -14,16 +14,16 @@ import java.util.HashMap;
 public class Device implements Parcelable {
 
     // TODO: Members should never be public in java
-    public String deviceName;
-    public String type;
-    public boolean bookedByPerson;
-    public String bookedByPersonId;
-    public String bookedByPersonFullName;
-    public String deviceUdId;
-    public String systemVersion;
-    public String deviceId;
-    public String deviceModel;
-    public String imageUrl;
+    private String deviceName;
+    private String type;
+    private boolean bookedByPerson;
+    private String bookedByPersonId;
+    private String bookedByPersonFullName;
+    private String deviceUdId;
+    private String systemVersion;
+    private String deviceId;
+    private String deviceModel;
+    private String imageUrl;
 
     public Device (JSONObject object) {
         try {
@@ -105,4 +105,83 @@ public class Device implements Parcelable {
         }
     };
 
+    public String getDeviceName() {
+        return deviceName;
+    }
+
+    public void setDeviceName(String deviceName) {
+        this.deviceName = deviceName;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public boolean isBookedByPerson() {
+        return bookedByPerson;
+    }
+
+    public void setBookedByPerson(boolean bookedByPerson) {
+        this.bookedByPerson = bookedByPerson;
+    }
+
+    public String getBookedByPersonId() {
+        return bookedByPersonId;
+    }
+
+    public void setBookedByPersonId(String bookedByPersonId) {
+        this.bookedByPersonId = bookedByPersonId;
+    }
+
+    public String getBookedByPersonFullName() {
+        return bookedByPersonFullName;
+    }
+
+    public void setBookedByPersonFullName(String bookedByPersonFullName) {
+        this.bookedByPersonFullName = bookedByPersonFullName;
+    }
+
+    public String getDeviceUdId() {
+        return deviceUdId;
+    }
+
+    public void setDeviceUdId(String deviceUdId) {
+        this.deviceUdId = deviceUdId;
+    }
+
+    public String getSystemVersion() {
+        return systemVersion;
+    }
+
+    public void setSystemVersion(String systemVersion) {
+        this.systemVersion = systemVersion;
+    }
+
+    public String getDeviceId() {
+        return deviceId;
+    }
+
+    public void setDeviceId(String deviceId) {
+        this.deviceId = deviceId;
+    }
+
+    public String getDeviceModel() {
+        return deviceModel;
+    }
+
+    public void setDeviceModel(String deviceModel) {
+        this.deviceModel = deviceModel;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 }

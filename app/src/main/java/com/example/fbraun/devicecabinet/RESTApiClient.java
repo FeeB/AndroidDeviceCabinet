@@ -182,7 +182,7 @@ public class RESTApiClient {
     }
 
     public void deleteDevice(final Device device, final VolleyCallbackStore callback) {
-        String newUrl = DEVICE_URL + "/" + device.deviceId;
+        String newUrl = DEVICE_URL + "/" + device.getDeviceId();
 
         StringRequest request = new StringRequest(Request.Method.DELETE, newUrl, new Response.Listener<String>(){
 
@@ -218,7 +218,7 @@ public class RESTApiClient {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("device_name", device.deviceName);
+                params.put("device_name", device.getDeviceName());
                 return params;
             }
         };
@@ -226,7 +226,7 @@ public class RESTApiClient {
     }
 
     public void checkIfDeviceIsAlreadyBooked(final Device device, final VolleyCallbackCheckDevice callback) {
-        String newUrl = DEVICE_URL + "/" + device.deviceId;
+        String newUrl = DEVICE_URL + "/" + device.getDeviceId();
 
         JsonObjectRequest request = new JsonObjectRequest(newUrl, null, new Response.Listener<JSONObject>(){
 
@@ -245,12 +245,12 @@ public class RESTApiClient {
     }
 
     public void updateSystemVersion(final Device device) {
-        String newUrl = DEVICE_URL + "/" + device.deviceId;
+        String newUrl = DEVICE_URL + "/" + device.getDeviceId();
 
         JSONObject jsonMap = new JSONObject();
         try {
             JSONObject params = new JSONObject();
-            params.put("system_version", device.systemVersion);
+            params.put("system_version", device.getSystemVersion());
             jsonMap.put("device", params);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -299,10 +299,10 @@ public class RESTApiClient {
         checkIfDeviceIsAlreadyBooked(device, new VolleyCallbackCheckDevice() {
             @Override
             public void onFetchDeviceSuccess(Device device) {
-                if (device.bookedByPerson){
+                if (device.isBookedByPerson()){
                     callback.onStoreFailure(new AlreadyBookedError());
                 } else {
-                    String newUrl = DEVICE_URL + "/" + device.deviceId;
+                    String newUrl = DEVICE_URL + "/" + device.getDeviceId();
 
                     JSONObject jsonMap = new JSONObject();
                     try {
@@ -343,7 +343,7 @@ public class RESTApiClient {
 
     public void deletePersonReferenceFromDevice(final Device device, final VolleyCallbackStore callback){
 
-        String newUrl = DEVICE_URL + "/" + device.deviceId;
+        String newUrl = DEVICE_URL + "/" + device.getDeviceId();
         JSONObject json = new JSONObject();
         try {
             JSONObject params = new JSONObject();
@@ -390,7 +390,7 @@ public class RESTApiClient {
 
     public void uploadImage(final Bitmap image, final Device device) {
 
-        String newUrl = DEVICE_URL + "/" + device.deviceId;
+        String newUrl = DEVICE_URL + "/" + device.getDeviceId();
 
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         image.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream); //bm is the bitmap object

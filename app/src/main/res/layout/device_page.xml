@@ -19,7 +19,7 @@
         android:layout_width="110dp"
         android:layout_height="30dp"
         android:layout_marginLeft="23dp"
-        android:text="Change Picture"
+        android:text="@string/change_picture"
         android:textSize="10sp"
         android:layout_below="@+id/image_device_view"
         android:id="@+id/change_picture_button"/>
@@ -32,7 +32,7 @@
         android:layout_marginTop="30dp"
         android:layout_marginLeft="23dp"
         android:layout_toRightOf="@+id/image_device_view"
-        android:text="Device"
+        android:text="@string/device"
         android:textSize="17sp" />
 
     <ImageView
@@ -52,7 +52,7 @@
         android:layout_marginTop="55dp"
         android:layout_marginLeft="5px"
         android:layout_toRightOf="@+id/system_icon_image_view_in_device_activity"
-        android:text="System"
+        android:text="@string/system"
         android:textSize="14sp" />
 
     <ImageView
@@ -78,7 +78,7 @@
         android:layout_width="113dp"
         android:layout_height="40dp"
         android:layout_marginLeft="23dp"
-        android:text="Book"
+        android:text="@string/book"
         android:textSize="15sp"
         android:layout_toRightOf="@+id/image_device_view"
         android:layout_marginTop="100dp"
@@ -104,7 +104,6 @@
         <TextView
             android:layout_width="160dp"
             android:layout_height="wrap_content"
-            android:text="text"
             android:id="@+id/type_text_in_device_view"
             android:layout_gravity="center|top"
             android:textColor="#666666"
@@ -114,7 +113,7 @@
         <TextView
             android:layout_width="114dp"
             android:layout_height="wrap_content"
-            android:text="Model"
+            android:text="@string/model"
             android:id="@+id/model_label_in_device_view"
             android:layout_gravity="left|bottom"
             android:textColor="#666666"
@@ -125,7 +124,6 @@
         <TextView
             android:layout_width="160dp"
             android:layout_height="wrap_content"
-            android:text="text"
             android:id="@+id/model_text_in_device_view"
             android:layout_gravity="center|bottom"
             android:textColor="#666666"

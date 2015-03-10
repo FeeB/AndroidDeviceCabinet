@@ -47,18 +47,18 @@ public class DeviceActivity extends Activity {
         Intent intent = getIntent();
         if (intent != null) {
             device = intent.getParcelableExtra("device");
-            deviceName.setText(device.deviceName);
-            system.setText(device.systemVersion);
-            type.setText(device.type);
-            model.setText(device.deviceModel);
+            deviceName.setText(device.getDeviceName());
+            system.setText(device.getSystemVersion());
+            type.setText(device.getType());
+            model.setText(device.getDeviceModel());
 
-            if (device.imageUrl != null) {
+            if (device.getImageUrl() != null) {
                 ImageLoader imageLoader = VolleySingleton.getInstance().getImageLoader();
-                image.setImageUrl(device.imageUrl, imageLoader);
+                image.setImageUrl(device.getImageUrl(), imageLoader);
             }
 
-            if (device.bookedByPerson) {
-                person.setText(device.bookedByPersonFullName);
+            if (device.isBookedByPerson()) {
+                person.setText(device.getBookedByPersonFullName());
             } else {
                 ImageView personImage = (ImageView) findViewById(R.id.person_icon_in_device_activity);
                 personImage.setVisibility(View.GONE);
@@ -73,8 +73,8 @@ public class DeviceActivity extends Activity {
         }
 
         Button bookDeviceButton = (Button) findViewById(R.id.book_return_button);
-        if (device.bookedByPerson) {
-            bookDeviceButton.setText("Return");
+        if (device.isBookedByPerson()) {
+            bookDeviceButton.setText(getString(R.string.return_device));
         }
         bookDeviceButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,7 +93,7 @@ public class DeviceActivity extends Activity {
     }
 
     public void bookReturnDevice(View view) {
-        if (device.bookedByPerson) {
+        if (device.isBookedByPerson()) {
             RESTApiClient client = new RESTApiClient();
             client.deletePersonReferenceFromDevice(device, new RESTApiClient.VolleyCallbackStore() {
                 @Override

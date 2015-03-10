@@ -1,6 +1,8 @@
 package com.example.fbraun.devicecabinet.activities;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -44,7 +46,14 @@ public class CreatePersonActivity extends Activity {
                 }
             });
         } else {
-            //toDo Alert
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle(getString(R.string.field_missing_title));
+            builder.setMessage(getString(R.string.field_person_missing_message)).setCancelable(false).setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
         }
     }
 }
