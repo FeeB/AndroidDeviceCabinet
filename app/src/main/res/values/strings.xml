@@ -36,5 +36,6 @@
     <string name="booked">Booked</string>
     <string name="create_device">Create new device</string>
     <string name="create_person">Create new person</string>
+    <string name="category">Category</string>
 
 </resources>

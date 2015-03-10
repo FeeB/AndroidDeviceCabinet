@@ -94,7 +94,7 @@
         <TextView
             android:layout_width="114dp"
             android:layout_height="wrap_content"
-            android:text="Category"
+            android:text="@string/category"
             android:id="@+id/type_label_in_device_view"
             android:textColor="#666666"
             android:layout_marginTop="15dp"
