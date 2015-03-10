@@ -26,10 +26,10 @@ public class CreatePersonActivity extends Activity {
     public void storePerson(View view) {
         Person person = new Person();
         TextView firstName = (TextView) findViewById(R.id.first_name_text);
-        person.firstName = firstName.getText().toString();
+        person.setFirstName(firstName.getText().toString());
 
         TextView lastName = (TextView) findViewById(R.id.last_name_text);
-        person.lastName = lastName.getText().toString();
+        person.setLastName(lastName.getText().toString());
 
         if (firstName != null && lastName != null) {
             RESTApiClient client = new RESTApiClient();

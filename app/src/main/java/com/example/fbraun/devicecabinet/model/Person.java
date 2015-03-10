@@ -11,10 +11,10 @@ import java.util.HashMap;
  * Created by fbraun on 03.02.15.
  */
 public class Person {
-    public String firstName;
-    public String lastName;
+    private String firstName;
+    private String lastName;
     private String fullName;
-    public String personId;
+    private String personId;
 
     public Person (JSONObject object) {
         try {
@@ -44,5 +44,29 @@ public class Person {
         jsonMap.put("full_name", this.fullName);
 
         return new JSONObject(jsonMap);
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getPersonId() {
+        return personId;
+    }
+
+    public void setPersonId(String personId) {
+        this.personId = personId;
     }
 }

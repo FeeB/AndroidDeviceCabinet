@@ -307,7 +307,7 @@ public class RESTApiClient {
                     JSONObject jsonMap = new JSONObject();
                     try {
                         JSONObject params = new JSONObject();
-                        params.put("person_id", person.personId);
+                        params.put("person_id", person.getPersonId());
                         params.put("is_booked", "YES");
                         jsonMap.put("device", params);
                     } catch (JSONException e) {
@@ -371,7 +371,7 @@ public class RESTApiClient {
     }
 
     public void deletePerson(final Person person, final VolleyCallbackStore callback) {
-        String newUrl = PERSON_URL + "/" + person.personId;
+        String newUrl = PERSON_URL + "/" + person.getPersonId();
 
         StringRequest request = new StringRequest(Request.Method.DELETE, newUrl, new Response.Listener<String>(){
 
