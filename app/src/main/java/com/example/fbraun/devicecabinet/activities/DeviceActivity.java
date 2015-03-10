@@ -52,9 +52,12 @@ public class DeviceActivity extends Activity {
             type.setText(device.getType());
             model.setText(device.getDeviceModel());
 
+            ImageLoader imageLoader = VolleySingleton.getInstance().getImageLoader();
             if (device.getImageUrl() != null) {
-                ImageLoader imageLoader = VolleySingleton.getInstance().getImageLoader();
                 image.setImageUrl(device.getImageUrl(), imageLoader);
+            } else {
+                image.setDefaultImageResId(R.drawable.placeholder);
+                image.setImageUrl(null, imageLoader);
             }
 
             if (device.isBookedByPerson()) {
