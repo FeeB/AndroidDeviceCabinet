@@ -2,6 +2,7 @@ package com.example.fbraun.devicecabinet;
 
 import android.graphics.Bitmap;
 import android.util.Base64;
+import android.util.Log;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -12,6 +13,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.example.fbraun.devicecabinet.model.Device;
 import com.example.fbraun.devicecabinet.model.Person;
+import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,14 +38,22 @@ public class RESTApiClient {
 
     public interface VolleyCallbackDeviceList {
         void onSuccessListViews(ArrayList<Device> result);
+        void onErrorListViews(VolleyError error);
     }
 
     public interface VolleyCallbackPersonList {
         void onSuccessListViews(ArrayList<Person> result);
+        void onErrorListViews(VolleyError error);
     }
 
     public interface VolleyCallbackStore {
         void onStoreSuccess();
+        void onStoreFailure(VolleyError error);
+    }
+
+    public interface VolleyCallbackCheckDevice {
+        void onFetchDeviceSuccess(Device device);
+        void onFetchDeviceFailure(VolleyError error);
     }
 
 
@@ -61,7 +71,7 @@ public class RESTApiClient {
                         devices.add(device);
                     }
                     catch (JSONException e) {
-                        //do something
+                        System.out.println("Json Exception: " + e);
                     }
                 }
                 callback.onSuccessListViews(devices);
@@ -70,11 +80,11 @@ public class RESTApiClient {
         }, new Response.ErrorListener(){
             @Override
             public void onErrorResponse(VolleyError error) {
-                //do something
+                callback.onErrorListViews(error);
             }
         });
 
-        VolleySingleton.getInstance().getRequestQueue().add(request);
+        VolleySingleton.getInstance().addToRequestQueue(request);
     }
 
     public void fetchBookedDevices(final VolleyCallbackDeviceList callback) {
@@ -100,11 +110,11 @@ public class RESTApiClient {
         }, new Response.ErrorListener(){
             @Override
             public void onErrorResponse(VolleyError error) {
-                //do something
+                callback.onErrorListViews(error);
             }
         });
 
-        VolleySingleton.getInstance().getRequestQueue().add(request);
+        VolleySingleton.getInstance().addToRequestQueue(request);
     }
 
     public void fetchAllPersons(final VolleyCallbackPersonList callback) {;
@@ -120,7 +130,7 @@ public class RESTApiClient {
                         persons.add(person);
                     }
                     catch (JSONException e) {
-                        //do something
+                        System.out.println(e);
                     }
                 }
                 callback.onSuccessListViews(persons);
@@ -129,34 +139,46 @@ public class RESTApiClient {
         }, new Response.ErrorListener(){
             @Override
             public void onErrorResponse(VolleyError error) {
-                //do something
+                callback.onErrorListViews(error);
             }
         });
 
-        VolleySingleton.getInstance().getRequestQueue().add(request);
+        VolleySingleton.getInstance().addToRequestQueue(request);
     }
 
     public void storeDevice(final Device device, final VolleyCallbackStore callback) {
 
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, DEVICE_URL, device.toJson(), new Response.Listener<JSONObject>() {
+        checkIfDeviceAlreadyExists(device, new VolleyCallbackStore() {
             @Override
-            public void onResponse(JSONObject response) {
-                callback.onStoreSuccess();
+            public void onStoreSuccess() {
+                callback.onStoreFailure(new DuplicatedError());
             }
-        }, new Response.ErrorListener() {
+
             @Override
-            public void onErrorResponse(VolleyError error) {
-                //do something
+            public void onStoreFailure(VolleyError error) {
+                JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, DEVICE_URL, device.toJson(), new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        callback.onStoreSuccess();
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        callback.onStoreFailure(error);
+                    }
+                }){
+                    @Override
+                    public Map<String, String> getHeaders() throws AuthFailureError {
+                        Map<String,String> params = new HashMap<String, String>();
+                        params.put("Content-Type","application/json");
+                        return params;
+                    }
+                };
+                VolleySingleton.getInstance().addToRequestQueue(request);
             }
-        }){
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String,String> params = new HashMap<String, String>();
-                params.put("Content-Type","application/json");
-                return params;
-            }
-        };
-        VolleySingleton.getInstance().getRequestQueue().add(request);
+        });
+
+
     }
 
     public void deleteDevice(final Device device, final VolleyCallbackStore callback) {
@@ -171,10 +193,82 @@ public class RESTApiClient {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                //do something
+                callback.onStoreFailure(error);
             }
         });
-            VolleySingleton.getInstance().getRequestQueue().add(request);
+            VolleySingleton.getInstance().addToRequestQueue(request);
+    }
+
+    public void checkIfDeviceAlreadyExists(final Device device, final VolleyCallbackStore callback) {
+
+        StringRequest request = new StringRequest(DEVICE_URL, new Response.Listener<String>(){
+
+            @Override
+            public void onResponse(String response) {
+                callback.onStoreSuccess();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println(error);
+                callback.onStoreFailure(error);
+            }
+        })
+        {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("device_name", device.deviceName);
+                return params;
+            }
+        };
+        VolleySingleton.getInstance().addToRequestQueue(request);
+    }
+
+    public void checkIfDeviceIsAlreadyBooked(final Device device, final VolleyCallbackCheckDevice callback) {
+        String newUrl = DEVICE_URL + "/" + device.deviceId;
+
+        JsonObjectRequest request = new JsonObjectRequest(newUrl, null, new Response.Listener<JSONObject>(){
+
+            @Override
+            public void onResponse(JSONObject response) {
+                Device device = new Device(response);
+                callback.onFetchDeviceSuccess(device);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                callback.onFetchDeviceFailure(error);
+            }
+        });
+        VolleySingleton.getInstance().addToRequestQueue(request);
+    }
+
+    public void updateSystemVersion(final Device device) {
+        String newUrl = DEVICE_URL + "/" + device.deviceId;
+
+        JSONObject jsonMap = new JSONObject();
+        try {
+            JSONObject params = new JSONObject();
+            params.put("system_version", device.systemVersion);
+            jsonMap.put("device", params);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest jsObjRequest = new JsonObjectRequestNoResponseSupported(Request.Method.PUT,newUrl,jsonMap,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                       System.out.println(error);
+                    }
+                }) ;
+        VolleySingleton.getInstance().getRequestQueue().add(jsObjRequest);
     }
 
     public void storePerson(final Person person, final VolleyCallbackStore callback) {
@@ -187,7 +281,7 @@ public class RESTApiClient {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                //do something
+                callback.onStoreFailure(error);
             }
         }){
             @Override
@@ -202,32 +296,48 @@ public class RESTApiClient {
 
     public void storePersonReferenceInDeviceObject(final Person person, final Device device, final VolleyCallbackStore callback) {
 
-        String newUrl = DEVICE_URL + "/" + device.deviceId;
+        checkIfDeviceIsAlreadyBooked(device, new VolleyCallbackCheckDevice() {
+            @Override
+            public void onFetchDeviceSuccess(Device device) {
+                if (device.bookedByPerson){
+                    callback.onStoreFailure(new AlreadyBookedError());
+                } else {
+                    String newUrl = DEVICE_URL + "/" + device.deviceId;
 
-        JSONObject jsonMap = new JSONObject();
-        try {
-            JSONObject params = new JSONObject();
-            params.put("person_id", person.personId);
-            params.put("is_booked", "YES");
-            jsonMap.put("device", params);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+                    JSONObject jsonMap = new JSONObject();
+                    try {
+                        JSONObject params = new JSONObject();
+                        params.put("person_id", person.personId);
+                        params.put("is_booked", "YES");
+                        jsonMap.put("device", params);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
 
-        JsonObjectRequest jsObjRequest = new JsonObjectRequestNoResponseSupported(Request.Method.PUT,newUrl,jsonMap,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                       callback.onStoreSuccess();
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        //todo something
-                    }
-                }) ;
-        VolleySingleton.getInstance().getRequestQueue().add(jsObjRequest);
+                    JsonObjectRequest jsObjRequest = new JsonObjectRequestNoResponseSupported(Request.Method.PUT, newUrl, jsonMap,
+                            new Response.Listener<JSONObject>() {
+                                @Override
+                                public void onResponse(JSONObject response) {
+                                    callback.onStoreSuccess();
+                                }
+                            },
+                            new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    callback.onStoreFailure(error);
+                                }
+                            });
+                    VolleySingleton.getInstance().getRequestQueue().add(jsObjRequest);
+                }
+            }
+
+            @Override
+            public void onFetchDeviceFailure(VolleyError error) {
+                callback.onStoreFailure(error);
+            }
+        });
+
+
 
     }
 
@@ -245,7 +355,7 @@ public class RESTApiClient {
         }
 
 
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.PUT, newUrl, json, new Response.Listener<JSONObject>(){
+        JsonObjectRequest request = new JsonObjectRequestNoResponseSupported(Request.Method.PUT, newUrl, json, new Response.Listener<JSONObject>(){
             @Override
             public void onResponse(JSONObject response) {
                 callback.onStoreSuccess();
@@ -253,10 +363,10 @@ public class RESTApiClient {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                //do something
+                callback.onStoreFailure(error);
             }
         });
-        VolleySingleton.getInstance().getRequestQueue().add(request);
+        VolleySingleton.getInstance().addToRequestQueue(request);
 
     }
 
@@ -272,13 +382,13 @@ public class RESTApiClient {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                //do something
+                callback.onStoreFailure(error);
             }
         });
         VolleySingleton.getInstance().getRequestQueue().add(request);
     }
 
-    public void uploadImage(final Bitmap image, final Device device, final VolleyCallbackStore callback) {
+    public void uploadImage(final Bitmap image, final Device device) {
 
         String newUrl = DEVICE_URL + "/" + device.deviceId;
 
@@ -299,12 +409,11 @@ public class RESTApiClient {
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.PUT, newUrl, json, new Response.Listener<JSONObject>(){
             @Override
             public void onResponse(JSONObject response) {
-                callback.onStoreSuccess();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                //do something
+                System.out.println(error);
             }
         }){
             @Override
