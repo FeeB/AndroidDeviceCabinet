@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.android.volley.VolleyError;
+import com.example.fbraun.devicecabinet.ErrorMapperRESTApiClient;
 import com.example.fbraun.devicecabinet.R;
 import com.example.fbraun.devicecabinet.RESTApiClient;
 import com.example.fbraun.devicecabinet.model.Person;
@@ -33,6 +35,12 @@ public class CreatePersonActivity extends Activity {
                 @Override
                 public void onStoreSuccess() {
                     finish();
+                }
+
+                @Override
+                public void onStoreFailure(VolleyError error) {
+                    ErrorMapperRESTApiClient errorMapperRESTApiClient = new ErrorMapperRESTApiClient();
+                    errorMapperRESTApiClient.handleError(error, CreatePersonActivity.this);
                 }
             });
         } else {

@@ -9,6 +9,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.android.volley.VolleyError;
+import com.example.fbraun.devicecabinet.ErrorMapperRESTApiClient;
 import com.example.fbraun.devicecabinet.R;
 import com.example.fbraun.devicecabinet.RESTApiClient;
 import com.example.fbraun.devicecabinet.model.Device;
@@ -47,6 +49,11 @@ public class PersonListActivity extends ListActivity {
                 PersonListAdapter listOverviewAdapter = new PersonListAdapter(dataList, PersonListActivity.this);
                 setListAdapter(listOverviewAdapter);
             }
+
+            @Override
+            public void onErrorListViews(VolleyError error) {
+
+            }
         });
     }
 
@@ -59,6 +66,12 @@ public class PersonListActivity extends ListActivity {
             @Override
             public void onStoreSuccess() {
                 finish();
+            }
+
+            @Override
+            public void onStoreFailure(VolleyError error) {
+                ErrorMapperRESTApiClient errorMapperRESTApiClient = new ErrorMapperRESTApiClient();
+                errorMapperRESTApiClient.handleError(error, PersonListActivity.this);
             }
         });
 
@@ -80,6 +93,12 @@ public class PersonListActivity extends ListActivity {
                     public void onStoreSuccess() {
                         dataList.remove(indexToDelete);
                         fetchPersons();
+                    }
+
+                    @Override
+                    public void onStoreFailure(VolleyError error) {
+                        ErrorMapperRESTApiClient errorMapperRESTApiClient = new ErrorMapperRESTApiClient();
+                        errorMapperRESTApiClient.handleError(error, PersonListActivity.this);
                     }
                 });
             }

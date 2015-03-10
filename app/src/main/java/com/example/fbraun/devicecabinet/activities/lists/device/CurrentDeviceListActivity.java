@@ -9,7 +9,7 @@ import java.util.ArrayList;
  */
 public class CurrentDeviceListActivity extends AbstractDeviceListActivity {
 
-    public void fetchDevices() {
+    public ArrayList<Device> fetchDevices() {
 
         //toDo real current Device
 
@@ -18,12 +18,14 @@ public class CurrentDeviceListActivity extends AbstractDeviceListActivity {
         iPhone.deviceModel = "iPhone 6";
         iPhone.systemVersion = "8.1";
         iPhone.type = "iPhone";
+        iPhone.bookedByPerson = false;
 
         ArrayList<Device> devicesList = new ArrayList<Device>();
 
         devicesList.add(iPhone);
-        dataList = devicesList;
         DeviceListAdapter deviceListAdapter = new DeviceListAdapter(devicesList, this);
         setListAdapter(deviceListAdapter);
+
+        return devicesList;
     }
 }

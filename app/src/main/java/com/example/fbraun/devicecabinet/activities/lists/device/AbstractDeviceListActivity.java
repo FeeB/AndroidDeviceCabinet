@@ -7,8 +7,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 
+import com.android.volley.VolleyError;
+import com.example.fbraun.devicecabinet.ErrorMapperRESTApiClient;
 import com.example.fbraun.devicecabinet.activities.DeviceActivity;
 import com.example.fbraun.devicecabinet.R;
 import com.example.fbraun.devicecabinet.RESTApiClient;
@@ -22,12 +25,12 @@ import java.util.ArrayList;
 abstract class AbstractDeviceListActivity extends ListActivity {
 
     // TODO: Refactor, this should be private
-    ArrayList<Device> dataList;
+    private ArrayList<Device> dataList;
 
     @Override
     protected void onStart() {
         super.onStart();
-        fetchDevices();
+        this.dataList = fetchDevices();
     }
 
     @Override
@@ -43,7 +46,7 @@ abstract class AbstractDeviceListActivity extends ListActivity {
         });
     }
 
-    abstract void fetchDevices();
+    abstract ArrayList<Device> fetchDevices();
 
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
@@ -71,13 +74,18 @@ abstract class AbstractDeviceListActivity extends ListActivity {
                         dataList.remove(indexToDelete);
                         fetchDevices();
                     }
+
+                    @Override
+                    public void onStoreFailure(VolleyError error) {
+                        ErrorMapperRESTApiClient errorMapperRESTApiClient = new ErrorMapperRESTApiClient();
+                        errorMapperRESTApiClient.handleError(error, AbstractDeviceListActivity.this);
+                    }
                 });
             }
         });
         alert.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                // TODO Auto-generated method stub
                 dialog.dismiss();
             }
         });

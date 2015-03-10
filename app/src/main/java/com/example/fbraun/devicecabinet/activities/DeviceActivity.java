@@ -1,6 +1,8 @@
 package com.example.fbraun.devicecabinet.activities;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -10,8 +12,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.NoConnectionError;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
+import com.example.fbraun.devicecabinet.ErrorMapperRESTApiClient;
 import com.example.fbraun.devicecabinet.R;
 import com.example.fbraun.devicecabinet.RESTApiClient;
 import com.example.fbraun.devicecabinet.VolleySingleton;
@@ -55,9 +60,16 @@ public class DeviceActivity extends Activity {
             if (device.bookedByPerson) {
                 person.setText(device.bookedByPersonFullName);
             } else {
-                ImageView personImage = (ImageView) findViewById(R.id.person_icon_in_device_view);
+                ImageView personImage = (ImageView) findViewById(R.id.person_icon_in_device_activity);
                 personImage.setVisibility(View.GONE);
             }
+
+            //if (device.isCurrentDevice)
+//            if (!device.systemVersion.equals(Build.VERSION.RELEASE)){
+//                device.systemVersion = Build.VERSION.RELEASE;
+//                RESTApiClient client = new RESTApiClient();
+//                client.updateSystemVersion(device);
+//            }
         }
 
         Button bookDeviceButton = (Button) findViewById(R.id.book_return_button);
@@ -88,11 +100,18 @@ public class DeviceActivity extends Activity {
                 public void onStoreSuccess() {
                     finish();
                 }
+
+                @Override
+                public void onStoreFailure(VolleyError error) {
+                    ErrorMapperRESTApiClient errorMapper = new ErrorMapperRESTApiClient();
+                    errorMapper.handleError(error, DeviceActivity.this);
+                }
             });
         } else {
             Intent intent = new Intent(this, PersonListActivity.class);
             intent.putExtra("device", device);
             startActivity(intent);
+            finish();
         }
     }
 
@@ -106,12 +125,7 @@ public class DeviceActivity extends Activity {
             Bitmap photo = (Bitmap) data.getExtras().get("data");
             image.setImageBitmap(photo);
             RESTApiClient client = new RESTApiClient();
-            client.uploadImage(photo, device, new RESTApiClient.VolleyCallbackStore() {
-                @Override
-                public void onStoreSuccess() {
-                    System.out.println("success");
-                }
-            });
+            client.uploadImage(photo, device);
         }
     }
 }
