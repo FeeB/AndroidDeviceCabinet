@@ -16,7 +16,6 @@ import java.util.ArrayList;
  * Created by fbraun on 23.02.15.
  */
 public class CurrentDeviceListFragment extends AbstractDeviceListFragment {
-    private static final String DEFAULT_VALUE = "default";
     private SharedPreferences sharedPref;
     private FragmentTabHost tabHost;
 
@@ -24,11 +23,11 @@ public class CurrentDeviceListFragment extends AbstractDeviceListFragment {
         final ArrayList<Device> devicesList = new ArrayList<Device>();
 
         sharedPref = getActivity().getSharedPreferences("MyPref", Context.MODE_PRIVATE);
-        String deviceId = sharedPref.getString("currentDevice", DEFAULT_VALUE);
+        String deviceId = sharedPref.getString("currentDevice", null);
 
         tabHost = (FragmentTabHost) getActivity().findViewById(android.R.id.tabhost);
 
-        if (deviceId.equals(DEFAULT_VALUE)) {
+        if (deviceId == null) {
             tabHost.getTabWidget().getChildTabViewAt(0).setVisibility(View.GONE);
             tabHost.setCurrentTab(1);
         } else {
@@ -44,7 +43,7 @@ public class CurrentDeviceListFragment extends AbstractDeviceListFragment {
                 @Override
                 public void onFetchDeviceFailure(VolleyError error) {
                     SharedPreferences.Editor editor = sharedPref.edit();
-                    editor.putString("currentDevice", DEFAULT_VALUE);
+                    editor.putString("currentDevice", null);
                     editor.apply();
                     tabHost.getTabWidget().getChildTabViewAt(0).setVisibility(View.GONE);
                     tabHost.setCurrentTab(1);

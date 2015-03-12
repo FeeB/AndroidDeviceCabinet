@@ -24,7 +24,6 @@ public class FragmentTabs extends FragmentActivity {
     private static String AVAILABLE = "available";
     private static String CURRENT = "current";
     private static String BOOKED = "booked";
-    private static final String DEFAULT_VALUE = "default";
 
     private FragmentTabHost tabHost;
 
@@ -45,9 +44,9 @@ public class FragmentTabs extends FragmentActivity {
     public void onStart(){
         super.onStart();
         SharedPreferences sharedPref = getSharedPreferences("MyPref", Context.MODE_PRIVATE);
-        String deviceId = sharedPref.getString("currentDevice", DEFAULT_VALUE);
+        String deviceId = sharedPref.getString("currentDevice", null);
 
-        if (!deviceId.equals(DEFAULT_VALUE)) {
+        if (deviceId != null) {
             tabHost.getTabWidget().getChildTabViewAt(0).setVisibility(View.VISIBLE);
             tabHost.setCurrentTab(0);
         }
