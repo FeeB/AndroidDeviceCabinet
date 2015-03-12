@@ -20,6 +20,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -117,6 +119,25 @@ public class RESTApiClient {
         VolleySingleton.getInstance().addToRequestQueue(request);
     }
 
+    public void fetchDeviceById(final String deviceId, final VolleyCallbackCheckDevice callback) {
+        String newUrl = DEVICE_URL + "/" + deviceId;
+
+        JsonObjectRequest request = new JsonObjectRequest(newUrl, null, new Response.Listener<JSONObject>(){
+
+            @Override
+            public void onResponse(JSONObject response) {
+                Device device = new Device(response);
+                callback.onFetchDeviceSuccess(device);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                callback.onFetchDeviceFailure(error);
+            }
+        });
+        VolleySingleton.getInstance().addToRequestQueue(request);
+    }
+
     public void fetchAllPersons(final VolleyCallbackPersonList callback) {;
         JsonArrayRequest request = new JsonArrayRequest(PERSON_URL, new Response.Listener<JSONArray>() {
 
@@ -146,12 +167,12 @@ public class RESTApiClient {
         VolleySingleton.getInstance().addToRequestQueue(request);
     }
 
-    public void storeDevice(final Device device, final VolleyCallbackStore callback) {
+    public void storeDevice(final Device device, final VolleyCallbackCheckDevice callback) {
 
         checkIfDeviceAlreadyExists(device, new VolleyCallbackStore() {
             @Override
             public void onStoreSuccess() {
-                callback.onStoreFailure(new DuplicatedError());
+                callback.onFetchDeviceFailure(new DuplicatedError());
             }
 
             @Override
@@ -159,12 +180,13 @@ public class RESTApiClient {
                 JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, DEVICE_URL, device.toJson(), new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        callback.onStoreSuccess();
+                        Device device = new Device(response);
+                        callback.onFetchDeviceSuccess(device);
                     }
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        callback.onStoreFailure(error);
+                        callback.onFetchDeviceFailure(error);
                     }
                 }){
                     @Override
@@ -182,7 +204,13 @@ public class RESTApiClient {
     }
 
     public void deleteDevice(final Device device, final VolleyCallbackStore callback) {
-        String newUrl = DEVICE_URL + "/" + device.getDeviceId();
+        String query = null;
+        try {
+            query = URLEncoder.encode(device.getDeviceId(), "utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        String newUrl = DEVICE_URL + "/" + query;
 
         StringRequest request = new StringRequest(Request.Method.DELETE, newUrl, new Response.Listener<String>(){
 
@@ -200,52 +228,43 @@ public class RESTApiClient {
     }
 
     public void checkIfDeviceAlreadyExists(final Device device, final VolleyCallbackStore callback) {
+        String query = null;
+        try {
+            query = URLEncoder.encode(device.getDeviceName(), "utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        String newUrl = DEVICE_URL + "?" + "device_name=" + query;
 
-        StringRequest request = new StringRequest(DEVICE_URL, new Response.Listener<String>(){
+
+        StringRequest request = new StringRequest(Request.Method.GET, newUrl, new Response.Listener<String>(){
 
             @Override
             public void onResponse(String response) {
-                callback.onStoreSuccess();
+                if (response.equals("null")) {
+                    callback.onStoreFailure(new DuplicatedError());
+                } else {
+                    callback.onStoreSuccess();
+                }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.out.println(error);
                 callback.onStoreFailure(error);
-            }
-        })
-        {
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("device_name", device.getDeviceName());
-                return params;
-            }
-        };
-        VolleySingleton.getInstance().addToRequestQueue(request);
-    }
-
-    public void checkIfDeviceIsAlreadyBooked(final Device device, final VolleyCallbackCheckDevice callback) {
-        String newUrl = DEVICE_URL + "/" + device.getDeviceId();
-
-        JsonObjectRequest request = new JsonObjectRequest(newUrl, null, new Response.Listener<JSONObject>(){
-
-            @Override
-            public void onResponse(JSONObject response) {
-                Device device = new Device(response);
-                callback.onFetchDeviceSuccess(device);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                callback.onFetchDeviceFailure(error);
             }
         });
         VolleySingleton.getInstance().addToRequestQueue(request);
     }
 
     public void updateSystemVersion(final Device device) {
-        String newUrl = DEVICE_URL + "/" + device.getDeviceId();
+        String query = null;
+        try {
+            query = URLEncoder.encode(device.getDeviceId(), "utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        String newUrl = DEVICE_URL + "/" + query;
 
         JSONObject jsonMap = new JSONObject();
         try {
@@ -296,13 +315,19 @@ public class RESTApiClient {
 
     public void storePersonReferenceInDeviceObject(final Person person, final Device device, final VolleyCallbackStore callback) {
 
-        checkIfDeviceIsAlreadyBooked(device, new VolleyCallbackCheckDevice() {
+        fetchDeviceById(device.getDeviceId(), new VolleyCallbackCheckDevice() {
             @Override
             public void onFetchDeviceSuccess(Device device) {
-                if (device.isBookedByPerson()){
+                if (device.isBookedByPerson()) {
                     callback.onStoreFailure(new AlreadyBookedError());
                 } else {
-                    String newUrl = DEVICE_URL + "/" + device.getDeviceId();
+                    String query = null;
+                    try {
+                        query = URLEncoder.encode(device.getDeviceId(), "utf-8");
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+                    String newUrl = DEVICE_URL + "/" + query;
 
                     JSONObject jsonMap = new JSONObject();
                     try {
@@ -342,8 +367,13 @@ public class RESTApiClient {
     }
 
     public void deletePersonReferenceFromDevice(final Device device, final VolleyCallbackStore callback){
-
-        String newUrl = DEVICE_URL + "/" + device.getDeviceId();
+        String query = null;
+        try {
+            query = URLEncoder.encode(device.getDeviceId(), "utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        String newUrl = DEVICE_URL + "/" + query;
         JSONObject json = new JSONObject();
         try {
             JSONObject params = new JSONObject();
@@ -371,7 +401,13 @@ public class RESTApiClient {
     }
 
     public void deletePerson(final Person person, final VolleyCallbackStore callback) {
-        String newUrl = PERSON_URL + "/" + person.getPersonId();
+        String query = null;
+        try {
+            query = URLEncoder.encode(person.getPersonId(), "utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        String newUrl = PERSON_URL + "/" + query;
 
         StringRequest request = new StringRequest(Request.Method.DELETE, newUrl, new Response.Listener<String>(){
 
@@ -389,8 +425,13 @@ public class RESTApiClient {
     }
 
     public void uploadImage(final Bitmap image, final Device device) {
-
-        String newUrl = DEVICE_URL + "/" + device.getDeviceId();
+        String query = null;
+        try {
+            query = URLEncoder.encode(device.getDeviceId(), "utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        String newUrl = DEVICE_URL + "/" + query;
 
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         image.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream); //bm is the bitmap object
