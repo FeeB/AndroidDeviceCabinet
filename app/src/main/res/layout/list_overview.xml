@@ -76,6 +76,15 @@
                     android:layout_marginLeft="5px"
                     android:layout_below="@+id/system_in_overview_activity"
                     android:layout_toRightOf="@+id/person_icon_in_overview_activity"
-                    android:layout_toEndOf="@+id/person_icon_in_overview_activity" />
+                    android:layout_toEndOf="@+id/person_icon_in_overview_activity"/>
+
+                <ImageView
+                    android:id="@+id/trash_icon_in_overview_activity"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignBottom="@+id/system_in_overview_activity"
+                    android:layout_marginLeft="500px"
+                    android:src="@drawable/trash"
+                    android:clickable="true"/>
 
 </RelativeLayout>
