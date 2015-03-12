@@ -2,9 +2,12 @@ package com.example.fbraun.devicecabinet.activities;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTabHost;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -67,16 +70,6 @@ public class CreateDeviceActivity extends Activity {
                 }
             }
         });
-
-        Switch currentDeviceSwitch = (Switch) findViewById(R.id.switch_current_device);
-        currentDeviceSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    //toDo store Device as current device
-                }
-            }
-        });
     }
 
     public void storeDevice(View view) {
@@ -89,15 +82,20 @@ public class CreateDeviceActivity extends Activity {
         device.setSystemVersion(Build.VERSION.RELEASE);
 
         if (deviceName != null && deviceModel != null) {
+
            RESTApiClient client = new RESTApiClient();
-            client.storeDevice(device, new RESTApiClient.VolleyCallbackStore() {
+            client.storeDevice(device, new RESTApiClient.VolleyCallbackCheckDevice() {
                 @Override
-                public void onStoreSuccess() {
+                public void onFetchDeviceSuccess(Device device) {
+                    Switch currentDeviceSwitch = (Switch) findViewById(R.id.switch_current_device);
+                    if (currentDeviceSwitch.isChecked()) {
+                        storeCurrentDevice(device);
+                    }
                     finish();
                 }
 
                 @Override
-                public void onStoreFailure(VolleyError error) {
+                public void onFetchDeviceFailure(VolleyError error) {
                     ErrorMapperRESTApiClient errorMapperRESTApiClient = new ErrorMapperRESTApiClient();
                     errorMapperRESTApiClient.handleError(error, CreateDeviceActivity.this);
                 }
@@ -112,5 +110,12 @@ public class CreateDeviceActivity extends Activity {
                 }
             });
         }
+    }
+
+    public void storeCurrentDevice(Device device) {
+        SharedPreferences sharedPref = getSharedPreferences("MyPref", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("currentDevice", device.getDeviceId());
+        editor.apply();
     }
 }

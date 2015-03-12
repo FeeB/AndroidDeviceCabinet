@@ -1,6 +1,7 @@
 package com.example.fbraun.devicecabinet.activities.lists.device;
 
 import android.app.AlertDialog;
+import android.media.Image;
 import android.support.v4.app.ListFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -9,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.android.volley.VolleyError;
@@ -33,22 +36,11 @@ abstract class AbstractDeviceListFragment extends ListFragment {
         return inflater.inflate(R.layout.activity_list, container, false);
     }
 
+
     @Override
     public void onStart() {
         super.onStart();
         this.dataList = fetchDevices();
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        this.getListView().setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                removeItemFromPosition(position);
-                return true;
-            }
-        });
     }
 
     abstract ArrayList<Device> fetchDevices();
@@ -62,9 +54,9 @@ abstract class AbstractDeviceListFragment extends ListFragment {
         startActivity(intent);
     }
 
-    protected void removeItemFromPosition(int position) {
+    protected void removeItemFromPosition(View view) {
         final RESTApiClient client = new RESTApiClient();
-        final int indexToDelete = position;
+        final int indexToDelete = this.getListView().getPositionForView(view);
 
         AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
 
