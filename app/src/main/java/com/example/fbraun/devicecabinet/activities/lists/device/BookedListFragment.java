@@ -1,9 +1,5 @@
 package com.example.fbraun.devicecabinet.activities.lists.device;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-
-import com.android.volley.NoConnectionError;
 import com.android.volley.VolleyError;
 import com.example.fbraun.devicecabinet.ErrorMapperRESTApiClient;
 import com.example.fbraun.devicecabinet.RESTApiClient;
@@ -14,7 +10,7 @@ import java.util.ArrayList;
 /**
  * Created by fbraun on 23.02.15.
  */
-public class BookedListActivity extends AbstractDeviceListActivity {
+public class BookedListFragment extends AbstractDeviceListFragment {
 
     public ArrayList<Device> fetchDevices() {
         final ArrayList<Device> devices = new ArrayList<>();
@@ -22,7 +18,7 @@ public class BookedListActivity extends AbstractDeviceListActivity {
         client.fetchBookedDevices(new RESTApiClient.VolleyCallbackDeviceList() {
             @Override
             public void onSuccessListViews(ArrayList<Device> result) {
-                DeviceListAdapter deviceListAdapter = new DeviceListAdapter(result, BookedListActivity.this);
+                DeviceListAdapter deviceListAdapter = new DeviceListAdapter(result, getActivity());
                 setListAdapter(deviceListAdapter);
 
                 devices.addAll(result);
@@ -31,7 +27,7 @@ public class BookedListActivity extends AbstractDeviceListActivity {
             @Override
             public void onErrorListViews(VolleyError error) {
                 ErrorMapperRESTApiClient errorMapper = new ErrorMapperRESTApiClient();
-                errorMapper.handleError(error, BookedListActivity.this);
+                errorMapper.handleError(error, getActivity());
             }
         });
 

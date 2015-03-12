@@ -1,13 +1,14 @@
 package com.example.fbraun.devicecabinet.activities.lists.device;
 
 import android.app.AlertDialog;
-import android.app.ListActivity;
+import android.support.v4.app.ListFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.android.volley.VolleyError;
@@ -22,20 +23,25 @@ import java.util.ArrayList;
 /**
  * Created by fbraun on 24.02.15.
  */
-abstract class AbstractDeviceListActivity extends ListActivity {
+abstract class AbstractDeviceListFragment extends ListFragment {
 
     private ArrayList<Device> dataList;
 
     @Override
-    protected void onStart() {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        this.dataList = fetchDevices();
+        return inflater.inflate(R.layout.activity_list, container, false);
+    }
+
+    @Override
+    public void onStart() {
         super.onStart();
         this.dataList = fetchDevices();
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onActivityCreated(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list);
         this.getListView().setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
@@ -48,8 +54,8 @@ abstract class AbstractDeviceListActivity extends ListActivity {
     abstract ArrayList<Device> fetchDevices();
 
     @Override
-    protected void onListItemClick(ListView l, View v, int position, long id) {
-        Intent intent = new Intent(this, DeviceActivity.class);
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        Intent intent = new Intent(getActivity(), DeviceActivity.class);
         Device device = dataList.get(position);
         intent.putExtra("device", device);
 
@@ -60,7 +66,7 @@ abstract class AbstractDeviceListActivity extends ListActivity {
         final RESTApiClient client = new RESTApiClient();
         final int indexToDelete = position;
 
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
 
         alert.setTitle(getString(R.string.delete));
         alert.setMessage(getString(R.string.delete_message));
@@ -77,7 +83,7 @@ abstract class AbstractDeviceListActivity extends ListActivity {
                     @Override
                     public void onStoreFailure(VolleyError error) {
                         ErrorMapperRESTApiClient errorMapperRESTApiClient = new ErrorMapperRESTApiClient();
-                        errorMapperRESTApiClient.handleError(error, AbstractDeviceListActivity.this);
+                        errorMapperRESTApiClient.handleError(error, getActivity());
                     }
                 });
             }

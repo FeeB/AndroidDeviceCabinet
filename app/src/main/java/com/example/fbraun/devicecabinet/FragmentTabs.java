@@ -1,52 +1,40 @@
 package com.example.fbraun.devicecabinet;
 
-import android.app.TabActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTabHost;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TabHost;
 
 import com.example.fbraun.devicecabinet.activities.CreateDeviceActivity;
 import com.example.fbraun.devicecabinet.activities.CreatePersonActivity;
-import com.example.fbraun.devicecabinet.activities.lists.device.AvailableListActivity;
-import com.example.fbraun.devicecabinet.activities.lists.device.BookedListActivity;
-import com.example.fbraun.devicecabinet.activities.lists.device.CurrentDeviceListActivity;
+import com.example.fbraun.devicecabinet.activities.lists.device.AvailableListFragment;
+import com.example.fbraun.devicecabinet.activities.lists.device.BookedListFragment;
+import com.example.fbraun.devicecabinet.activities.lists.device.CurrentDeviceListFragment;
 
 /**
  * Created by fbraun on 23.02.15.
  */
 
-//todo whats wrong?
-public class TabHostManager extends TabActivity {
+public class FragmentTabs extends FragmentActivity {
     private static String AVAILABLE = "available";
     private static String CURRENT = "current";
     private static String BOOKED = "booked";
 
+    private FragmentTabHost tabHost;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.tab_navigation);
-        TabHost tabHost = getTabHost();
+        tabHost = (FragmentTabHost)findViewById(android.R.id.tabhost);
+        tabHost.setup(this, getSupportFragmentManager(), android.R.id.tabcontent);
 
-        TabHost.TabSpec current = tabHost.newTabSpec(CURRENT);
-        current.setIndicator(getResources().getString(R.string.current));
-        Intent currentIntent = new Intent(this, CurrentDeviceListActivity.class);
-        current.setContent(currentIntent);
-
-        TabHost.TabSpec available = tabHost.newTabSpec(AVAILABLE);
-        available.setIndicator(getResources().getString(R.string.available));
-        Intent availableIntent = new Intent(this, AvailableListActivity.class);
-        available.setContent(availableIntent);
-
-        TabHost.TabSpec booked = tabHost.newTabSpec(BOOKED);
-        booked.setIndicator(getResources().getString(R.string.booked));
-        Intent bookedIntent = new Intent(this, BookedListActivity.class);
-        booked.setContent(bookedIntent);
-
-        tabHost.addTab(current);
-        tabHost.addTab(available);
-        tabHost.addTab(booked);
+        tabHost.addTab(tabHost.newTabSpec(CURRENT).setIndicator(getResources().getString(R.string.current)), CurrentDeviceListFragment.class, null);
+        tabHost.addTab(tabHost.newTabSpec(AVAILABLE).setIndicator(getResources().getString(R.string.available)), AvailableListFragment.class, null);
+        tabHost.addTab(tabHost.newTabSpec(BOOKED).setIndicator(getResources().getString(R.string.booked)), BookedListFragment.class, null);
     }
 
     @Override

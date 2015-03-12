@@ -11,7 +11,7 @@
         android:label="@string/app_name"
         android:name=".MyApplication">
         <activity
-            android:name=".TabHostManager"
+            android:name=".FragmentTabs"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,53 +19,53 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.lists.device.AvailableListActivity"
+            android:name=".activities.lists.device.AvailableListFragment"
             android:label="OverViewList"
-            android:parentActivityName=".TabHostManager" >
+            android:parentActivityName=".FragmentTabs" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".TabHostManager" />
+                android:value=".FragmentTabs" />
         </activity>
         <activity
-            android:name=".activities.lists.device.BookedListActivity"
+            android:name=".activities.lists.device.BookedListFragment"
             android:label="BookedList"
-            android:parentActivityName=".TabHostManager" >
+            android:parentActivityName=".FragmentTabs" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".TabHostManager" />
+                android:value=".FragmentTabs" />
         </activity>
         <activity
-            android:name=".activities.lists.device.CurrentDeviceListActivity"
+            android:name=".activities.lists.device.CurrentDeviceListFragment"
             android:label="CurrentDeviceList"
-            android:parentActivityName=".TabHostManager" >
+            android:parentActivityName=".FragmentTabs" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".TabHostManager" />
+                android:value=".FragmentTabs" />
         </activity>
         <activity
             android:name=".activities.DeviceActivity"
             android:label="DeviceView"
             android:launchMode="singleTask"
-            android:parentActivityName=".activities.lists.device.AvailableListActivity" >
+            android:parentActivityName=".activities.lists.device.AvailableListFragment" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.lists.device.AvailableListActivity" />
+                android:value=".activities.lists.device.AvailableListFragment" />
         </activity>
         <activity
             android:name=".activities.CreateDeviceActivity"
             android:label="CreateDevice"
-            android:parentActivityName=".activities.lists.device.AvailableListActivity" >
+            android:parentActivityName=".activities.lists.device.AvailableListFragment" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.lists.device.AvailableListActivity" />
+                android:value=".activities.lists.device.AvailableListFragment" />
         </activity>
         <activity
             android:name=".activities.CreatePersonActivity"
             android:label="Create Person"
-            android:parentActivityName=".activities.lists.device.AvailableListActivity" >
+            android:parentActivityName=".activities.lists.device.AvailableListFragment" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.lists.device.AvailableListActivity" />
+                android:value=".activities.lists.device.AvailableListFragment" />
         </activity>
         <activity
             android:name=".activities.lists.person.PersonListActivity"

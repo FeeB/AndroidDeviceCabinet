@@ -7,7 +7,7 @@ import java.util.ArrayList;
 /**
  * Created by fbraun on 23.02.15.
  */
-public class CurrentDeviceListActivity extends AbstractDeviceListActivity {
+public class CurrentDeviceListFragment extends AbstractDeviceListFragment {
 
     public ArrayList<Device> fetchDevices() {
 
@@ -23,7 +23,7 @@ public class CurrentDeviceListActivity extends AbstractDeviceListActivity {
         ArrayList<Device> devicesList = new ArrayList<Device>();
 
         devicesList.add(iPhone);
-        DeviceListAdapter deviceListAdapter = new DeviceListAdapter(devicesList, this);
+        DeviceListAdapter deviceListAdapter = new DeviceListAdapter(devicesList, getActivity());
         setListAdapter(deviceListAdapter);
 
         return devicesList;
