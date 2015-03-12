@@ -2,9 +2,12 @@ package com.example.fbraun.devicecabinet.activities;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
@@ -67,12 +70,16 @@ public class DeviceActivity extends Activity {
                 personImage.setVisibility(View.GONE);
             }
 
-            //if (device.isCurrentDevice)
-//            if (!device.systemVersion.equals(Build.VERSION.RELEASE)){
-//                device.systemVersion = Build.VERSION.RELEASE;
-//                RESTApiClient client = new RESTApiClient();
-//                client.updateSystemVersion(device);
-//            }
+            SharedPreferences sharedPref = getSharedPreferences("MyPref", Context.MODE_PRIVATE);
+            String currentDeviceId = sharedPref.getString("currentDevice", null);
+
+            if (currentDeviceId.equals(device.getDeviceId())) {
+                if (!device.getSystemVersion().equals(Build.VERSION.RELEASE)) {
+                    device.setSystemVersion(Build.VERSION.RELEASE);
+                    RESTApiClient client = new RESTApiClient();
+                    client.updateSystemVersion(device);
+                }
+            }
         }
 
         Button bookDeviceButton = (Button) findViewById(R.id.book_return_button);
