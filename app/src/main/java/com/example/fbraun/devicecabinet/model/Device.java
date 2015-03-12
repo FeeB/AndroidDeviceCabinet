@@ -13,7 +13,6 @@ import java.util.HashMap;
  */
 public class Device implements Parcelable {
 
-    // TODO: Members should never be public in java
     private String deviceName;
     private String type;
     private boolean bookedByPerson;
