@@ -53,42 +53,4 @@ abstract class AbstractDeviceListFragment extends ListFragment {
 
         startActivity(intent);
     }
-
-    protected void removeItemFromPosition(View view) {
-        final RESTApiClient client = new RESTApiClient();
-        final int indexToDelete = this.getListView().getPositionForView(view);
-
-        AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
-
-        alert.setTitle(getString(R.string.delete));
-        alert.setMessage(getString(R.string.delete_message));
-        alert.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                client.deleteDevice(dataList.get(indexToDelete), new RESTApiClient.VolleyCallbackStore() {
-                    @Override
-                    public void onStoreSuccess() {
-                        dataList.remove(indexToDelete);
-                        fetchDevices();
-                    }
-
-                    @Override
-                    public void onStoreFailure(VolleyError error) {
-                        ErrorMapperRESTApiClient errorMapperRESTApiClient = new ErrorMapperRESTApiClient();
-                        errorMapperRESTApiClient.handleError(error, getActivity());
-                    }
-                });
-            }
-        });
-        alert.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-
-        alert.show();
-    }
-
-
 }
