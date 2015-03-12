@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
+import com.example.fbraun.devicecabinet.CircledNetworkImageView;
 import com.example.fbraun.devicecabinet.ErrorMapperRESTApiClient;
 import com.example.fbraun.devicecabinet.R;
 import com.example.fbraun.devicecabinet.RESTApiClient;
@@ -71,7 +72,7 @@ public class DeviceListAdapter extends ArrayAdapter<Device> {
         TextView person = (TextView) view.findViewById(R.id.person_name_in_overview_activity);
         person.setText(device.getBookedByPersonFullName());
 
-        NetworkImageView image = (NetworkImageView) view.findViewById(R.id.device_image_in_overview_list);
+        CircledNetworkImageView image = (CircledNetworkImageView) view.findViewById(R.id.device_image_in_overview_list);
         ImageLoader imageLoader = VolleySingleton.getInstance().getImageLoader();
         if (device.getImageUrl() != null) {
             image.setImageUrl(device.getImageUrl(), imageLoader);

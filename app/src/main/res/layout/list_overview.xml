@@ -4,14 +4,15 @@
     android:theme="@style/AppTheme">
 
 
-                <com.android.volley.toolbox.NetworkImageView
+                <com.example.fbraun.devicecabinet.CircledNetworkImageView
                     android:id="@+id/device_image_in_overview_list"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:layout_marginBottom="20dp"
                     android:layout_marginTop="10dp"
                     android:layout_alignParentLeft="true"
-                    android:layout_alignParentTop="true" />
+                    android:layout_alignParentTop="true"
+                    android:src="@drawable/placeholder"/>
 
                 <TextView
                     android:id="@+id/device_name_label_in_overview_activity"
