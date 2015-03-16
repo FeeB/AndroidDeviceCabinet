@@ -2,8 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.fbraun.devicecabinet" >
 
-    <uses-sdk android:minSdkVersion="7" android:targetSdkVersion="11"/>
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-sdk android:minSdkVersion="15" android:targetSdkVersion="18" />
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -42,31 +44,28 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".FragmentTabs" />
         </fragment>
-        <fragment
+        <activity
             android:name=".activities.DeviceActivity"
-            android:label="DeviceView"
-            android:launchMode="singleTask"
-            android:parentActivityName=".activities.lists.device.AvailableListFragment" >
+            android:label="DeviceView">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.lists.device.AvailableListFragment" />
-        </fragment>
-        <fragment
+                android:value=".FragmentTabs" />
+        </activity>
+        <activity
             android:name=".activities.CreateDeviceActivity"
-            android:label="CreateDevice"
-            android:parentActivityName=".activities.lists.device.AvailableListFragment" >
+            android:label="CreateDevice">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.lists.device.AvailableListFragment" />
-        </fragment>
-        <fragment
+                android:value=".FragmentTabs" />
+        </activity>
+        <activity
             android:name=".activities.CreatePersonActivity"
             android:label="Create Person"
-            android:parentActivityName=".activities.lists.device.AvailableListFragment" >
+            android:parentActivityName=".FragmentTabs" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.lists.device.AvailableListFragment" />
-        </fragment>
+                android:value=".FragmentTabs" />
+        </activity>
         <activity
             android:name=".activities.lists.person.PersonListActivity"
             android:label="List of Persons"
