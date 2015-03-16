@@ -42,31 +42,31 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".FragmentTabs" />
         </fragment>
-        <fragment
+        <activity
             android:name=".activities.DeviceActivity"
             android:label="DeviceView"
             android:launchMode="singleTask"
-            android:parentActivityName=".activities.lists.device.AvailableListFragment" >
+            android:parentActivityName=".FragmentTabs" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.lists.device.AvailableListFragment" />
-        </fragment>
-        <fragment
+                android:value=".FragmentTabs" />
+        </activity>
+        <activity
             android:name=".activities.CreateDeviceActivity"
             android:label="CreateDevice"
-            android:parentActivityName=".activities.lists.device.AvailableListFragment" >
+            android:parentActivityName=".activities.CreateDeviceActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.lists.device.AvailableListFragment" />
-        </fragment>
-        <fragment
+                android:value=".activities.CreateDeviceActivity" />
+        </activity>
+        <activity
             android:name=".activities.CreatePersonActivity"
             android:label="Create Person"
-            android:parentActivityName=".activities.lists.device.AvailableListFragment" >
+            android:parentActivityName=".FragmentTabs" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.lists.device.AvailableListFragment" />
-        </fragment>
+                android:value=".FragmentTabs" />
+        </activity>
         <activity
             android:name=".activities.lists.person.PersonListActivity"
             android:label="List of Persons"
