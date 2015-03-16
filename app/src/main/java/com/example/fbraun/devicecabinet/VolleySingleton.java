@@ -39,7 +39,7 @@ public class VolleySingleton {
 
     public static synchronized VolleySingleton getInstance() {
         if (mInstance == null) {
-            mInstance = new VolleySingleton(MyApplication.getContext());
+            mInstance = new VolleySingleton(DeviceCabinet.getContext());
         }
         return mInstance;
     }
