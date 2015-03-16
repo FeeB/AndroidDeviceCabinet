@@ -35,4 +35,5 @@
     <string name="booked">Gebucht</string>
     <string name="create_device">Neues Gerät erstellen</string>
     <string name="create_person">Neue Person erstellen</string>
+    <string name="category">Kategorie</string>
 </resources>
