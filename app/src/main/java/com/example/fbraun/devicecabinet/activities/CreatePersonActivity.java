@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.android.volley.VolleyError;
@@ -21,6 +22,14 @@ public class CreatePersonActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_person);
+
+        Button storeDevice = (Button) findViewById(R.id.save_person_button);
+        storeDevice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                storePerson(v);
+            }
+        });
     }
 
     public void storePerson(View view) {

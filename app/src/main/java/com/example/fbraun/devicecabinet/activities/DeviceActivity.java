@@ -73,7 +73,7 @@ public class DeviceActivity extends Activity {
             SharedPreferences sharedPref = getSharedPreferences("MyPref", Context.MODE_PRIVATE);
             String currentDeviceId = sharedPref.getString("currentDevice", null);
 
-            if (currentDeviceId.equals(device.getDeviceId())) {
+            if (currentDeviceId != null && currentDeviceId.equals(device.getDeviceId())) {
                 if (!device.getSystemVersion().equals(Build.VERSION.RELEASE)) {
                     device.setSystemVersion(Build.VERSION.RELEASE);
                     RESTApiClient client = new RESTApiClient();
