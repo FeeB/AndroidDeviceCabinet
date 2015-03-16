@@ -74,12 +74,10 @@ public class DeviceListAdapter extends ArrayAdapter<Device> {
 
         CircledNetworkImageView image = (CircledNetworkImageView) view.findViewById(R.id.device_image_in_overview_list);
         ImageLoader imageLoader = VolleySingleton.getInstance().getImageLoader();
-        if (device.getImageUrl() != null) {
-            image.setImageUrl(device.getImageUrl(), imageLoader);
-        } else {
-            image.setDefaultImageResId(R.drawable.placeholder);
-            image.setImageUrl(null, imageLoader);
-        }
+
+        image.setDefaultImageResId(R.drawable.placeholder);
+        image.setErrorImageResId(R.drawable.placeholder);
+        image.setImageUrl(device.getImageUrl(), imageLoader);
 
         if (device.isBookedByPerson()) {
             ImageView personImage = (ImageView) view.findViewById(R.id.person_icon_in_overview_activity);

@@ -124,7 +124,7 @@ public class CircledNetworkImageView extends ImageView {
                 mImageContainer.cancelRequest();
                 mImageContainer = null;
             }
-            setImageBitmap(null);
+            setImageResource(mDefaultImageId);
             return;
         }
 
