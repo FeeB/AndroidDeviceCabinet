@@ -12,6 +12,7 @@ import com.example.fbraun.devicecabinet.activities.DidExitRegionActivity;
 import com.example.fbraun.devicecabinet.model.Device;
 import com.example.fbraun.devicecabinet.restnetworking.RESTApiClient;
 
+import org.altbeacon.beacon.Beacon;
 import org.altbeacon.beacon.BeaconConsumer;
 import org.altbeacon.beacon.BeaconManager;
 import org.altbeacon.beacon.BeaconParser;
@@ -70,6 +71,7 @@ public class DeviceCabinet extends Application implements BeaconConsumer {
         mBeaconManager.setMonitorNotifier(new MonitorNotifier() {
             @Override
             public void didEnterRegion(Region region) {
+
                 RESTApiClient client = new RESTApiClient();
                 client.fetchDeviceById(fetchedDevice.getDeviceId(), new RESTApiClient.VolleyCallbackCheckDevice() {
                     @Override
@@ -77,9 +79,10 @@ public class DeviceCabinet extends Application implements BeaconConsumer {
                         if (device.isBookedByPerson()) {
                             Intent intent = new Intent(instance, DidEnterRegionActivity.class);
                             intent.putExtra("device", device);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            isCurrentDeviceBooked = false;
                             try {
-                                isCurrentDeviceBooked = false;
                                 startActivity(intent);
                             } catch (Error e) {
                                 System.out.println(e);
@@ -104,9 +107,10 @@ public class DeviceCabinet extends Application implements BeaconConsumer {
                         if(!device.isBookedByPerson()) {
                             Intent intent = new Intent(instance, DidExitRegionActivity.class);
                             intent.putExtra("device", device);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            isCurrentDeviceBooked = true;
                             try {
-                                isCurrentDeviceBooked = true;
                                 startActivity(intent);
                             } catch (Error e) {
                                 System.out.println(e);

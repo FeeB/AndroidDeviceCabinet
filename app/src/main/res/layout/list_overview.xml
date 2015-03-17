@@ -84,7 +84,7 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_alignBottom="@+id/system_in_overview_activity"
-                    android:layout_marginLeft="500px"
+                    android:layout_marginLeft="600px"
                     android:src="@drawable/trash"
                     android:clickable="true"/>
 

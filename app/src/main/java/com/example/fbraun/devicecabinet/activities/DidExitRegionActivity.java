@@ -39,7 +39,7 @@ public class DidExitRegionActivity extends Activity {
 
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this, AlertDialog.THEME_DEVICE_DEFAULT_DARK);
             dialogBuilder.setIcon(R.drawable.app_icon).setTitle(getString(R.string.book)).setMessage(getString(R.string.book_message));
-            dialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            dialogBuilder.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     try {
@@ -47,6 +47,13 @@ public class DidExitRegionActivity extends Activity {
                     } catch (PendingIntent.CanceledException e) {
                         e.printStackTrace();
                     }
+
+                }
+            });
+            dialogBuilder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
 
                 }
             });
