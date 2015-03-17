@@ -67,8 +67,7 @@ public class DeviceCabinet extends Application implements BeaconConsumer {
 
                 @Override
                 public void onFetchDeviceFailure(VolleyError error) {
-                    ErrorMapperRESTApiClient errorMapperRESTApiClient = new ErrorMapperRESTApiClient();
-                    errorMapperRESTApiClient.handleError(error, DeviceCabinet.this);
+
                 }
             });
         }
@@ -99,8 +98,7 @@ public class DeviceCabinet extends Application implements BeaconConsumer {
 
                     @Override
                     public void onFetchDeviceFailure(VolleyError error) {
-                        ErrorMapperRESTApiClient errorMapperRESTApiClient = new ErrorMapperRESTApiClient();
-                        errorMapperRESTApiClient.handleError(error, DeviceCabinet.this);
+
                     }
                 });
 
@@ -127,8 +125,7 @@ public class DeviceCabinet extends Application implements BeaconConsumer {
 
                     @Override
                     public void onFetchDeviceFailure(VolleyError error) {
-                        ErrorMapperRESTApiClient errorMapperRESTApiClient = new ErrorMapperRESTApiClient();
-                        errorMapperRESTApiClient.handleError(error, DeviceCabinet.this);
+
                     }
                 });
 
