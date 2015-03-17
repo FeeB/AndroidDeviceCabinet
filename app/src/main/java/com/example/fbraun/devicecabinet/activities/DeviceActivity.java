@@ -46,6 +46,14 @@ public class DeviceActivity extends Activity {
         TextView model = (TextView) findViewById(R.id.model_text_in_device_view);
         TextView person = (TextView) findViewById(R.id.person_name_in_device_view);
         image = (NetworkImageView) findViewById(R.id.image_device_view);
+        Button bookDeviceButton = (Button) findViewById(R.id.book_return_button);
+
+        bookDeviceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bookReturnDevice(v);
+            }
+        });
 
         Intent intent = getIntent();
         if (intent != null) {
@@ -54,6 +62,10 @@ public class DeviceActivity extends Activity {
             system.setText(device.getSystemVersion());
             type.setText(device.getType());
             model.setText(device.getDeviceModel());
+
+            if (intent.getBooleanExtra("beacon", false)) {
+                bookDeviceButton.performClick();
+            }
 
             ImageLoader imageLoader = VolleySingleton.getInstance().getImageLoader();
             if (device.getImageUrl() != null) {
@@ -82,16 +94,10 @@ public class DeviceActivity extends Activity {
             }
         }
 
-        Button bookDeviceButton = (Button) findViewById(R.id.book_return_button);
         if (device.isBookedByPerson()) {
             bookDeviceButton.setText(getString(R.string.return_device));
         }
-        bookDeviceButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                bookReturnDevice(v);
-            }
-        });
+
 
         Button changePictureButton = (Button) findViewById(R.id.change_picture_button);
         changePictureButton.setOnClickListener(new View.OnClickListener() {
