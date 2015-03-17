@@ -13,7 +13,7 @@
     android:layout_height="wrap_content"
     android:textColor="#000000"
     android:id="@+id/deviceNameLabel"
-    android:text="Device Name"
+    android:text="@string/device_name"
     android:textSize="17sp"
     android:layout_marginStart="34dp"
     android:gravity="right"/>
@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:textColor="#000000"
         android:id="@+id/device_model_label"
-        android:text="Model"
+        android:text="@string/model"
         android:textSize="17sp"
         android:layout_marginStart="34dp"
         android:gravity="right"/>
@@ -50,7 +50,7 @@
         android:id="@+id/device_model_text"
         android:textColorHint="#000000"
         android:textColor="#000000"
-        android:hint="Model"
+        android:hint="@string/model"
         android:textSize="14sp"
         android:layout_alignBaseline="@+id/device_model_label"
         android:layout_toRightOf="@+id/device_model_label"
@@ -108,32 +108,28 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/switch_current_device"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="37dp"
             android:layout_centerInParent="true"
             android:background="#ffffff"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Current Device"
+            android:text="@string/current_device"
+            android:textColor="#000000"
             android:textSize="16sp"
-            android:layout_marginTop="13dp"
+            android:layout_marginTop="40dp"
             android:layout_marginLeft="5dp"/>
 
         </LinearLayout>
-
 
     <Button
         android:layout_width="167dp"
         android:layout_height="wrap_content"
         android:id="@+id/save_device_button"
-        android:text="Save"
+        android:text="@string/save"
+        android:layout_marginTop="40dp"
         android:layout_below="@+id/switch_current_device_group"
-        android:layout_marginLeft="70dp"
-        android:layout_marginTop="10dp"
-        android:layout_centerInParent="true"/>
-
-
-
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

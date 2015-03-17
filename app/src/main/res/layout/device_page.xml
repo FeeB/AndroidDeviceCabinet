@@ -4,9 +4,9 @@
     android:layout_height="match_parent"
     android:weightSum="1"
     android:theme="@style/AppTheme"
-    android:background="#ffffff" >
+    android:background="#ffffff">
 
-    <com.android.volley.toolbox.NetworkImageView
+    <com.example.fbraun.devicecabinet.CircledNetworkImageView
         android:id="@+id/image_device_view"
         android:layout_width="100dp"
         android:layout_height="100dp"
@@ -19,8 +19,9 @@
         android:layout_width="110dp"
         android:layout_height="30dp"
         android:layout_marginLeft="23dp"
-        android:text="Change Picture"
+        android:text="@string/change_picture"
         android:textSize="10sp"
+        android:padding="5dp"
         android:layout_below="@+id/image_device_view"
         android:id="@+id/change_picture_button"/>
 
@@ -32,13 +33,13 @@
         android:layout_marginTop="30dp"
         android:layout_marginLeft="23dp"
         android:layout_toRightOf="@+id/image_device_view"
-        android:text="Device"
+        android:text="@string/device"
         android:textSize="17sp" />
 
     <ImageView
         android:id="@+id/system_icon_image_view_in_device_activity"
-        android:layout_width="12dp"
-        android:layout_height="12dp"
+        android:layout_width="14dp"
+        android:layout_height="14dp"
         android:layout_marginLeft="23dp"
         android:layout_toRightOf="@+id/image_device_view"
         android:src="@drawable/ic_launcher"
@@ -50,16 +51,16 @@
         android:layout_height="wrap_content"
         android:textColor="#666666"
         android:layout_marginTop="55dp"
-        android:layout_marginLeft="5dp"
+        android:layout_marginLeft="5px"
         android:layout_toRightOf="@+id/system_icon_image_view_in_device_activity"
-        android:text="System"
+        android:text="@string/system"
         android:textSize="14sp" />
 
     <ImageView
-        android:id="@+id/person_icon_in_device_view"
-        android:layout_width="12dp"
-        android:layout_height="12dp"
-        android:src="@drawable/ic_launcher"
+        android:id="@+id/person_icon_in_device_activity"
+        android:layout_width="14dp"
+        android:layout_height="14dp"
+        android:src="@drawable/user"
         android:layout_marginLeft="23dp"
         android:layout_alignTop="@+id/person_name_in_device_view"
         android:layout_toRightOf="@+id/image_device_view"/>
@@ -70,15 +71,15 @@
         android:layout_height="wrap_content"
         android:textColor="#666666"
         android:layout_marginTop="85dp"
-        android:layout_marginLeft="5dp"
+        android:layout_marginLeft="5px"
         android:layout_toRightOf="@+id/system_icon_image_view_in_device_activity"
         android:textSize="14sp" />
 
     <Button
-        android:layout_width="113dp"
-        android:layout_height="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="23dp"
-        android:text="Book"
+        android:text="@string/book"
         android:textSize="15sp"
         android:layout_toRightOf="@+id/image_device_view"
         android:layout_marginTop="100dp"
@@ -94,7 +95,7 @@
         <TextView
             android:layout_width="114dp"
             android:layout_height="wrap_content"
-            android:text="Category"
+            android:text="@string/category"
             android:id="@+id/type_label_in_device_view"
             android:textColor="#666666"
             android:layout_marginTop="15dp"
@@ -104,7 +105,6 @@
         <TextView
             android:layout_width="160dp"
             android:layout_height="wrap_content"
-            android:text="text"
             android:id="@+id/type_text_in_device_view"
             android:layout_gravity="center|top"
             android:textColor="#666666"
@@ -114,7 +114,7 @@
         <TextView
             android:layout_width="114dp"
             android:layout_height="wrap_content"
-            android:text="Model"
+            android:text="@string/model"
             android:id="@+id/model_label_in_device_view"
             android:layout_gravity="left|bottom"
             android:textColor="#666666"
@@ -125,7 +125,6 @@
         <TextView
             android:layout_width="160dp"
             android:layout_height="wrap_content"
-            android:text="text"
             android:id="@+id/model_text_in_device_view"
             android:layout_gravity="center|bottom"
             android:textColor="#666666"

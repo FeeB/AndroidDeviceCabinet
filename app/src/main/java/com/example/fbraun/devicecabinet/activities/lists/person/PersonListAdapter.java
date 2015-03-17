@@ -1,14 +1,19 @@
 package com.example.fbraun.devicecabinet.activities.lists.person;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.VolleyError;
+import com.example.fbraun.devicecabinet.errorhandling.ErrorMapperRESTApiClient;
 import com.example.fbraun.devicecabinet.R;
-import com.example.fbraun.devicecabinet.model.Device;
+import com.example.fbraun.devicecabinet.restnetworking.RESTApiClient;
 import com.example.fbraun.devicecabinet.model.Person;
 
 import java.util.List;
@@ -38,7 +43,7 @@ public class PersonListAdapter extends ArrayAdapter<Person> {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         View view = convertView;
         if (view == null) {
             // Inflate the layout according to the view type
@@ -50,6 +55,46 @@ public class PersonListAdapter extends ArrayAdapter<Person> {
 
         TextView fullName = (TextView) view.findViewById(R.id.fullName);
         fullName.setText(person.getFullName());
+
+        ImageView deleteBtn = (ImageView) view.findViewById(R.id.trash_icon_in_person_list_activity);
+
+        deleteBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder alert = new AlertDialog.Builder(context);
+
+                alert.setTitle(context.getString(R.string.delete));
+                alert.setMessage(context.getString(R.string.delete_message));
+                alert.setPositiveButton(context.getString(R.string.yes), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        RESTApiClient client = new RESTApiClient();
+                        client.deletePerson(dataList.get(position), new RESTApiClient.VolleyCallbackStore() {
+                            @Override
+                            public void onStoreSuccess() {
+                                dataList.remove(position);
+                                notifyDataSetChanged();
+                            }
+
+                            @Override
+                            public void onStoreFailure(VolleyError error) {
+                                ErrorMapperRESTApiClient errorMapperRESTApiClient = new ErrorMapperRESTApiClient();
+                                errorMapperRESTApiClient.handleError(error, context);
+                            }
+                        });
+                    }
+                });
+                alert.setNegativeButton(context.getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+                alert.show();
+
+            }
+        });
 
         return view;
     }

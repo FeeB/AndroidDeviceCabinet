@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:textColor="#000000"
         android:id="@+id/first_name_label"
-        android:text="First Name"
+        android:text="@string/first_name"
         android:textSize="17sp"
         android:layout_marginStart="34dp"
         android:gravity="right"/>
@@ -23,7 +23,7 @@
         android:id="@+id/first_name_text"
         android:textColorHint="#000000"
         android:textColor="#000000"
-        android:hint="First Name"
+        android:hint="@string/first_name"
         android:textSize="14sp"
         android:layout_alignBaseline="@+id/first_name_label"
         android:layout_toRightOf="@+id/first_name_label"
@@ -38,7 +38,7 @@
         android:layout_height="wrap_content"
         android:textColor="#000000"
         android:id="@+id/last_name_label"
-        android:text="Last Name"
+        android:text="@string/last_name"
         android:textSize="17sp"
         android:layout_marginStart="34dp"
         android:gravity="right"/>
@@ -49,7 +49,7 @@
         android:id="@+id/last_name_text"
         android:textColorHint="#000000"
         android:textColor="#000000"
-        android:hint="Last Name"
+        android:hint="@string/last_name"
         android:textSize="14sp"
         android:layout_alignBaseline="@+id/last_name_label"
         android:layout_toRightOf="@+id/last_name_label"
@@ -60,12 +60,11 @@
     <Button
         android:layout_width="167dp"
         android:layout_height="wrap_content"
-        android:text="Save"
+        android:text="@string/save"
         android:id="@+id/save_person_button"
         android:layout_below="@+id/last_name_text"
         android:layout_marginLeft="70dp"
         android:layout_marginTop="100dp"
-        android:layout_centerInParent="true"
-        android:onClick="storePerson"/>
+        android:layout_centerInParent="true" />
 
 </RelativeLayout>

@@ -9,8 +9,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.android.volley.VolleyError;
+import com.example.fbraun.devicecabinet.errorhandling.ErrorMapperRESTApiClient;
 import com.example.fbraun.devicecabinet.R;
-import com.example.fbraun.devicecabinet.RESTApiClient;
+import com.example.fbraun.devicecabinet.restnetworking.RESTApiClient;
 import com.example.fbraun.devicecabinet.model.Device;
 import com.example.fbraun.devicecabinet.model.Person;
 
@@ -47,6 +49,11 @@ public class PersonListActivity extends ListActivity {
                 PersonListAdapter listOverviewAdapter = new PersonListAdapter(dataList, PersonListActivity.this);
                 setListAdapter(listOverviewAdapter);
             }
+
+            @Override
+            public void onErrorListViews(VolleyError error) {
+
+            }
         });
     }
 
@@ -60,6 +67,12 @@ public class PersonListActivity extends ListActivity {
             public void onSaveSuccess() {
                 finish();
             }
+
+            @Override
+            public void onStoreFailure(VolleyError error) {
+                ErrorMapperRESTApiClient errorMapperRESTApiClient = new ErrorMapperRESTApiClient();
+                errorMapperRESTApiClient.handleError(error, PersonListActivity.this);
+            }
         });
 
     }
@@ -70,9 +83,9 @@ public class PersonListActivity extends ListActivity {
 
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
-        alert.setTitle("Delete");
-        alert.setMessage("Do you want delete this item?");
-        alert.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+        alert.setTitle(getString(R.string.delete));
+        alert.setMessage(getString(R.string.delete_message));
+        alert.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 client.deletePerson(dataList.get(indexToDelete), new RESTApiClient.VolleyCallbackStore() {
@@ -81,10 +94,16 @@ public class PersonListActivity extends ListActivity {
                         dataList.remove(indexToDelete);
                         fetchPersons();
                     }
+
+                    @Override
+                    public void onStoreFailure(VolleyError error) {
+                        ErrorMapperRESTApiClient errorMapperRESTApiClient = new ErrorMapperRESTApiClient();
+                        errorMapperRESTApiClient.handleError(error, PersonListActivity.this);
+                    }
                 });
             }
         });
-        alert.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+        alert.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();

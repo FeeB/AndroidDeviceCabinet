@@ -1,4 +1,4 @@
-package com.example.fbraun.devicecabinet;
+package com.example.fbraun.devicecabinet.restnetworking;
 
 import com.android.volley.NetworkResponse;
 import com.android.volley.ParseError;

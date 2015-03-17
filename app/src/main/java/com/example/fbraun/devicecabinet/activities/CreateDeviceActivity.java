@@ -2,19 +2,22 @@ package com.example.fbraun.devicecabinet.activities;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.android.volley.VolleyError;
+import com.example.fbraun.devicecabinet.errorhandling.ErrorMapperRESTApiClient;
 import com.example.fbraun.devicecabinet.R;
-import com.example.fbraun.devicecabinet.RESTApiClient;
+import com.example.fbraun.devicecabinet.restnetworking.RESTApiClient;
 import com.example.fbraun.devicecabinet.model.Device;
 
 /**
@@ -23,6 +26,10 @@ import com.example.fbraun.devicecabinet.model.Device;
 public class CreateDeviceActivity extends Activity {
 
     private Device device = new Device();
+    private static String IPHONE = "iPhone";
+    private static String IPAD = "iPad";
+    private static String ANDROID_PHONE = "Android Phone";
+    private static String ANDROID_TABLET = "Android Tablet";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,33 +48,23 @@ public class CreateDeviceActivity extends Activity {
         });
 
         RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radio_button_group);
-        this.device.type = "Android Phone";
+        this.device.setType(ANDROID_PHONE);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch(checkedId) {
                     case R.id.iphone_option:
-                        device.type = "iPhone";
+                        device.setType(IPHONE);
                         break;
                     case R.id.ipad_option:
-                        device.type = "iPad";
+                        device.setType(IPAD);
                         break;
                     case R.id.android_phone_option:
-                        device.type = "Android Phone";
+                        device.setType(ANDROID_PHONE);
                         break;
                     case R.id.android_tablet_option:
-                        device.type = "Android Tablet";
+                        device.setType(ANDROID_TABLET);
                         break;
-                }
-            }
-        });
-
-        Switch currentDeviceSwitch = (Switch) findViewById(R.id.switch_current_device);
-        currentDeviceSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    //toDo store Device as current device
                 }
             }
         });
@@ -75,30 +72,48 @@ public class CreateDeviceActivity extends Activity {
 
     public void storeDevice(View view) {
         TextView deviceName = (TextView) findViewById(R.id.device_name_text);
-        device.deviceName = deviceName.getText().toString();
+        device.setDeviceName(deviceName.getText().toString());
 
         TextView deviceModel = (TextView) findViewById(R.id.device_model_text);
-        device.deviceModel = deviceModel.getText().toString();
+        device.setDeviceModel(deviceModel.getText().toString());
 
-        device.systemVersion = Build.VERSION.RELEASE;
+        device.setSystemVersion(Build.VERSION.RELEASE);
 
         if (deviceName != null && deviceModel != null) {
+
            RESTApiClient client = new RESTApiClient();
-            client.storeDevice(device, new RESTApiClient.VolleyCallbackStore() {
+            client.storeDevice(device, new RESTApiClient.VolleyCallbackCheckDevice() {
                 @Override
-                public void onSaveSuccess() {
+                public void onFetchDeviceSuccess(Device device) {
+                    Switch currentDeviceSwitch = (Switch) findViewById(R.id.switch_current_device);
+                    if (currentDeviceSwitch.isChecked()) {
+                        storeCurrentDevice(device);
+                    }
                     finish();
+                }
+
+                @Override
+                public void onFetchDeviceFailure(VolleyError error) {
+                    ErrorMapperRESTApiClient errorMapperRESTApiClient = new ErrorMapperRESTApiClient();
+                    errorMapperRESTApiClient.handleError(error, CreateDeviceActivity.this);
                 }
             });
         } else {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Error");
-            builder.setMessage("try later").setCancelable(false).setPositiveButton("ok", new DialogInterface.OnClickListener() {
+            builder.setTitle(getString(R.string.field_missing_title));
+            builder.setMessage(getString(R.string.field_device_missing_message)).setCancelable(false).setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.cancel();
                 }
             });
         }
+    }
+
+    public void storeCurrentDevice(Device device) {
+        SharedPreferences sharedPref = getSharedPreferences("MyPref", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("currentDevice", device.getDeviceId());
+        editor.apply();
     }
 }
