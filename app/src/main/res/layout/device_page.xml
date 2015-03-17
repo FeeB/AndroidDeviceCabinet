@@ -6,7 +6,7 @@
     android:theme="@style/AppTheme"
     android:background="#ffffff">
 
-    <com.android.volley.toolbox.NetworkImageView
+    <com.example.fbraun.devicecabinet.CircledNetworkImageView
         android:id="@+id/image_device_view"
         android:layout_width="100dp"
         android:layout_height="100dp"
@@ -21,6 +21,7 @@
         android:layout_marginLeft="23dp"
         android:text="@string/change_picture"
         android:textSize="10sp"
+        android:padding="5dp"
         android:layout_below="@+id/image_device_view"
         android:id="@+id/change_picture_button"/>
 

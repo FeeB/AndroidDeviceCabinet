@@ -19,6 +19,7 @@ import com.android.volley.NoConnectionError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
+import com.example.fbraun.devicecabinet.CircledNetworkImageView;
 import com.example.fbraun.devicecabinet.ErrorMapperRESTApiClient;
 import com.example.fbraun.devicecabinet.R;
 import com.example.fbraun.devicecabinet.RESTApiClient;
@@ -33,7 +34,7 @@ public class DeviceActivity extends Activity {
 
     private Device device;
     private static final int CAMERA_REQUEST = 1888;
-    private NetworkImageView image;
+    private CircledNetworkImageView image;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +46,7 @@ public class DeviceActivity extends Activity {
         TextView type = (TextView) findViewById(R.id.type_text_in_device_view);
         TextView model = (TextView) findViewById(R.id.model_text_in_device_view);
         TextView person = (TextView) findViewById(R.id.person_name_in_device_view);
-        image = (NetworkImageView) findViewById(R.id.image_device_view);
+        image = (CircledNetworkImageView) findViewById(R.id.image_device_view);
 
         Intent intent = getIntent();
         if (intent != null) {
@@ -56,12 +57,10 @@ public class DeviceActivity extends Activity {
             model.setText(device.getDeviceModel());
 
             ImageLoader imageLoader = VolleySingleton.getInstance().getImageLoader();
-            if (device.getImageUrl() != null) {
-                image.setImageUrl(device.getImageUrl(), imageLoader);
-            } else {
-                image.setDefaultImageResId(R.drawable.placeholder);
-                image.setImageUrl(null, imageLoader);
-            }
+
+            image.setDefaultImageResId(R.drawable.placeholder);
+            image.setErrorImageResId(R.drawable.placeholder);
+            image.setImageUrl(device.getImageUrl(), imageLoader);
 
             if (device.isBookedByPerson()) {
                 person.setText(device.getBookedByPersonFullName());
