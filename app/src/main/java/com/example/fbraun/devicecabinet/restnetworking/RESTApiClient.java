@@ -1,8 +1,7 @@
-package com.example.fbraun.devicecabinet;
+package com.example.fbraun.devicecabinet.restnetworking;
 
 import android.graphics.Bitmap;
 import android.util.Base64;
-import android.util.Log;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -11,9 +10,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
+import com.example.fbraun.devicecabinet.errorhandling.AlreadyBookedError;
+import com.example.fbraun.devicecabinet.errorhandling.DuplicatedError;
 import com.example.fbraun.devicecabinet.model.Device;
 import com.example.fbraun.devicecabinet.model.Person;
-import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
 import org.json.JSONException;

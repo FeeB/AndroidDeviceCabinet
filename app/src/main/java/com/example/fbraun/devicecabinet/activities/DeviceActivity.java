@@ -1,9 +1,7 @@
 package com.example.fbraun.devicecabinet.activities;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -15,15 +13,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.volley.NoConnectionError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
-import com.android.volley.toolbox.NetworkImageView;
 import com.example.fbraun.devicecabinet.CircledNetworkImageView;
-import com.example.fbraun.devicecabinet.ErrorMapperRESTApiClient;
+import com.example.fbraun.devicecabinet.errorhandling.ErrorMapperRESTApiClient;
 import com.example.fbraun.devicecabinet.R;
-import com.example.fbraun.devicecabinet.RESTApiClient;
-import com.example.fbraun.devicecabinet.VolleySingleton;
+import com.example.fbraun.devicecabinet.restnetworking.RESTApiClient;
+import com.example.fbraun.devicecabinet.restnetworking.VolleySingleton;
 import com.example.fbraun.devicecabinet.model.Device;
 import com.example.fbraun.devicecabinet.activities.lists.person.PersonListActivity;
 

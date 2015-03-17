@@ -1,4 +1,4 @@
-package com.example.fbraun.devicecabinet;
+package com.example.fbraun.devicecabinet.errorhandling;
 
 import com.android.volley.VolleyError;
 

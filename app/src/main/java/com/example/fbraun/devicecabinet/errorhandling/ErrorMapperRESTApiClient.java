@@ -1,13 +1,12 @@
-package com.example.fbraun.devicecabinet;
+package com.example.fbraun.devicecabinet.errorhandling;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 
-import com.android.volley.NetworkError;
 import com.android.volley.NoConnectionError;
-import com.android.volley.ServerError;
 import com.android.volley.VolleyError;
+import com.example.fbraun.devicecabinet.R;
 
 /**
  * Created by fbraun on 10.03.15.

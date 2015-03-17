@@ -7,19 +7,17 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTabHost;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Switch;
 import android.widget.TextView;
 
 import com.android.volley.VolleyError;
-import com.example.fbraun.devicecabinet.ErrorMapperRESTApiClient;
+import com.example.fbraun.devicecabinet.errorhandling.ErrorMapperRESTApiClient;
 import com.example.fbraun.devicecabinet.R;
-import com.example.fbraun.devicecabinet.RESTApiClient;
+import com.example.fbraun.devicecabinet.restnetworking.RESTApiClient;
 import com.example.fbraun.devicecabinet.model.Device;
 
 /**

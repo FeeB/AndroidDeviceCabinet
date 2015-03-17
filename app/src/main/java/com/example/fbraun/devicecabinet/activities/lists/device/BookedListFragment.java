@@ -1,8 +1,8 @@
 package com.example.fbraun.devicecabinet.activities.lists.device;
 
 import com.android.volley.VolleyError;
-import com.example.fbraun.devicecabinet.ErrorMapperRESTApiClient;
-import com.example.fbraun.devicecabinet.RESTApiClient;
+import com.example.fbraun.devicecabinet.errorhandling.ErrorMapperRESTApiClient;
+import com.example.fbraun.devicecabinet.restnetworking.RESTApiClient;
 import com.example.fbraun.devicecabinet.model.Device;
 
 import java.util.ArrayList;

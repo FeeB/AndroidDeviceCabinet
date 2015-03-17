@@ -1,23 +1,16 @@
 package com.example.fbraun.devicecabinet;
 
-import android.app.AlertDialog;
 import android.app.Application;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.RemoteException;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.TaskStackBuilder;
-import android.view.WindowManager;
 
 import com.android.volley.VolleyError;
-import com.example.fbraun.devicecabinet.activities.DeviceActivity;
 import com.example.fbraun.devicecabinet.activities.DidEnterRegionActivity;
 import com.example.fbraun.devicecabinet.activities.DidExitRegionActivity;
 import com.example.fbraun.devicecabinet.model.Device;
+import com.example.fbraun.devicecabinet.restnetworking.RESTApiClient;
 
 import org.altbeacon.beacon.BeaconConsumer;
 import org.altbeacon.beacon.BeaconManager;
@@ -25,8 +18,6 @@ import org.altbeacon.beacon.BeaconParser;
 import org.altbeacon.beacon.Identifier;
 import org.altbeacon.beacon.MonitorNotifier;
 import org.altbeacon.beacon.Region;
-import org.altbeacon.beacon.startup.BootstrapNotifier;
-import org.altbeacon.beacon.startup.RegionBootstrap;
 
 /**
  * Created by Fee on 03.03.15.
