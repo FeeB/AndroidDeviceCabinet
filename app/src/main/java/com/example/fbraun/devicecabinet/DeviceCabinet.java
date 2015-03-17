@@ -59,8 +59,6 @@ public class DeviceCabinet extends Application implements BeaconConsumer {
                 public void onFetchDeviceSuccess(Device device) {
                     fetchedDevice = device;
 
-                    BeaconManager.setBeaconSimulator(new MyBeaconSimulator());
-
                     mBeaconManager = BeaconManager.getInstanceForApplication(DeviceCabinet.this);
                     mBeaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24,d:25-25"));
 
