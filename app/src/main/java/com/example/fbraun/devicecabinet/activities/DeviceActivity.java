@@ -85,7 +85,7 @@ public class DeviceActivity extends Activity {
             RESTApiClient client = new RESTApiClient();
             client.deletePersonReferenceFromDevice(device, new RESTApiClient.VolleyCallbackStore() {
                 @Override
-                public void onStoreSuccess() {
+                public void onSaveSuccess() {
                     finish();
                 }
             });
@@ -108,7 +108,7 @@ public class DeviceActivity extends Activity {
             RESTApiClient client = new RESTApiClient();
             client.uploadImage(photo, device, new RESTApiClient.VolleyCallbackStore() {
                 @Override
-                public void onStoreSuccess() {
+                public void onSaveSuccess() {
                     System.out.println("success");
                 }
             });

@@ -86,7 +86,7 @@ public class CreateDeviceActivity extends Activity {
            RESTApiClient client = new RESTApiClient();
             client.storeDevice(device, new RESTApiClient.VolleyCallbackStore() {
                 @Override
-                public void onStoreSuccess() {
+                public void onSaveSuccess() {
                     finish();
                 }
             });

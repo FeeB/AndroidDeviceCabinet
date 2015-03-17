@@ -67,7 +67,7 @@ abstract class AbstractDeviceListActivity extends ListActivity {
             public void onClick(DialogInterface dialog, int which) {
                 client.deleteDevice(dataList.get(indexToDelete), new RESTApiClient.VolleyCallbackStore() {
                     @Override
-                    public void onStoreSuccess() {
+                    public void onSaveSuccess() {
                         dataList.remove(indexToDelete);
                         fetchDevices();
                     }

@@ -25,6 +25,8 @@ import java.util.Map;
 /**
  * Created by fbraun on 23.02.15.
  */
+
+//todo error handling
 public class RESTApiClient {
 
     // Instantiate the RequestQueue.
@@ -36,14 +38,17 @@ public class RESTApiClient {
 
     public interface VolleyCallbackDeviceList {
         void onSuccessListViews(ArrayList<Device> result);
+        void onErrorDeviceList(VolleyError error);
     }
 
     public interface VolleyCallbackPersonList {
         void onSuccessListViews(ArrayList<Person> result);
+        void onErrorPersonList(VolleyError error);
     }
 
     public interface VolleyCallbackStore {
-        void onStoreSuccess();
+        void onSaveSuccess();
+        void onSaveError(VolleyError error);
     }
 
 
@@ -61,7 +66,7 @@ public class RESTApiClient {
                         devices.add(device);
                     }
                     catch (JSONException e) {
-                        //do something
+                        //todo error
                     }
                 }
                 callback.onSuccessListViews(devices);
@@ -70,7 +75,7 @@ public class RESTApiClient {
         }, new Response.ErrorListener(){
             @Override
             public void onErrorResponse(VolleyError error) {
-                //do something
+                callback.onErrorDeviceList(error);
             }
         });
 
@@ -100,7 +105,7 @@ public class RESTApiClient {
         }, new Response.ErrorListener(){
             @Override
             public void onErrorResponse(VolleyError error) {
-                //do something
+                callback.onErrorDeviceList(error);
             }
         });
 
@@ -129,7 +134,7 @@ public class RESTApiClient {
         }, new Response.ErrorListener(){
             @Override
             public void onErrorResponse(VolleyError error) {
-                //do something
+                callback.onErrorPersonList(error);
             }
         });
 
@@ -141,12 +146,12 @@ public class RESTApiClient {
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, DEVICE_URL, device.toJson(), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                callback.onStoreSuccess();
+                callback.onSaveSuccess();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                //do something
+               callback.onSaveError(error);
             }
         }){
             @Override
@@ -166,12 +171,12 @@ public class RESTApiClient {
 
             @Override
             public void onResponse(String response) {
-                callback.onStoreSuccess();
+                callback.onSaveSuccess();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                //do something
+                callback.onSaveError(error);
             }
         });
             VolleySingleton.getInstance().getRequestQueue().add(request);
@@ -182,12 +187,12 @@ public class RESTApiClient {
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, PERSON_URL, person.toJson(), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                callback.onStoreSuccess();
+                callback.onSaveSuccess();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                //do something
+                callback.onSaveError(error);
             }
         }){
             @Override
@@ -218,13 +223,13 @@ public class RESTApiClient {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                       callback.onStoreSuccess();
+                       callback.onSaveSuccess();
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        //todo something
+                        callback.onSaveError(error);
                     }
                 }) ;
         VolleySingleton.getInstance().getRequestQueue().add(jsObjRequest);
@@ -248,12 +253,12 @@ public class RESTApiClient {
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.PUT, newUrl, json, new Response.Listener<JSONObject>(){
             @Override
             public void onResponse(JSONObject response) {
-                callback.onStoreSuccess();
+                callback.onSaveSuccess();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                //do something
+                callback.onSaveError(error);
             }
         });
         VolleySingleton.getInstance().getRequestQueue().add(request);
@@ -267,12 +272,12 @@ public class RESTApiClient {
 
             @Override
             public void onResponse(String response) {
-                callback.onStoreSuccess();
+                callback.onSaveSuccess();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                //do something
+                callback.onSaveError(error);
             }
         });
         VolleySingleton.getInstance().getRequestQueue().add(request);
@@ -299,12 +304,12 @@ public class RESTApiClient {
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.PUT, newUrl, json, new Response.Listener<JSONObject>(){
             @Override
             public void onResponse(JSONObject response) {
-                callback.onStoreSuccess();
+                callback.onSaveSuccess();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                //do something
+               callback.onSaveError(error);
             }
         }){
             @Override
