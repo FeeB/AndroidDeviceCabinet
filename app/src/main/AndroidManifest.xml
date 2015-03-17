@@ -2,8 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.fbraun.devicecabinet" >
 
-    <uses-sdk android:minSdkVersion="7" android:targetSdkVersion="11"/>
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-sdk android:minSdkVersion="15" android:targetSdkVersion="18" />
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
 
     <application
         android:allowBackup="true"
@@ -74,6 +77,12 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.DeviceActivity" />
+        </activity>
+        <activity android:name=".activities.DidEnterRegionActivity"
+            android:label="Did Enter">
+        </activity>
+        <activity android:name=".activities.DidExitRegionActivity"
+            android:label="Did Exit">
         </activity>
     </application>
 
