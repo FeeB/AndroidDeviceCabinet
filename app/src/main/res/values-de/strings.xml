@@ -36,4 +36,6 @@
     <string name="create_device">Neues Gerät erstellen</string>
     <string name="create_person">Neue Person erstellen</string>
     <string name="category">Kategorie</string>
+    <string name="return_message">Bitte gib das Gerät zurück!</string>
+    <string name="book_message">Bitte buche das Gerät!</string>
 </resources>

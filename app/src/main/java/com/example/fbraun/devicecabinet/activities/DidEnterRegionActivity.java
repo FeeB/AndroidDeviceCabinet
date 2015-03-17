@@ -37,7 +37,7 @@ public class DidEnterRegionActivity extends Activity {
             final PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
 
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this, AlertDialog.THEME_DEVICE_DEFAULT_DARK);
-            dialogBuilder.setIcon(R.drawable.app_icon).setTitle("Zurückgeben").setMessage("Jetzt zurückgeben");
+            dialogBuilder.setIcon(R.drawable.app_icon).setTitle(getString(R.string.return_device)).setMessage(getString(R.string.return_message));
             dialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {

@@ -38,11 +38,10 @@ public class DidExitRegionActivity extends Activity {
             final PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
 
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this, AlertDialog.THEME_DEVICE_DEFAULT_DARK);
-            dialogBuilder.setIcon(R.drawable.app_icon).setTitle("Ausleihen").setMessage("Jetzt ausleihen");
+            dialogBuilder.setIcon(R.drawable.app_icon).setTitle(getString(R.string.book)).setMessage(getString(R.string.book_message));
             dialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    //stackBuilder.startActivities();
                     try {
                         resultPendingIntent.send();
                     } catch (PendingIntent.CanceledException e) {

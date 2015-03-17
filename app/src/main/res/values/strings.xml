@@ -37,5 +37,7 @@
     <string name="create_device">Create new device</string>
     <string name="create_person">Create new person</string>
     <string name="category">Category</string>
+    <string name="return_message">Please return the device!</string>
+    <string name="book_message">Please book the device!</string>
 
 </resources>
