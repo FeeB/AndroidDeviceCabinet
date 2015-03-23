@@ -1,4 +1,4 @@
-package com.example.fbraun.devicecabinet.activities;
+package com.example.fbraun.devicecabinet.activities.beacon;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -10,6 +10,7 @@ import android.support.v4.app.TaskStackBuilder;
 import android.view.WindowManager;
 
 import com.example.fbraun.devicecabinet.R;
+import com.example.fbraun.devicecabinet.activities.DeviceActivity;
 import com.example.fbraun.devicecabinet.model.Device;
 
 /**

@@ -78,10 +78,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.DeviceActivity" />
         </activity>
-        <activity android:name=".activities.DidEnterRegionActivity"
+        <activity android:name=".activities.beacon.DidEnterRegionActivity"
             android:label="Did Enter">
         </activity>
-        <activity android:name=".activities.DidExitRegionActivity"
+        <activity android:name=".activities.beacon.DidExitRegionActivity"
             android:label="Did Exit">
         </activity>
     </application>

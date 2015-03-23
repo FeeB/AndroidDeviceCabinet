@@ -1,28 +1,23 @@
 package com.example.fbraun.devicecabinet;
 
-import android.app.ActivityManager;
 import android.app.Application;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.RemoteException;
 
 import com.android.volley.VolleyError;
-import com.example.fbraun.devicecabinet.activities.DidEnterRegionActivity;
-import com.example.fbraun.devicecabinet.activities.DidExitRegionActivity;
+import com.example.fbraun.devicecabinet.activities.beacon.DidEnterRegionActivity;
+import com.example.fbraun.devicecabinet.activities.beacon.DidExitRegionActivity;
 import com.example.fbraun.devicecabinet.model.Device;
 import com.example.fbraun.devicecabinet.restnetworking.RESTApiClient;
 
-import org.altbeacon.beacon.Beacon;
 import org.altbeacon.beacon.BeaconConsumer;
 import org.altbeacon.beacon.BeaconManager;
 import org.altbeacon.beacon.BeaconParser;
 import org.altbeacon.beacon.Identifier;
 import org.altbeacon.beacon.MonitorNotifier;
 import org.altbeacon.beacon.Region;
-
-import java.util.List;
 
 /**
  * Created by Fee on 03.03.15.
@@ -104,7 +99,6 @@ public class DeviceCabinet extends Application implements BeaconConsumer {
                     });
                 }
             }
-
             @Override
             public void didExitRegion(Region region) {
                 if (!MyLifecycleHandler.isApplicationInForeground()) {
