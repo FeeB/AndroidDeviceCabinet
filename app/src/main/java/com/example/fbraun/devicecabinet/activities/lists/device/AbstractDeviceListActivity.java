@@ -9,9 +9,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.android.volley.VolleyError;
 import com.example.fbraun.devicecabinet.activities.DeviceActivity;
 import com.example.fbraun.devicecabinet.R;
-import com.example.fbraun.devicecabinet.RESTApiClient;
+import com.example.fbraun.devicecabinet.errorhandling.ErrorMapperRESTApiClient;
+import com.example.fbraun.devicecabinet.restnetworking.RESTApiClient;
 import com.example.fbraun.devicecabinet.model.Device;
 
 import java.util.ArrayList;
@@ -67,9 +69,15 @@ abstract class AbstractDeviceListActivity extends ListActivity {
             public void onClick(DialogInterface dialog, int which) {
                 client.deleteDevice(dataList.get(indexToDelete), new RESTApiClient.VolleyCallbackStore() {
                     @Override
-                    public void onSaveSuccess() {
+                    public void onStoreSuccess() {
                         dataList.remove(indexToDelete);
                         fetchDevices();
+                    }
+
+                    @Override
+                    public void onStoreFailure(VolleyError error) {
+                        ErrorMapperRESTApiClient errorMapperRESTApiClient = new ErrorMapperRESTApiClient();
+                        errorMapperRESTApiClient.handleError(error, AbstractDeviceListActivity.this);
                     }
                 });
             }
@@ -77,7 +85,6 @@ abstract class AbstractDeviceListActivity extends ListActivity {
         alert.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                // TODO Auto-generated method stub
                 dialog.dismiss();
             }
         });

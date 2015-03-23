@@ -44,7 +44,7 @@ public class CreatePersonActivity extends Activity {
             RESTApiClient client = new RESTApiClient();
             client.storePerson(person, new RESTApiClient.VolleyCallbackStore() {
                 @Override
-                public void onSaveSuccess() {
+                public void onStoreSuccess() {
                     finish();
                 }
 
