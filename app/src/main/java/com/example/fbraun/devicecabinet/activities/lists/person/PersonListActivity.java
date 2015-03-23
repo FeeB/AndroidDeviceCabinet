@@ -64,7 +64,7 @@ public class PersonListActivity extends ListActivity {
         RESTApiClient client = new RESTApiClient();
         client.storePersonReferenceInDeviceObject(person, device, new RESTApiClient.VolleyCallbackStore() {
             @Override
-            public void onStoreSuccess() {
+            public void onSaveSuccess() {
                 finish();
             }
 
@@ -90,7 +90,7 @@ public class PersonListActivity extends ListActivity {
             public void onClick(DialogInterface dialog, int which) {
                 client.deletePerson(dataList.get(indexToDelete), new RESTApiClient.VolleyCallbackStore() {
                     @Override
-                    public void onStoreSuccess() {
+                    public void onSaveSuccess() {
                         dataList.remove(indexToDelete);
                         fetchPersons();
                     }
