@@ -5,3 +5,6 @@
 * Pictures are requested also with Volley Library (NetworkImage)
 * Extension for circled images (CircledNetworkImage)
 * Beacon automatisation with Android Beacon Library
+ 
+#Beacon
+Access Beacon configuration with Samsung Galxy S4 and the BeaconInside App
